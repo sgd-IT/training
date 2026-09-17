@@ -1,0 +1,22 @@
+# 构建产物
+target/
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.classpath
+.project
+
+# 操作系统
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# 日志 / 临时
+*.log
+*.tmp
+*.bak
