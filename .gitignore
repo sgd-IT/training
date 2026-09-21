@@ -20,3 +20,7 @@ Desktop.ini
 *.log
 *.tmp
 *.bak
+
+# 训练无关 / 临时探针目录
+.dshmarket-probe/
+_probe/

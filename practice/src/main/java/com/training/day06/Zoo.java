@@ -33,7 +33,7 @@ public class Zoo {
         for (Animal animal : animals){
             sb.append(animal.describe());
             //添加逗号，除了最后一个
-            if (animal != animals[animals.length - 1]) {
+            if(sb.length() > 0){
                 sb.append(", ");
             }
         }
