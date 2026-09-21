@@ -28,6 +28,12 @@ public class Freelancer implements Payable {
 
     public Freelancer(String name, double hourlyRate, int hours) {
         // TODO: 三个校验（name 非空、hourlyRate >= 0、hours >= 0）
+        if (name == null || name.isEmpty())
+            throw new IllegalArgumentException("姓名不能为空");
+        if (hourlyRate < 0)
+            throw new IllegalArgumentException("时薪不能为负");
+        if (hours < 0)
+            throw new IllegalArgumentException("工时不能为负");
         this.name = name;
         this.hourlyRate = hourlyRate;
         this.hours = hours;
@@ -48,6 +54,6 @@ public class Freelancer implements Payable {
     @Override
     public double monthlyPay() {
         // TODO: 改成 return hourlyRate * hours;
-        throw new UnsupportedOperationException("Day 6 - Q4 待实现");
+       return hourlyRate * hours;
     }
 }

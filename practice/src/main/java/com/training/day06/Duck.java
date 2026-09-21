@@ -32,18 +32,18 @@ public class Duck extends Animal implements Swimmable, Flyable {
     @Override
     public String speak() {
         // TODO: 改成 return "嘎嘎";
-        throw new UnsupportedOperationException("Day 6 - Q3 待实现");
+        return "嘎嘎";
     }
 
     @Override
     public String swim() {
         // TODO: 改成 return "划水";
-        throw new UnsupportedOperationException("Day 6 - Q3 待实现");
+        return "划水";
     }
 
     @Override
     public String fly() {
         // TODO: 改成 return "扑棱翅膀";
-        throw new UnsupportedOperationException("Day 6 - Q3 待实现");
+        return "扑棱翅膀";
     }
 }

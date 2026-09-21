@@ -17,6 +17,7 @@ public class Cat extends Animal {
     @Override
     public String speak() {
         // TODO: 改成 return "喵喵";
-        throw new UnsupportedOperationException("Day 6 - Q2 待实现");
+        //直接返回就好
+        return "喵喵";
     }
 }

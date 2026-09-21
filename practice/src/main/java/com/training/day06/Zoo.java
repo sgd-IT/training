@@ -28,7 +28,12 @@ public class Zoo {
 
     /** 把一群动物的自我介绍拼成一句话 */
     public static String describeAll(Animal[] animals) {
-        // TODO: 遍历 animals，用 ", " 连接每只的 describe()
-        throw new UnsupportedOperationException("Day 6 - Q5 待实现");
+        if (animals == null || animals.length == 0) return "";
+        StringBuilder sb = new StringBuilder();
+        for (Animal animal : animals){
+            sb.append(animal.describe());
+            sb.append(", ");
+        }
+        return sb.toString();
     }
 }
