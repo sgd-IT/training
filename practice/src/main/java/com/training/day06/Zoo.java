@@ -34,8 +34,8 @@ public class Zoo {
             //添加逗号，除了最后一个
             if(sb.length() > 0){
                 sb.append(", ");
-                sb.append(animal.describe());
             }
+            sb.append(animal.describe());
         }
         return sb.toString();
     }
