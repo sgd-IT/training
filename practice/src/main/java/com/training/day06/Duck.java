@@ -31,19 +31,19 @@ public class Duck extends Animal implements Swimmable, Flyable {
 
     @Override
     public String speak() {
-        // TODO: 改成 return "嘎嘎";
+
         return "嘎嘎";
     }
 
     @Override
     public String swim() {
-        // TODO: 改成 return "划水";
+
         return "划水";
     }
 
     @Override
     public String fly() {
-        // TODO: 改成 return "扑棱翅膀";
+
         return "扑棱翅膀";
     }
 }

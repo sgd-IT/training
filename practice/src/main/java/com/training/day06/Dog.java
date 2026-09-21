@@ -27,7 +27,7 @@ public class Dog extends Animal {
 
     @Override
     public String speak() {
-        // TODO: 改成 return "汪汪";
+
         return "汪汪";
     }
 }
