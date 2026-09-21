@@ -32,7 +32,10 @@ public class Zoo {
         StringBuilder sb = new StringBuilder();
         for (Animal animal : animals){
             sb.append(animal.describe());
-            sb.append(", ");
+            //添加逗号，除了最后一个
+            if (animal != animals[animals.length - 1]) {
+                sb.append(", ");
+            }
         }
         return sb.toString();
     }

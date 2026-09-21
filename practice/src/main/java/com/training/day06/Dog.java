@@ -28,6 +28,6 @@ public class Dog extends Animal {
     @Override
     public String speak() {
         // TODO: 改成 return "汪汪";
-        throw new UnsupportedOperationException("Day 6 - Q1 待实现");
+        return "汪汪";
     }
 }
