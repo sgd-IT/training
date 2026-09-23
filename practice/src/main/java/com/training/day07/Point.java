@@ -87,9 +87,33 @@ public class Point {
     }
 
     // TODO Q1-1: 重写 toString()（记得 @Override）
+    @Override
+    public String toString() {
+        return "(" + x + ", " + y + ")";
+    }
 
     // TODO Q1-2: 重写 equals(Object o)（参数必须是 Object！）
+    @Override
+    public boolean equals(Object o){
+        if (this==o){
+            return true;
+        }
+        if (o==null){
+            return false;
+        }
+        if (getClass() != o.getClass()){
+            return false;
+        }
+        Point point = (Point) o;
+        return point.x == x && point.y == y;
+
+    }
+
 
     // TODO Q1-3: 重写 hashCode()
+    @Override
+    public int hashCode() {
+        return 31 * x + y;
+    }
 
 }

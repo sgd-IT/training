@@ -1,12 +1,12 @@
 package com.training.day07;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Day 7 - Q3: PointStats —— 让 equals / hashCode 真正派上用场（你来补全）
  *
  * 这题回答一个问题：**我为什么要费劲重写 equals 和 hashCode？**
+ * 让我们通过这题，真正体会到 equals / hashCode 的威力。
  *
  * ┌───────────────────────────────────────────────────────────┐
  * │ 方法 1：dedupe —— 去重                                    │
@@ -51,13 +51,20 @@ public class PointStats {
 
     /** 去重，并保持第一次出现的顺序 */
     public static List<Point> dedupe(List<Point> points) {
-        // TODO Q3-1
-        throw new UnsupportedOperationException("Day 7 - Q3 待实现");
+
+        LinkedHashSet<Point> set = new LinkedHashSet<>();
+        for (Point point : points){
+            set.add(point);
+        }
+        return set.stream().toList();
     }
 
     /** 统计每个 Point 出现的次数 */
     public static Map<Point, Integer> countOccurrences(List<Point> points) {
-        // TODO Q3-2
-        throw new UnsupportedOperationException("Day 7 - Q3 待实现");
+        Map<Point, Integer> map = new HashMap<>();
+        for (Point point : points){
+            map.put(point, map.getOrDefault(point, 0) + 1);
+        }
+        return map;
     }
 }

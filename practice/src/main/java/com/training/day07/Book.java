@@ -1,5 +1,7 @@
 package com.training.day07;
 
+import java.util.Objects;
+
 /**
  * Day 7 - Q2: Book —— 自己独立再写一遍（你来补全，别看 Point）
  *
@@ -63,9 +65,27 @@ public class Book {
     }
 
     // TODO Q2-1: 重写 toString()
+    @Override
+    public String toString() {
+        return title + " / " + author + " / " + year;
+    }
 
     // TODO Q2-2: 重写 equals(Object o)
+    @Override
+    public boolean equals(Object o) {
+        if (Objects.equals(this, o)){
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+            return false;
+        }
+        return true;
+    }
 
     // TODO Q2-3: 重写 hashCode()
+    @Override
+    public int hashCode(){
+        return Objects.hash(title, author, year);
+    }
 
 }

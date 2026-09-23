@@ -42,19 +42,18 @@ public class ValueUtils {
 
     /** null 安全的相等比较 */
     public static boolean isSame(Object a, Object b) {
-        // TODO Q4-1
-        throw new UnsupportedOperationException("Day 7 - Q4 待实现");
+        if (a == null && b == null) return true;
+        if (a == null || b == null) return false;
+        return a.equals(b);
     }
-
     /** null 安全的字符串表示 */
     public static String describe(Object o) {
-        // TODO Q4-2
-        throw new UnsupportedOperationException("Day 7 - Q4 待实现");
+        if (o == null) return "null";
+        return o.toString();
     }
 
     /** 组合多个值的哈希 */
     public static int hashOf(Object... values) {
-        // TODO Q4-3
-        throw new UnsupportedOperationException("Day 7 - Q4 待实现");
+        return Objects.hash(values);
     }
 }
