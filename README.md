@@ -162,7 +162,7 @@
 | Day 5 | 继承 / 重写 / 多态 / 重载 | ✅ |
 | Day 6 | 抽象方法 + 接口 | ✅ |
 | Day 7 | `Object` 方法：`toString` / `equals` / `hashCode` 契约 | ✅ |
-| Day 8 | **L 级综合**：Phase 1 综合练习 + 错题重写 + 复盘 | ⏳ |
+| Day 8 | **L 级综合**：Phase 1 综合练习 + 错题重写 + 复盘 | 🔄 进行中 |
 
 ---
 
@@ -451,8 +451,9 @@ B+Tree 那道面试题暴露了这个缺口。
 | Day 5 | 2026-09-07 → 09-17 | **继承 / 重写 / 多态 / 重载** | 17/17 | `logs/2026-09-07-day5.md` |
 | Day 6 | 2026-09-17 → 09-21 | **抽象方法 + 接口** | 22/22 | `logs/2026-09-17-day6.md` |
 | Day 7 | 2026-09-21 → 09-23 | **Object 三兄弟：`toString` / `equals` / `hashCode`** | **35/35** | `logs/2026-09-21-day7.md` |
+| Day 8 | 2026-09-23（周三） | **Phase 1 收官 · L 级综合**（错题重写 + 抽象类 + 多态 + 集合统计） | 目标 34/34 | `logs/2026-09-23-day8.md` |
 
-**累计**：**147 / 147 全绿**（Day 1–6 共 112，Day 7 新增 35）。
+**累计**：**147 / 147 全绿**（Day 1–6 共 112，Day 7 共 35）；Day 8 新增 34 个（27 待实现 + 7 天然绿）。
 
 ### Day 5 关键结论（值得反复回看）
 
@@ -588,12 +589,13 @@ D:\code\training\                （2026-09-17 起纳入 git 管理）
 │   ├── 2026-08-29-day4.md       Day 4
 │   ├── 2026-09-07-day5.md       Day 5
 │   ├── 2026-09-17-day6.md       Day 6
-│   └── 2026-09-21-day7.md       Day 7
+│   ├── 2026-09-21-day7.md       Day 7
+│   └── 2026-09-23-day8.md       Day 8
 └── practice\                    ← Maven 项目 com.training:java-basics-practice
     ├── pom.xml                  JDK 17 / JUnit Jupiter 5.10.2 / surefire 3.2.5
     └── src\
-        ├── main\java\com\training\day01 ~ day07\
-        └── test\java\com\training\day01 ~ day07\
+        ├── main\java\com\training\day01 ~ day08\
+        └── test\java\com\training\day01 ~ day08\
 ```
 
 ---
@@ -621,3 +623,4 @@ D:\code\training\                （2026-09-17 起纳入 git 管理）
 | 2026-09-23 | **确立第 5 条硬规矩：先预测，再跑**（1 行/方法）——取代"两轮推演"，学员选定制 |
 | 2026-09-23 | 补 `BookTest` 第 8 个测试，堵住**字符串常量池**掩盖 `==` 的漏洞（教练责任，见第十一节 #11） |
 | 2026-09-23 | Day 7 新增考点：`Object` vs `Objects` 辨析；字符串常量池与 `==` 的关系 |
+| 2026-09-23 | **Day 8 开题：Phase 1 收官 · L 级综合** —— 错题重写（Day 3 构造器委托升级为"测试可抓"）+ 抽象类/多态 + 集合统计；脚手架 181 测试（27 红） |
