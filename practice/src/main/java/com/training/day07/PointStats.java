@@ -51,8 +51,9 @@ public class PointStats {
 
     /** 去重，并保持第一次出现的顺序 */
     public static List<Point> dedupe(List<Point> points) {
-
+        //先用 LinkedHashSet 去重 他又可以去重又可以保持顺序
         LinkedHashSet<Point> set = new LinkedHashSet<>();
+        //遍历取出元素
         for (Point point : points){
             set.add(point);
         }
@@ -61,7 +62,10 @@ public class PointStats {
 
     /** 统计每个 Point 出现的次数 */
     public static Map<Point, Integer> countOccurrences(List<Point> points) {
+        //先用 HashMap 统计
+        //创建一个 HashMap
         Map<Point, Integer> map = new HashMap<>();
+        //遍历取出元素
         for (Point point : points){
             map.put(point, map.getOrDefault(point, 0) + 1);
         }

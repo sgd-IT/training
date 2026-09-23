@@ -59,4 +59,18 @@ class BookTest {
         set.add(new Book("三体", "刘慈欣", 2008));
         assertEquals(1, set.size());
     }
+
+    @Test
+    void equalsHandlesEqualButDistinctStringInstances() {
+        // ⚠️ 这一条测试专门堵一个洞：
+        //    如果你在 equals 里对 String 字段写成  book.title == title，
+        //    上面 7 个测试照样全绿 —— 因为字符串字面量会进常量池，"三体" == "三体" 是 true。
+        //    必须用 new String(...) 强制造出两个不同对象，才能把这个 bug 逼出来。
+        Book a = new Book(new String("三体"), new String("刘慈欣"), 2008);
+        Book b = new Book(new String("三体"), new String("刘慈欣"), 2008);
+        assertEquals(a, b, "内容相同的 String 必须用 equals / Objects.equals 比，不能用 ==");
+
+        assertNotEquals(a, new Book(new String("三体"), new String("刘慈欣"), 2009), "年份不同");
+        assertNotEquals(a, new Book(new String("三体"), new String("别人"), 2008), "作者不同");
+    }
 }

@@ -64,25 +64,30 @@ public class Book {
         return year;
     }
 
-    // TODO Q2-1: 重写 toString()
     @Override
     public String toString() {
         return title + " / " + author + " / " + year;
     }
 
-    // TODO Q2-2: 重写 equals(Object o)
     @Override
     public boolean equals(Object o) {
-        if (Objects.equals(this, o)){
+        // 比较 this 和 o 是否是同一个对象
+        if (this==o){
             return true;
         }
+        // 比较 o 是否为 null，以及 o 和 this 是否是同一个类型
         if (o == null || getClass() != o.getClass()){
             return false;
         }
-        return true;
+        //同一个对象也相等，字段也需要相等
+        Book book = (Book) o;
+
+        // 比较 o 和 this 的 title、author、year 是否都相等
+        return Objects.equals(title, book.title) &&
+                Objects.equals(author, book.author) &&
+                year == book.year;
     }
 
-    // TODO Q2-3: 重写 hashCode()
     @Override
     public int hashCode(){
         return Objects.hash(title, author, year);

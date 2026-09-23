@@ -95,6 +95,10 @@ public class Point {
     // TODO Q1-2: 重写 equals(Object o)（参数必须是 Object！）
     @Override
     public boolean equals(Object o){
+        // a.equals(b)  等价于  b.equals(a)  true
+        //a.equals(new Point(3, 4))  true  因为他们是同一个对象
+        // a.equals(null)  false
+        // a.equals("字符串")  false  因为类型不对
         if (this==o){
             return true;
         }
