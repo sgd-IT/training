@@ -67,6 +67,7 @@ public class PointStats {
         Map<Point, Integer> map = new HashMap<>();
         //遍历取出元素
         for (Point point : points){
+            //用 map.getOrDefault(point, 0) 取出当前次数，加 1，再 put 回去
             map.put(point, map.getOrDefault(point, 0) + 1);
         }
         return map;

@@ -66,6 +66,7 @@ public class Book {
 
     @Override
     public String toString() {
+        // 格式就是： 书名 + " / " + 作者 + " / " + 年份
         return title + " / " + author + " / " + year;
     }
 
@@ -90,6 +91,7 @@ public class Book {
 
     @Override
     public int hashCode(){
+        // 组合三个字段的 hashCode
         return Objects.hash(title, author, year);
     }
 
