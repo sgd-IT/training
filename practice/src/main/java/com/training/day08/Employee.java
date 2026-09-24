@@ -57,14 +57,26 @@ public class Employee {
         this.dept = (dept == null || dept.trim().isEmpty()) ? "未分配" : dept.trim();
     }
 
-    // TODO Q1-1: 委托给全参构造器，部门默认不填
     public Employee(String name, int salary) {
-        throw new UnsupportedOperationException("TODO Q1-1");
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("name 不能为空");
+        }
+        if (salary < 0) {
+            throw new IllegalArgumentException("salary 不能为负: " + salary);
+        }
+        this.name=name.trim();
+        this.salary = salary;
+        this.dept = "未分配";
     }
 
-    // TODO Q1-2: 委托给全参构造器，工资默认 0
+
     public Employee(String name) {
-        throw new UnsupportedOperationException("TODO Q1-2");
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("name 不能为空");
+        }
+        this.name = name.trim();
+        this.salary = 0;
+        this.dept = "未分配";
     }
 
     public String getName() {
@@ -79,9 +91,9 @@ public class Employee {
         return dept;
     }
 
-    // TODO Q1-3: toString()
+
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("TODO Q1-3");
+        return name + "(" + dept + ") 薪水=" + salary;
     }
 }

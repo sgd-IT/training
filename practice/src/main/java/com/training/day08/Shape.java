@@ -48,9 +48,10 @@ public abstract class Shape {
     /** 周长 —— 子类必须实现 */
     public abstract double perimeter();
 
-    // TODO Q2-1: 重写 toString()
+
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("TODO Q2-1");
+        // 预测：new Circle(1).toString() → "圆(面积=3.14)"
+        return getName() + "(面积=" + String.format("%.2f", area()) + ")";
     }
 }
