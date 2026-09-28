@@ -52,11 +52,11 @@ public class Circle extends Shape {
 
     @Override
     public boolean equals(Object o) {
-        //判断是否是同一个内容
+        //判断是否一个对象
         if (this == o) return true;
-        //判断是否是同一个对象
+        //判断请求参数是否为空，以及类型是否一致
         if (o == null || getClass() != o.getClass()) return false;
-        //判断同一对象的2个字段是否相等
+        //类型转换
         Circle circle = (Circle) o;
         return this.radius == circle.radius;
     }

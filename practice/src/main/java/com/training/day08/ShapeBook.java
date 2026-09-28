@@ -2,6 +2,7 @@ package com.training.day08;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,33 +63,39 @@ public class ShapeBook {
 
     public List<Shape> dedupe() {
         // 创建一个 LinkedHashMap 来去重并保持顺序
-        LinkedHashMap<Shape, Boolean> map = new LinkedHashMap<>();
+        LinkedHashSet<Shape> set = new LinkedHashSet<>();
         //遍历出每一个
         for (Shape shape : shapes) {
             //存入map中，如果不存在则存入
-            map.putIfAbsent(shape, true);
+            set.add(shape);
         }
-        return new ArrayList<>(map.keySet());
+        return new ArrayList<>(set);
     }
 
     public double totalArea() {
-        return shapes.stream()
-                .mapToDouble(Shape::area)
-                .sum();
+        double totalArea = 0.0;
+        for (Shape shape : shapes) {
+            totalArea += shape.area();
+        }
+        return totalArea;
     }
 
     public Shape largest() {
-        //先转为流，再比较面积，返回最大值，如果为空则返回 null
-        return shapes.stream()
-                .max((s1, s2) -> Double.compare(s1.area(), s2.area()))
-                .orElse(null);
+        Shape largestShape = null;
+        for (Shape shape : shapes) {
+            if (shape.area() > largestShape.area() && largestShape != null) {
+                largestShape = shape;
+            }
+        }
+        return largestShape;
     }
 
 
     public String describeAll() {
-        //先转为流，再转为字符串，用逗号连接
-        return shapes.stream()
-                .map(Shape::toString)
-                .collect(Collectors.joining(", "));
+        StringBuilder sb = new StringBuilder();
+        for (Shape shape : shapes) {
+            sb.append(shape.toString()).append(", ");
+        }
+        return sb.toString();
     }
 }
