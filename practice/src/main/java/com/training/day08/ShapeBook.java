@@ -83,21 +83,22 @@ public class ShapeBook {
     public Shape largest() {
         Shape largestShape = null;
         for (Shape shape : shapes) {
-            if (largestShape != null || shape.area() > largestShape.area()) {
+            if (largestShape == null || shape.area() > largestShape.area()) {
                 largestShape = shape;
             }
         }
         return largestShape;
     }
-    
+
     public String describeAll() {
+        if (shapes == null || shapes.size() == 0) return "";
         StringBuilder sb = new StringBuilder();
         for (Shape shape : shapes) {
-            sb.append(shape.toString());
-            //最后一个不要加逗号
-            if (shape != shapes.get(shapes.size() - 1)) {
+            if (sb.length() > 0){
                 sb.append(", ");
             }
+            sb.append(shape.toString());
+
         }
         return sb.toString();
     }
