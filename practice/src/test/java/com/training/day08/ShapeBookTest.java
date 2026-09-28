@@ -69,6 +69,16 @@ class ShapeBookTest {
     }
 
     @Test
+    void describeAllWithSameInstanceRepeated() {
+        // ⚠️ 同一个实例出现两次时，"是不是最后一个"不能用 == 判：
+        //    第 0 轮 shape 和 last 是同一个引用 -> 误判成"最后一个" -> 漏掉分隔符
+        Circle c = new Circle(1);
+        ShapeBook book = new ShapeBook(List.of(c, c));
+        assertEquals("圆(面积=3.14), 圆(面积=3.14)", book.describeAll(),
+                "不要靠 == 判'是不是最后一个'；判'缓冲区空不空'才稳");
+    }
+
+    @Test
     void constructorDefensivelyCopies() {
         List<Shape> input = new ArrayList<>();
         input.add(new Circle(1));
