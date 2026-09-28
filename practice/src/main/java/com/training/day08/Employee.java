@@ -58,25 +58,12 @@ public class Employee {
     }
 
     public Employee(String name, int salary) {
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("name 不能为空");
-        }
-        if (salary < 0) {
-            throw new IllegalArgumentException("salary 不能为负: " + salary);
-        }
-        this.name=name.trim();
-        this.salary = salary;
-        this.dept = "未分配";
+        this(name, salary, "未分配");
     }
 
 
     public Employee(String name) {
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("name 不能为空");
-        }
-        this.name = name.trim();
-        this.salary = 0;
-        this.dept = "未分配";
+        this(name, 0, "未分配");
     }
 
     public String getName() {
