@@ -62,11 +62,11 @@ public class ShapeBook {
     }
 
     public List<Shape> dedupe() {
-        // 创建一个 LinkedHashMap 来去重并保持顺序
+        // 创建一个 LinkedHashSet 来去重并保持顺序
         LinkedHashSet<Shape> set = new LinkedHashSet<>();
         //遍历出每一个
         for (Shape shape : shapes) {
-            //存入map中，如果不存在则存入
+            //set.add(shape)，如果不存在则存入
             set.add(shape);
         }
         return new ArrayList<>(set);
@@ -83,7 +83,7 @@ public class ShapeBook {
     public Shape largest() {
         Shape largestShape = null;
         for (Shape shape : shapes) {
-            if (shape.area() > largestShape.area() && largestShape != null) {
+            if (largestShape != null || shape.area() > largestShape.area()) {
                 largestShape = shape;
             }
         }
@@ -94,7 +94,11 @@ public class ShapeBook {
     public String describeAll() {
         StringBuilder sb = new StringBuilder();
         for (Shape shape : shapes) {
-            sb.append(shape.toString()).append(", ");
+            sb.append(shape.toString());
+            //最后一个不要加逗号
+            if (shape != shapes.get(shapes.size() - 1)) {
+                sb.append(", ");
+            }
         }
         return sb.toString();
     }

@@ -58,12 +58,12 @@ public class Employee {
     }
 
     public Employee(String name, int salary) {
-        this(name, salary, "未分配");
+        this(name, salary, null);
     }
 
 
     public Employee(String name) {
-        this(name, 0, "未分配");
+        this(name, 0, null);
     }
 
     public String getName() {
