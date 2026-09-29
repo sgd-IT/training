@@ -98,4 +98,31 @@ class MiniListTest {
         list.add("c");
         assertEquals("[a, b, c]", list.toString());
     }
+
+    // ─────────────────────────────────────────────────────────────
+    // 下面两个是【教练补的】。原版 8 个测试全绿，但它们是假的 ——
+    // 上面所有测试用的元素都非空，于是"遍历整个数组 + 跳过 null"
+    // 这个错误实现，被 null 恰好不在集合里这件事完整地掩盖了。
+    // 详见 _probe/NullProbe.java 的对照输出。
+    // ─────────────────────────────────────────────────────────────
+
+    @Test
+    void toStringMustNotDropNullElements() {
+        // null 是【合法元素】—— ArrayList 允许 add(null)，MiniList 也必须允许
+        MiniList<String> list = new MiniList<>();
+        list.add("a");
+        list.add(null);
+        list.add("b");
+        assertEquals("[a, null, b]", list.toString(),
+                "null 也是一个元素，不能被跳过（JDK 的 ArrayList 输出就是 [a, null, b]）");
+    }
+
+    @Test
+    void singleNullElementIsNotAnEmptyList() {
+        MiniList<String> list = new MiniList<>();
+        list.add(null);
+        assertEquals(1, list.size());
+        assertEquals("[null]", list.toString(),
+                "size 明明是 1，toString 不能显示成空列表");
+    }
 }
