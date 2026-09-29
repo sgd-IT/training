@@ -1,10 +1,8 @@
 package com.training.day08;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Day 8 - Q3: ShapeBook —— 把 Day 3 / Day 5 / Day 6 / Day 7 全部用上
@@ -91,14 +89,13 @@ public class ShapeBook {
     }
 
     public String describeAll() {
-        if (shapes == null || shapes.size() == 0) return "";
+        if (shapes.size() == 0) return "";
         StringBuilder sb = new StringBuilder();
         for (Shape shape : shapes) {
             if (sb.length() > 0){
                 sb.append(", ");
             }
             sb.append(shape.toString());
-
         }
         return sb.toString();
     }

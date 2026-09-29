@@ -515,8 +515,9 @@ MyBatis 实操、Docker/Linux 部署、Mockito、大表归档分表与流式导�
 | Day 6 | 2026-09-17 → 09-21 | **抽象方法 + 接口** | 22/22 | `logs/2026-09-17-day6.md` |
 | Day 7 | 2026-09-21 → 09-23 | **Object 三兄弟：`toString` / `equals` / `hashCode`** | **35/35** | `logs/2026-09-21-day7.md` |
 | Day 8 | 2026-09-23 → 09-28 | **Phase 1 收官 · L 级综合**（错题重写 + 抽象类 + 多态 + 集合统计） | **35/35** | `logs/2026-09-23-day8.md` |
+| Day 9 | 2026-09-28（周一） | **Phase 2 开篇 · List 家族**（★手写迷你 ArrayList + CME + 三种来源 + Deque） | 目标 22/22 | `logs/2026-09-28-day9.md` |
 
-**累计**：**182 / 182 全绿**（Day 1–7 共 147，Day 8 共 35）。**✅ Phase 1（Day 1–8）完成。**
+**累计**：**182 / 182 全绿**（Day 1–8）。**✅ Phase 1（Day 1–8）完成**；Day 9 新增 22 个（20 待实现 + 2 天然绿）。
 
 ### Day 5 关键结论（值得反复回看）
 
@@ -675,12 +676,13 @@ D:\code\training\                （2026-09-17 起纳入 git 管理）
 │   ├── 2026-09-07-day5.md       Day 5
 │   ├── 2026-09-17-day6.md       Day 6
 │   ├── 2026-09-21-day7.md       Day 7
-│   └── 2026-09-23-day8.md       Day 8
+│   ├── 2026-09-23-day8.md       Day 8
+│   └── 2026-09-28-day9.md       Day 9
 └── practice\                    ← Maven 项目 com.training:java-basics-practice
     ├── pom.xml                  JDK 17 / JUnit Jupiter 5.10.2 / surefire 3.2.5
     └── src\
-        ├── main\java\com\training\day01 ~ day08\
-        └── test\java\com\training\day01 ~ day08\
+        ├── main\java\com\training\day01 ~ day09\
+        └── test\java\com\training\day01 ~ day09\
 ```
 
 ---
@@ -717,3 +719,5 @@ D:\code\training\                （2026-09-17 起纳入 git 管理）
 | 2026-09-28 | **Day 8 收官 182/182** —— ✅ **Phase 1（Day 1–8）完成** |
 | 2026-09-28 | 🆕 **第 6 条硬规矩：交付前自己先跑绿**（`mvn test` 0 红 + 清 import + 改过时注释 + 格式化）—— 学员带着 NPE 交付 |
 | 2026-09-28 | Day 8 核心发现记录：**试错撞对的答案留不下知识**（Day 6 分隔符坑三连退）；**行为测试抓不到"结构问题"**（教练两次失败） |
+| 2026-09-28 | **Day 9 开题：Phase 2 开篇 · List 家族** —— ★手写迷你 `ArrayList`（数组扩容 / size vs capacity）+ CME 四种删除写法 + 三种 List 来源 + `LinkedList` 当 Deque；脚手架 204 测试（20 红） |
+| 2026-09-28 | **SQL 30 min/训练日 从 Day 9 起启动**（S1 B+Tree → S7 优化实战） |

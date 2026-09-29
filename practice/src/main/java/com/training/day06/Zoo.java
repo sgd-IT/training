@@ -31,7 +31,7 @@ public class Zoo {
         if (animals == null || animals.length == 0) return "";
         StringBuilder sb = new StringBuilder();
         for (Animal animal : animals){
-            //添加逗号，除了最后一个
+            // 判断是否是第一个元素
             if(sb.length() > 0){
                 sb.append(", ");
             }
