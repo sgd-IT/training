@@ -49,8 +49,8 @@ import java.util.Arrays;
  * ⚠️ Q1-4 的分隔符又是 Day 6 那个坑 —— 用你 Day 6 第 4 版的写法（判 sb.length() > 0）。
  *
  * ⚠️ 先预测，再跑（第 5 条硬规矩）—— 把**输出值**写进注释，不是写怎么算：
- *     // 预测：new MiniList<String>() 的 size / capacity → ____ / ____
- *     // 预测：连续 add 5 个之后 capacity → ____
+ *     // 预测：new MiniList<String>() 的 size / capacity → __0__ / __0__
+ *     // 预测：连续 add 5 个之后 capacity → ____不会扩容，因为底层数组可以容纳10
  */
 public class MiniList<E> {
 
@@ -73,26 +73,41 @@ public class MiniList<E> {
         return size;
     }
 
-    // TODO Q1-1: 返回底层数组的长度；还没分配数组时返回 0
     public int capacity() {
-        throw new UnsupportedOperationException("TODO Q1-1");
+        // 三元表达式：条件 ? 表达式1 : 表达式2
+        return data == null ? 0 : data.length;
     }
 
-    // TODO Q1-2: 追加到末尾；数组满了要翻倍扩容
-    //   提示：扩容只能用 Arrays.copyOf(data, newCapacity) —— 数组本身改不了长度
     public void add(E value) {
-        throw new UnsupportedOperationException("TODO Q1-2");
+        if (size >= data.length){
+            int newCapacity = data.length * 2;
+             data = Arrays.copyOf(data, newCapacity);
+        }
+        // 在当前数组元素的位置再追加一个元素
+        data[size] = value;
+        size++;
     }
 
-    // TODO Q1-3: 按下标取元素；越界抛 IndexOutOfBoundsException
     @SuppressWarnings("unchecked")
     public E get(int index) {
-        throw new UnsupportedOperationException("TODO Q1-3");
+        if(index<0 || index>=size){
+            throw new IndexOutOfBoundsException("索引越界");
+        }
+        return (E)data[index];
     }
 
-    // TODO Q1-4: toString() → "[a, b, c]"；空列表 → "[]"
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("TODO Q1-4");
+        if (size == 0){
+            return "[]";
+        }
+        StringBuilder sb = new StringBuilder();
+        for(Object obj : data){
+            if (sb.length() > 0){
+                sb.append(", ");
+            }
+            sb.append(obj);
+        }
+        return sb.toString();
     }
 }
