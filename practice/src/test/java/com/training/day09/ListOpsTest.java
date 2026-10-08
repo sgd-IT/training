@@ -53,4 +53,25 @@ class ListOpsTest {
         assertEquals(List.of("b", "c"), list,
                 "没有相邻重复时它看起来完全正确 —— 所以这个 bug 极难发现");
     }
+
+    // ─────────────────────────────────────────────────────────────
+    // 教练补的。"for-each 里 remove 一定抛 CME" 这句话【不完整】——
+    // 删的正好是倒数第二个元素时，cursor == size，hasNext() 直接返回
+    // false，循环正常结束，一次异常都不抛。见 _probe/Day9Probe.java 段 A。
+    // ─────────────────────────────────────────────────────────────
+
+    @Test
+    void forEachRemoveCanEscapeTheExceptionEntirely() {
+        // 对照组：同一句代码，这个数据抛
+        List<String> throwsCase = new ArrayList<>(List.of("a", "b", "c"));
+        assertThrows(ConcurrentModificationException.class,
+                () -> ListOps.removeByForEach(throwsCase, "a"));
+
+        // 实验组：换个数据，同样的错误代码——不抛了，而且"看起来成功了"
+        List<String> escapes = new ArrayList<>(List.of("a", "b"));
+        ListOps.removeByForEach(escapes, "a");
+        assertEquals(List.of("b"), escapes,
+                "delete 倒数第二个 -> cursor==size -> hasNext()==false -> 静默退出。"
+                        + "所以这个坑的可怕之处不是'会炸'，而是'有时候不炸'");
+    }
 }
