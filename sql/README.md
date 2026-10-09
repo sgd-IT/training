@@ -10,7 +10,7 @@ cd D:\code\training\sql
 
 run.cmd -Setup               :: 建库建表 + 灌数据（约 20 秒，可反复跑）
 run.cmd -i                   :: 交互窗口 —— DDL 在这里手敲
-run.cmd s1_bplus_tree.sql    :: 跑某一份练习
+run.cmd s1.sql               :: 跑某一份练习（一天一个文件：s1 → s7）
 ```
 
 `-Setup` 就是**重置**：删表重建，回到"只有主键、没有任何二级索引"的干净起点。

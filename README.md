@@ -699,8 +699,7 @@ D:\code\training\                （2026-09-17 起纳入 git 管理）
 │   ├── run.cmd                  run.cmd -Setup | -i | <file.sql>
 │   ├── 00_setup.sql             建库建表（**只有主键，零二级索引** —— 索引自己加）
 │   ├── 01_seed.sql              灌 65 万行（确定性公式，可复现，不用 RAND）
-│   ├── s1_warmup.sql            手写热身（前 12 min，8 题）
-│   └── s1_bplus_tree.sql        S1 专题（后 18 min，B+Tree 结构与插入）
+│   └── s1.sql                   S1 练习单（A 手写 4 题 / B B+Tree 实验 / C 闭卷）
 └── practice\                    ← Maven 项目 com.training:java-basics-practice
     ├── pom.xml                  JDK 17 / JUnit Jupiter 5.10.2 / surefire 3.2.5
     └── src\
@@ -748,3 +747,4 @@ D:\code\training\                （2026-09-17 起纳入 git 管理）
 | 2026-09-28 | 🔴 **SQL 大纲修正（学员提出「全是 EXPLAIN 没有 SQL 写」）**：每日 30 min 拆成 **前 12 min 手写热身 + 后 18 min 当天专题**，S1 拆为 `s1_warmup.sql`（8 题手写）+ `s1_bplus_tree.sql` |
 | 2026-09-28 | **Day 9 收官 208/208** —— Q1–Q4 全绿。教练补 4 个测试（漏洞全在教练侧：常量池 / 三构造器 / null 元素 / 只测"改不掉"不测"装对了"） |
 | 2026-09-28 | Day 9 复述检验 **4/10**：名词类全对（三种 List 来源 / 视图 / `Object`vs`Objects`），**机制类全错**（类型擦除 / `modCount` / 四种删除写法 / NPE 条件）→ 下次训练日开场闭卷重答 6 题（间隔重复） |
+| 2026-09-28 | 🔴 **每日 SQL 改为「一天一个文件」**（学员：「合并一个就好，训练内容不要多」）：S1 的 8 题热身砍到 **4 题**，与 B+Tree 实验合并进单个 `s1.sql` —— **先手写 SQL，再拿同一句 SQL 去做执行计划**，不再写两遍 |
