@@ -73,14 +73,9 @@ public class DequeOps {
             linkedList.add(s);
         }
         LinkedList<String> result = new LinkedList<>();
-        while(!linkedList.isEmpty()){
-            result.add(linkedList.poll());
+        while (!linkedList.isEmpty()) {
+            result.offer(linkedList.poll());
         }
         return result;
-    }
-
-    public static void main(String[] args) {
-        List<String> input = List.of("a", "b", "c");
-        System.out.println(stackOrder(input));
     }
 }

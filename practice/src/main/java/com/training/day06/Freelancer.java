@@ -27,7 +27,6 @@ public class Freelancer implements Payable {
     private final int hours;
 
     public Freelancer(String name, double hourlyRate, int hours) {
-        // TODO: 三个校验（name 非空、hourlyRate >= 0、hours >= 0）
         if (name == null || name.isEmpty())
             throw new IllegalArgumentException("姓名不能为空");
         if (hourlyRate < 0)
