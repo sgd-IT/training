@@ -25,11 +25,13 @@ SELECT @@innodb_page_size AS 页大小_字节,
 -- ============================================================
 
 -- 1-1 按主键 id 查一条
+-- //用的是主键索引查询
 --     预测  type = ______   key = ______   rows = ______
 EXPLAIN SELECT * FROM orders WHERE id = 123456;
 
 -- 1-2 按业务单号 order_no 查一条（注意：order_no 上【还没有】任何索引）
 --     预测  type = ______   key = ______   rows = ______
+-- 没有索引,二次查找
 EXPLAIN SELECT * FROM orders WHERE order_no = 'NO0000123456';
 
 -- 1-3 这两句 SQL 查出来的东西一样，为什么执行方式差这么远？
