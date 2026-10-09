@@ -1,5 +1,7 @@
 package com.training.day09;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -37,32 +39,42 @@ import java.util.List;
  *    （就像 Day 7 的 RawPoint 一样：把错误行为记录下来当标本）
  *
  * ⚠️ 先预测，再跑（写输出值）：
- *     // 预测：["a","a","a"] 走 Q2-4 之后剩下 → ____
- *     // 预测：["a","b","a","c"] 走 Q2-2 之后剩下 → ____
+ *     // 预测：["a","a","a"] 走 Q2-4 之后剩下 → ____target =a  那输出为【‘’】
+ *     // 预测：["a","b","a","c"] 走 Q2-2 之后剩下 → ____["a","b","","c"]
  */
 public class ListOps {
 
     /** 实验 1：for-each 里直接 remove —— 故意写错 */
     public static void removeByForEach(List<String> list, String target) {
-        // TODO Q2-1: 用 for-each 遍历，元素等于 target 就 list.remove(...)
-        throw new UnsupportedOperationException("TODO Q2-1");
+        for(String s : list){
+            //cursor和size 1,2
+            if(s.equals(target)) list.remove(s);
+        }
     }
 
     /** 实验 2：Iterator + it.remove() —— 正确 */
     public static void removeByIterator(List<String> list, String target) {
-        // TODO Q2-2
-        throw new UnsupportedOperationException("TODO Q2-2");
+        Iterator<String> it = list.iterator();
+        while(it.hasNext()){
+            String s = it.next();
+            if (s.equals(target)){
+                it.remove();
+            }
+        }
     }
 
     /** 实验 3：removeIf —— 正确，且最简洁 */
     public static void removeByRemoveIf(List<String> list, String target) {
-        // TODO Q2-3: 一行
-        throw new UnsupportedOperationException("TODO Q2-3");
+        list.removeIf(s -> s.equals(target));
     }
 
     /** 实验 4：索引 for 循环 —— 不抛异常，但会漏元素 */
     public static void removeByIndex(List<String> list, String target) {
-        // TODO Q2-4: 故意写出会漏元素的版本（就是最自然那种写法）
-        throw new UnsupportedOperationException("TODO Q2-4");
+        for (int i = 0 ; i < list.size() ; i++){
+            if (list.get(i).equals(target)){
+                //remove有两个方法一个是object，int i
+                list.remove(i);
+            }
+        }
     }
 }

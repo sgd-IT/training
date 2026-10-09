@@ -1,5 +1,7 @@
 package com.training.day09;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -8,7 +10,7 @@ import java.util.List;
  * 你已经踩过一次：Day 8 的 `new ShapeBook(List.of(...))` 里，
  * `List.of()` 造出来的列表是**不能改**的。这一题把三种来源讲透。
  *
- * ═══════════════════════════════════════════════════════════
+ * ═══════════════════════════════════════════════════════·════
  * 三种来源，三种脾气
  * ═══════════════════════════════════════════════════════════
  *
@@ -34,26 +36,29 @@ import java.util.List;
  *              （这就是"视图"的含义：它不复制，它只是套在数组外面的一层壳）
  *
  * ⚠️ 先预测，再跑（写输出值）：
- *     // 预测：List.of("a","b").add("c")  → ____（抛什么？还是成功？）
- *     // 预测：Arrays.asList("a","b").set(0,"x") → ____
+ *     // 预测：List.of("a","b").add("c")  → ____ 失败，抛异常（抛什么？还是成功？）
+ *     // 预测：Arrays.asList("a","b").set(0,"x") → ____（“x”“b”）
  */
 public class ListSources {
 
     /** 返回一个能改的列表 */
     public static List<String> mutableOf(String... values) {
-        // TODO Q3-1
-        throw new UnsupportedOperationException("TODO Q3-1");
+        ArrayList<String>  arrayList = new ArrayList<>();
+        for(String value : values){
+            arrayList.add(value);
+        }
+        return  arrayList;
     }
 
     /** 返回一个不能改的列表 */
     public static List<String> immutableOf(String... values) {
-        // TODO Q3-2
-        throw new UnsupportedOperationException("TODO Q3-2");
+        return List.of(values);
     }
 
     /** 通过 Arrays.asList 造出来的"视图"，改写原数组的指定位置 */
     public static void setThroughView(String[] array, int index, String value) {
-        // TODO Q3-3
-        throw new UnsupportedOperationException("TODO Q3-3");
+        //将array数组转为list
+        List<String> view = Arrays.asList(array);
+        view.set(index, value);
     }
 }
