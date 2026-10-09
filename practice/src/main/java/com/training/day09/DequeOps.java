@@ -70,11 +70,11 @@ public class DequeOps {
     public static List<String> queueOrder(List<String> input) {
         LinkedList<String> linkedList = new LinkedList<>();
         for (String s : input) {
-            linkedList.add(s);
+            linkedList.offer(s);
         }
         LinkedList<String> result = new LinkedList<>();
         while (!linkedList.isEmpty()) {
-            result.offer(linkedList.poll());
+            result.add(linkedList.poll());
         }
         return result;
     }
