@@ -5,7 +5,7 @@
 >
 > **新机器开工第一件事：读本文件。** 收工最后一件事：更新本文件并 push。
 
-**最后更新**：2026-10-09（计划已二次修订，全课 **72 天**）
+**最后更新**：2026-10-09（计划二次修订完成；仓库已推送）
 
 ---
 
@@ -72,7 +72,8 @@ Day 9 复述检验 10 题只对 4 题。
 
 **新机器第一步自检**：
 ```cmd
-cd sql
+git clone https://github.com/sgd-IT/training.git
+cd training\sql
 run.cmd -env        :: 打印生效配置 + 测试连接
 run.cmd -Setup      :: 建库灌数据（约 20 秒）
 ```
@@ -83,17 +84,22 @@ run.cmd -Setup      :: 建库灌数据（约 20 秒）
 
 ---
 
-## 六、⚠️ git 远程仓库尚未配置
+## 六、✅ git 远程仓库已配置并推送（2026-10-09）
 
-`git remote -v` 目前是**空的**。两台机器同步前必须先做：
-
-```cmd
-cd D:\code\training
-git remote add origin <私有仓库地址>
-git push -u origin main
+```
+origin  https://github.com/sgd-IT/training.git
+分支    main  →  origin/main   （39 个提交，已同步）
 ```
 
-**仓库必须是私有的** —— `sql\run.cmd` 里有默认凭据。
+首次推送用了 `--force`：远端原有 GitHub 自动生成的 `Initial commit`（只含占位 README），
+与本地 39 个提交**无共同祖先**，直接覆盖。
+
+> ⚠️ **该仓库是「公开」的（`private: false`）—— 学员 2026-10-09 明确知情并同意。**
+> 代价：`sql/run.cmd` 里的默认凭据 `root/123456` **已公开且无法从历史里彻底擦除**。
+> 该凭据只指向本机 127.0.0.1 的训练库，实际风险低；**但这是"凭据进仓库"的坏习惯，真实项目绝不可复制**。
+> 若要改私有：GitHub → Settings → Danger Zone → Change visibility。
+
+### 日常两条命令
 
 ```cmd
 开练前:  git pull --rebase
@@ -141,4 +147,5 @@ SQL:     cd sql && run.cmd -env / -Setup / s1.sql / -i
 
 1. **只给题目和追问，不给实现代码** —— 学员手敲
 2. **先预测，再跑**；交付前学员自己跑绿
-3. **课程变更需学员确认**（第 7 条）—— 教练只能提议，摆出「改什么 / 为什么 / 代价」后由学员拍板，**禁止评估完直接改 README**
+3. **课程变更需学员确认**（README 第 7 条）—— 教练只能提议，摆出「改什么 / 为什么 / 代价」后由学员拍板，**禁止评估完直接改 README**
+4. **学员答错时讲机制**，不要只丢结论 —— 他的顽固病是「名词类全对，机制类全错」
