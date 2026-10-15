@@ -1,5 +1,6 @@
 package com.training.day10;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -65,9 +66,9 @@ import java.util.Map;
  * <p>
  * ⚠️ 先预测，再跑（写【输出值】，不是写实现）：
  * <pre>
- * // 预测：countWithContainsKey(["a","b","a","c","a","b"]) → ____
- * // 预测：countWithMerge([])                              → ____
- * // 预测：countWithGetOrDefault(["x"])                    → ____
+ * // 预测：countWithContainsKey(["a","b","a","c","a","b"]) → ____a：3 b：2 c:1
+ * // 预测：countWithMerge([])                              → ____a：0 b：0 c:0
+ * // 预测：countWithGetOrDefault(["x"])                    → ____x：1
  * </pre>
  * ⚠️ 别去查 merge 的源码 —— 上面已经写清楚它的语义了。
  *    忘了签名可以查（铁律 2 允许）；没学过就搜出来抄，是另一回事。
@@ -81,7 +82,15 @@ public class WordCount {
      * 而 containsKey 刚刚已经查过一遍了。这就是多余的"模板代码"。
      */
     public static Map<String, Integer> countWithContainsKey(List<String> words) {
-        throw new UnsupportedOperationException("TODO Q1-1");
+        Map<String, Integer> map = new HashMap<>();
+        for(String word : words){
+            if (map.containsKey(word)){
+                map.put(word,map.get(word)+1);
+            }else{
+                map.put(word,1);
+            }
+        }
+        return map;
     }
 
     /**
@@ -90,7 +99,10 @@ public class WordCount {
      * 想清楚默认值该填什么 —— 填 0 还是填 null，决定了这段代码会不会 NPE。
      */
     public static Map<String, Integer> countWithGetOrDefault(List<String> words) {
-        throw new UnsupportedOperationException("TODO Q1-2");
+        Map<String, Integer> map = new HashMap<>();
+        for (String word : words)
+            map.put(word, map.getOrDefault(word, 0) + 1);
+        return map;
     }
 
     /**
@@ -99,6 +111,11 @@ public class WordCount {
      * 第三个参数是 remap（重映射函数），想想该方法引用应该是什么。
      */
     public static Map<String, Integer> countWithMerge(List<String> words) {
-        throw new UnsupportedOperationException("TODO Q1-3");
+        Map<String, Integer> map = new HashMap<>();
+       for (String word : words){
+           //这个方法第一次使用觉得很方便，很像getOrDefault，但是可以使用这种表达式Integer::sum表示两个数相加
+           map.merge(word, 1, Integer::sum);
+       }
+       return map;
     }
 }
