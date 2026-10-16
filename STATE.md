@@ -5,7 +5,7 @@
 >
 > **新机器开工第一件事：读本文件。** 收工最后一件事：更新本文件并 push。
 
-**最后更新**：2026-10-09（计划二次修订完成；仓库已推送）
+**最后更新**：2026-10-09（计划二次修订 + **JDK 17 → 21 升级**；仓库已推送）
 
 ---
 
@@ -64,7 +64,7 @@ Day 9 复述检验 10 题只对 4 题。
 | 项 | 公司 | 家里 |
 |---|---|---|
 | 仓库 | `D:\code\training` | 任意路径 `git clone` |
-| JDK | `D:\Tool\jdk\jdk17` | 任意 JDK 17（`pom.xml` **未写死路径**） |
+| JDK | **21**（`D:\Tool\jdk\jdk21`，已是当前默认） | **任意 JDK 21**（`pom.xml` 用 `maven.compiler.release=21`，未写死路径） |
 | Maven | 3.9.15 | 任意 3.9+ |
 | MySQL | `D:\Tool\mysql-8.0.46-winx64` | 装 MySQL 8.0 即可 |
 
@@ -122,6 +122,11 @@ origin  https://github.com/sgd-IT/training.git
 **持久层**：**MyBatis-Plus 为主 + 原生 MyBatis 对照**（Day 42–43）。
 
 **协议手写**：RESP + AMQP 帧 + MQTT 报文 **合并为 Day 19 一天**；MQTT 客户端实验台 Day 50。
+
+**☕ JDK 21**（公司也是 21，新语法写出来直接能用；**不开 `--enable-preview`**）：
+- **虚拟线程 → Day 26**（并入线程池选型，不加天）
+- Sequenced Collections → Day 13；Record → Day 14；switch 模式匹配 → Day 38；ZGC + 虚拟线程栈 → Day 33
+- ⭐ 串联线：Day 25 手写迷你线程池 → Day 26 虚拟线程 → **Day 31 SSE 对照实验** → Phase 5 流式 Agent → 项目 `spring.threads.virtual.enabled=true`
 
 **🔥 保温规则**：非 Java 日（Phase 6 前端）开场必须 **15 min 手写 Java 或 SQL**。
 

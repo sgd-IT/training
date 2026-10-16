@@ -194,6 +194,41 @@
 
 **全课合计：72 个训练日。**
 
+### ☕ 运行环境：JDK 21（2026-10-09 由 17 升级）
+
+> **学员理由**：「按 jdk21 来，因为 jdk21 有虚拟线程等等」。
+> **公司项目也在 JDK 21** —— 所以本课用的新语法，**写出来公司直接能跑**，不需要维护两套写法。
+> 升级时已全量回归：`Tests run: 235, Failures: 0, Errors: 20` —— **零退化**。
+
+| JDK 21 特性 | 状态 | 落在哪 | 怎么用 |
+|---|---|---|---|
+| **虚拟线程**（JEP 444） | ✅ 正式 | **Day 26**（线程池选型：什么时候**不该**用线程池） | ✍️ 真写 |
+| Spring Boot 虚拟线程开关 | 生态 | 项目（`spring.threads.virtual.enabled=true`） | ✍️ 真开 |
+| **Sequenced Collections**（JEP 431） | ✅ 正式 | **Day 13**（`getFirst` / `getLast` / `reversed`） | ✍️ 真写 |
+| **Record**（JEP 395） | ✅ 正式 | **Day 14**（泛型 record）、**Day 20**（JSON DTO） | ✍️ 真写 |
+| **Pattern Matching for switch**（JEP 441） | ✅ 正式 | **Day 38**（重写策略 / 责任链的分发） | ✍️ 真写 |
+| Generational ZGC（JEP 439） | ✅ 正式 | **Day 33**（JVM II） | 📖 讲解 + 参数 |
+| 结构化并发（JEP 453） | ⚠️ **预览** | Day 26 | 📖 **只讲解** |
+| Scoped Values（JEP 446） | ⚠️ **预览** | Day 26 | 📖 **只讲解** |
+| String Templates | ⚠️ 预览 | —— | ⏭️ 跳过 |
+
+> 🔒 **不开预览特性** —— `pom.xml` 里**不加** `--enable-preview`。
+> 训练代码必须在**标准 JDK 21** 下能编译、能跑。
+
+### 🔗 JDK 21 把课程串起来的一条线
+
+```
+Day 25 手写迷你线程池（core/max/队列/拒绝策略的真实语义）
+   ↓ 那"线程池"这套东西的边界在哪？
+Day 26 虚拟线程（为什么不能池化、什么时候它才是答案）
+   ↓
+Day 31 SSE 流式响应  ← 虚拟线程的主场（大量长连接 + 全程等 IO）
+   ↓
+Phase 5 流式 Agent（Day 53 / 58）
+   ↓
+Phase 7 项目：spring.threads.virtual.enabled=true
+```
+
 ### 节奏（2026-10-09 定 · 学员：「计划就好了，我有时候有空频率会高」）
 
 - **不设硬期限，也不设硬性频率。** 有空就多推一天，忙就停 —— **计划本身不因速度快慢而变**。
@@ -229,8 +264,6 @@
 | 并发/异步 | 手写 `Future` 回调链 | 异步的本质 | ❌ 帮不了 |
 | **Spring** | **手写迷你 IOC 容器 + 手写动态代理切面** | 反射、注解、Bean 生命周期、AOP 的本质 | ❌ 帮不了 |
 | 集合 | **手写迷你 `ArrayList`**（Day 9） | 扩容、`size` vs `capacity`、迭代器 `modCount` | ❌ 帮不了 |
-| **AI Agent** 🆕 | **手写 Tool 路由表 + 手写 SSE 流式分帧解析** | 工具调用的分发与结果回填、流式响应的分帧 | ❌ 帮不了 |
-| **前端** 🆕 | **手写 Axios 封装 + 请求/响应拦截器** | 请求生命周期、错误与令牌的统一处理 | ❌ 帮不了 |
 | **协议**（Day 19，**三合一** 🆕） | **手写 RESP + AMQP 帧 + MQTT 报文** | 帧结构、长度前缀、**大端序**、**变长整数**、`byte` 有符号与 `& 0xFF` | ❌ 帮不了 |
 | **AI Agent** 🆕 | **手写余弦相似度 + 暴力 top-k 检索**、**手写 Tool 路由表 / ReAct 循环**、**手写 SSE 分帧** | 向量检索的**机制**、工具调用的分发与结果回填、流式分帧 | ❌ 帮不了 |
 | **前端** 🆕 | **手写 Axios 封装 + 请求/响应拦截器** | 请求生命周期、错误与令牌的统一处理 | ❌ 帮不了 |
@@ -270,8 +303,8 @@
 | Day 10 | **Map 专题 I**：`HashMap` 用法与常用姿势 |
 | Day 11 | **Map 专题 II**：`HashMap` 底层原理（数组+链表+红黑树、hash 扰动、扩容） |
 | Day 12 | **Map 专题 III**：`HashMap` vs `ConcurrentHashMap` vs `Hashtable`（**线程不安全的具体后果**） |
-| Day 13 | Set 家族：`HashSet` / `TreeSet` / `LinkedHashSet`，与 `equals`/`hashCode` 的关系 |
-| Day 14 | 泛型：泛型类 / 泛型方法 / 通配符 `? extends` `? super` / 类型擦除 |
+| Day 13 | Set 家族：`HashSet` / `TreeSet` / `LinkedHashSet`，与 `equals`/`hashCode` 的关系；☕ **JDK 21 Sequenced Collections**：`getFirst` / `getLast` / `reversed`、`SequencedMap` |
+| Day 14 | 泛型：泛型类 / 泛型方法 / 通配符 `? extends` `? super` / **类型擦除**；☕ **Record**：手写 `record Pair<K, V>(K key, V value)` —— 顺便看清 `equals` / `hashCode` / `toString` 是怎么自动生成的（接 Day 7） |
 | Day 15 | 异常：checked vs unchecked、`try-with-resources`、自定义异常、异常链 |
 | Day 16 | Lambda + 函数式接口：`Function` / `Consumer` / `Supplier` / `Predicate` |
 | Day 17 | Stream I：`filter` / `map` / `collect` / `sorted` |
@@ -310,14 +343,14 @@
 | Day 23 | `synchronized`：锁对象、锁方法 vs 锁代码块、可重入 |
 | Day 24 | `wait` / `notify` / `Lock` / `Condition`；`AtomicInteger` 与 CAS |
 | Day 25 | **线程池专题 I**：★ **先手写迷你线程池**（自己实现 core/max/队列/拒绝策略），再对照 `ThreadPoolExecutor` 七参数 |
-| Day 26 | **线程池专题 II**：队列选型、拒绝策略、参数怎么配、监控、优雅关闭 |
+| Day 26 | **线程池专题 II**：队列选型、拒绝策略、参数怎么配、监控、优雅关闭；<br>☕★ **虚拟线程**：`Thread.ofVirtual()` / `newVirtualThreadPerTaskExecutor()`、**为什么不能池化**、**什么场景它才是答案**（IO 密集 + 长连接）、`pin` 住与 `synchronized` 的坑；📖 结构化并发 / Scoped Values（**预览，只讲解不写**） |
 | Day 27 | **线程池专题 III（Spring）**：`ThreadPoolTaskExecutor` 配置、`@Async` 实战 |
 | Day 28 | **异步专题 I**：`Future` / `CompletableFuture` 基础与组合 |
 | Day 29 | **异步专题 II**：异常处理、超时、`commonPool` 的坑、与事务的关系 |
 | Day 30 | 并发工具：`CountDownLatch` / `Semaphore` / `CyclicBarrier` / 并发容器 |
-| **Day 31** | 🆕 **SSE 流式响应 + 长连接**：`SseEmitter` / `Flux`、分帧格式、心跳、断线重连 —— **Agent 打字机效果的地基** ★ 手写：SSE 分帧解析 |
+| **Day 31** | 🆕 **SSE 流式响应 + 长连接**：`SseEmitter` / `Flux`、分帧格式、心跳、断线重连 —— **Agent 打字机效果的地基** ★ 手写：SSE 分帧解析<br>⭐ **对照实验**：平台线程 vs **虚拟线程**（Day 26）扛 1000 个并发长连接，对比线程数与栈内存 |
 | Day 32 | **JVM I**：内存结构、对象创建、栈与堆、用 `jstack` / `jmap` 看现象 |
-| Day 33 | **JVM II**：GC 算法与各收集器、常用参数、怎么定位内存问题 |
+| Day 33 | **JVM II**：GC 算法与各收集器、常用参数、怎么定位内存问题；☕ **Generational ZGC**（`-XX:+UseZGC -XX:+ZGenerational`）、**虚拟线程的栈到底在哪**（堆 vs 栈，为什么它能开百万个） |
 | Day 34 | **L 级综合**：Phase 3 综合 + 错题重写 + 复盘 + SQL 30 min |
 
 > **2026-10-09 说明**：
@@ -367,7 +400,7 @@
 | Day 35 | **设计原则**：单一职责 / 开闭 / 依赖倒置 / 接口隔离 / 里氏替换（结合已有代码回看） |
 | Day 36 | **创建型**：单例（含线程安全写法）、工厂、建造者 |
 | Day 37 | **结构型**：适配器、装饰器、**代理（JDK 动态代理 vs CGLIB）** ← AOP 的地基 |
-| Day 38 | **行为型**：**观察者**（订阅模型的本质）、策略、模板方法、**责任链**（Agent 编排的形状） |
+| Day 38 | **行为型**：**观察者**（订阅模型的本质）、策略、模板方法、**责任链**（Agent 编排的形状）；☕ **switch 模式匹配**（JEP 441）—— 用它把策略 / 责任链的分发重写一遍，看能省掉多少 `if-else` |
 | **Day 39** | **Spring I · IOC**：Bean 生命周期、循环依赖（三级缓存）、`@Autowired` 三种注入 —— ★ **手写迷你 IOC 容器**（注解扫描 + 反射实例化 + 依赖注入） |
 | **Day 40** | **Spring II · AOP**：JDK 动态代理 vs CGLIB、切面顺序、`@Transactional` 为什么失效 —— ★ **手写动态代理切面**（自己实现一个简易 `@Log`） |
 | **Day 41** | **Spring III · 事务 + MVC**：**传播行为**（`REQUIRED`/`REQUIRES_NEW`/`NESTED`）、失效场景、隔离级别；MVC 请求流程、参数绑定、**统一返回体 / 全局异常处理 / 参数校验（JSR-303）** |
@@ -935,7 +968,7 @@ D:\code\training\                （2026-09-17 起纳入 git 管理）
 │   ├── 01_seed.sql              灌 65 万行（确定性公式，可复现，不用 RAND）
 │   └── s1.sql                   S1 练习单（A 手写 4 题 / B B+Tree 实验 / C 闭卷）
 └── practice\                    ← Maven 项目 com.training:java-basics-practice
-    ├── pom.xml                  JDK 17 / JUnit Jupiter 5.10.2 / surefire 3.2.5
+    ├── pom.xml                  **JDK 21** / JUnit Jupiter 5.10.2 / surefire 3.2.5
     │                            （**未写死 JDK 路径**，换机器不用改）
     └── src\
         ├── main\java\com\training\day01 ~ day10\
@@ -1007,3 +1040,9 @@ SQL 库**不需要通过 git 传**：`00_setup.sql` + `01_seed.sql` 是确定性
 | 2026-10-09 | **不设硬期限**（学员：「计划就好了，我有时候有空频率会高」）：改为「**参考节奏 2.5 天/周 + 每次开工收工记一笔**」，用真实数据驱动后续调整，而不是拍一个日期 |
 | 2026-10-09 | 🟡 **Day 51 留 1 天空位（待学员确认）**：候选 **认证鉴权（JWT / Spring Security 入门）** · 日志与可观测性（MDC + traceId） · 定时任务 |
 | 2026-10-09 | 🟡 **Phase 7 项目选题待确认**（当前写的是"带 RAG 的知识库问答 Agent"，可换） |
+| 2026-10-09 | ☕ **运行环境由 JDK 17 升级到 JDK 21**（学员：「按 jdk21 来，因为 jdk21 有虚拟线程等等」）。`pom.xml` 的 `maven.compiler.release` 17 → 21；**全量回归 235 测试零退化**；**不开 `--enable-preview`**，训练代码必须在标准 JDK 21 下可编译可运行 |
+| 2026-10-09 | **确认公司项目也在 JDK 21** → 本课用的新语法写出来公司直接能跑，不需要维护两套写法 |
+| 2026-10-09 | ☕ **虚拟线程并入 Day 26**（学员选择，**不加天**，全课仍 72 天）：Day 26「线程池选型」加一节「**什么时候不该用线程池**」—— `Thread.ofVirtual()`、**为什么不能池化**、IO 密集 + 长连接场景、`pin` 住与 `synchronized` 的坑；📖 结构化并发 / Scoped Values 预览特性**只讲解不写** |
+| 2026-10-09 | ☕ **JDK 21 新语法并进相关专题**（学员选择，**不加天**）：**Sequenced Collections → Day 13**（`getFirst`/`getLast`/`reversed`）、**Record → Day 14**（泛型 record，顺带看 `equals`/`hashCode` 怎么自动生成）、**switch 模式匹配 → Day 38**（重写策略 / 责任链分发）、**Generational ZGC + 虚拟线程栈 → Day 33** |
+| 2026-10-09 | ⭐ **新增 JDK 21 串联线索**：Day 25 手写迷你线程池 → Day 26 虚拟线程 → **Day 31 SSE 对照实验（平台线程 vs 虚拟线程扛 1000 并发长连接）** → Phase 5 流式 Agent → 项目 `spring.threads.virtual.enabled=true` |
+| 2026-10-09 | 🐛 修 §七 手写底层表**重复的两行**（AI Agent / 前端 各出现两次） |
