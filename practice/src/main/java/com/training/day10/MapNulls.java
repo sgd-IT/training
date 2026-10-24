@@ -86,12 +86,15 @@ public class MapNulls {
      * 用 get()==null 的写法会在这里露馅。
      */
     public static int readOrMinusOne(Map<String, Integer> map, String key) {
-        throw new UnsupportedOperationException("TODO Q4-1");
+        if (!map.containsKey(key)) {
+            return -1;
+        }
+        return map.get(key);
     }
 
     /** 键不存在时返回默认值。一行。 */
     public static int readOrDefault(Map<String, Integer> map, String key, int defaultValue) {
-        throw new UnsupportedOperationException("TODO Q4-2");
+        return map.getOrDefault(key, defaultValue);
     }
 
     /**
@@ -100,7 +103,7 @@ public class MapNulls {
      * @return putIfAbsent 的返回值 —— 被挡住的旧值；成功放入时是 null
      */
     public static Integer putIfAbsentReturnsOld(Map<String, Integer> map, String key, int value) {
-        throw new UnsupportedOperationException("TODO Q4-3");
+        return map.putIfAbsent(key, value);
     }
 
     /**
@@ -109,7 +112,7 @@ public class MapNulls {
      * 这是"新用户也要被统计进来"的语义。
      */
     public static void increaseByMerge(Map<String, Integer> map, String key, int delta) {
-        throw new UnsupportedOperationException("TODO Q4-4");
+        map.merge(key, delta, Integer::sum);
     }
 
     /**
@@ -118,6 +121,6 @@ public class MapNulls {
      * 这是"只处理老用户"的语义 —— 和 Q4-4 只差一个词，结果完全不同。
      */
     public static void increaseOnlyIfPresent(Map<String, Integer> map, String key, int delta) {
-        throw new UnsupportedOperationException("TODO Q4-5");
+        map.computeIfPresent(key, (k, v) -> v + delta);
     }
 }

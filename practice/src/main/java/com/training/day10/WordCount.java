@@ -83,11 +83,11 @@ public class WordCount {
      */
     public static Map<String, Integer> countWithContainsKey(List<String> words) {
         Map<String, Integer> map = new HashMap<>();
-        for(String word : words){
-            if (map.containsKey(word)){
-                map.put(word,map.get(word)+1);
-            }else{
-                map.put(word,1);
+        for (String word : words) {
+            if (map.containsKey(word)) {
+                map.put(word, map.get(word) + 1);
+            } else {
+                map.put(word, 1);
             }
         }
         return map;
@@ -112,10 +112,10 @@ public class WordCount {
      */
     public static Map<String, Integer> countWithMerge(List<String> words) {
         Map<String, Integer> map = new HashMap<>();
-       for (String word : words){
-           //这个方法第一次使用觉得很方便，很像getOrDefault，但是可以使用这种表达式Integer::sum表示两个数相加
-           map.merge(word, 1, Integer::sum);
-       }
-       return map;
+        for (String word : words) {
+            //这个方法第一次使用觉得很方便，很像getOrDefault，但是可以使用这种表达式Integer::sum表示两个数相加
+            map.merge(word, 1, Integer::sum);
+        }
+        return map;
     }
 }

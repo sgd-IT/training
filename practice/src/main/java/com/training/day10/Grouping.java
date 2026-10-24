@@ -1,5 +1,7 @@
 package com.training.day10;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -71,8 +73,8 @@ import java.util.Map;
  * <p>
  * ⚠️ 先预测，再跑（写【输出值】）：
  * <pre>
- * // 预测：groupByLengthWithLoop(["a","bb","c"]) → ____
- * // 预测：groupByLengthWithComputeIfAbsent([])  → ____
+ * // 预测：groupByLengthWithLoop(["a","bb","c"]) → {1=[a, c], 2=[bb]}
+ * // 预测：groupByLengthWithComputeIfAbsent([])  → {}
  * </pre>
  */
 public class Grouping {
@@ -84,7 +86,17 @@ public class Grouping {
      * 写完之后回头看一眼：这几行里，有哪一个字是真正跟"长度"有关的？
      */
     public static Map<Integer, List<String>> groupByLengthWithLoop(List<String> words) {
-        throw new UnsupportedOperationException("TODO Q2-1");
+        Map<Integer, List<String>> map = new HashMap<>();
+        for (String word : words) {
+            int len = word.length();
+            List<String> bucket = map.get(len);
+            if (bucket == null) {
+                bucket = new ArrayList<>();
+                map.put(len, bucket);
+            }
+            bucket.add(word);
+        }
+        return map;
     }
 
     /**
@@ -93,6 +105,11 @@ public class Grouping {
      * 想清楚：lambda 什么时候会被执行？执行几次？
      */
     public static Map<Integer, List<String>> groupByLengthWithComputeIfAbsent(List<String> words) {
-        throw new UnsupportedOperationException("TODO Q2-2");
+        Map<Integer, List<String>> map = new HashMap<>();
+        for (String word : words) {
+            int len = word.length();
+            map.computeIfAbsent(len, k -> new ArrayList<>()).add(word);
+        }
+        return map;
     }
 }

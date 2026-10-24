@@ -1,5 +1,6 @@
 package com.training.day10;
 
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -81,9 +82,9 @@ import java.util.Map;
  * <p>
  * ⚠️ 先预测，再跑（写【输出值】）：
  * <pre>
- * // 预测：sumByEntrySet({a=1, b=2, c=3}) → ____
- * // 预测：sumByEntrySet({})               → ____
- * // 预测：removeBelowByIterator({a=1, b=5, c=5}, 5) 后 map = ____
+ * // 预测：sumByEntrySet({a=1, b=2, c=3}) → 6
+ * // 预测：sumByEntrySet({})               → 0
+ * // 预测：removeBelowByIterator({a=1, b=5, c=5}, 5) 后 map = {b=5, c=5}
  * </pre>
  */
 public class MapTraversal {
@@ -95,12 +96,21 @@ public class MapTraversal {
      * 累加时注意拆箱：值本身是 Integer。
      */
     public static int sumByKeySet(Map<String, Integer> map) {
-        throw new UnsupportedOperationException("TODO Q3-1");
+        int sum = 0;
+        for (String s : map.keySet()) {
+            int v = map.get(s);
+            sum += v;
+        }
+        return sum;
     }
 
     /** 用 entrySet() 求和。对照 Q3-1，哪一版更该出现在生产代码里？ */
     public static int sumByEntrySet(Map<String, Integer> map) {
-        throw new UnsupportedOperationException("TODO Q3-2");
+        int sum = 0;
+        for (Map.Entry<String, Integer> e : map.entrySet()) {
+            sum += e.getValue();
+        }
+        return sum;
     }
 
     /**
@@ -110,11 +120,17 @@ public class MapTraversal {
      * 判断 e.getValue() 是否达标 → it.remove()。
      */
     public static void removeBelowByIterator(Map<String, Integer> map, int limit) {
-        throw new UnsupportedOperationException("TODO Q3-3");
+        Iterator<Map.Entry<String, Integer>> it = map.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<String, Integer> e = it.next();
+            if (e.getValue() < limit) {
+                it.remove();
+            }
+        }
     }
 
     /** 原地删除 value &lt; limit 的条目 —— **用 removeIf**，一行。 */
     public static void removeBelowByRemoveIf(Map<String, Integer> map, int limit) {
-        throw new UnsupportedOperationException("TODO Q3-4");
+        map.entrySet().removeIf(e -> e.getValue() < limit);
     }
 }
