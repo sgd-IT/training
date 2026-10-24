@@ -68,10 +68,10 @@ import java.util.Map;
  * <p>
  * ⚠️ 先预测，再跑（写【输出值】—— 这两题是本日的分水岭）：
  * <pre>
- * // 预测：increaseByMerge(new HashMap&lt;&gt;(), "a", 5)        → map = ____
- * // 预测：increaseOnlyIfPresent(new HashMap&lt;&gt;(), "a", 5)  → map = ____
- * // 预测：{a=1} 上 increaseByMerge(map, "a", 5)            → map = ____
- * // 预测：{a=1} 上 increaseOnlyIfPresent(map, "a", 5)      → map = ____
+ * // 预测：increaseByMerge(new HashMap&lt;&gt;(), "a", 5)        → map = {a=5}
+ * // 预测：increaseOnlyIfPresent(new HashMap&lt;&gt;(), "a", 5)  → map = {}
+ * // 预测：{a=1} 上 increaseByMerge(map, "a", 5)            → map = {a=6}
+ * // 预测：{a=1} 上 increaseOnlyIfPresent(map, "a", 5)      → map = {a=6}
  * </pre>
  * <p>
  * 注意 Q4-4 / Q4-5 都是返回 void、原地改 map（和 Q3-3 / Q3-4 一样）。

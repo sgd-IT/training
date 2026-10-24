@@ -1,5 +1,8 @@
 package com.training.day11;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Day 11 - Q2: HashSpread —— 那个 {@code h ^ (h >>> 16)} 到底在救什么
  * <p>
@@ -50,19 +53,12 @@ package com.training.day11;
  * ═══════════════════════════════════════════════════════════
  * TODO 清单
  * ═══════════════════════════════════════════════════════════
- *   TODO Q2-1: <b>indexWithoutSpread</b>(hashCode, capacity)
- *              不扰动，直接取低位。一行
- *   TODO Q2-2: <b>disturb</b>(hashCode)
- *              JDK 8 的扰动：h ^ (h &gt;&gt;&gt; 16)。一行
- *   TODO Q2-3: <b>countUsedBuckets</b>(hashCodes, capacity, spread)
- *              返回"这些 hashCode 一共落到几个不同的桶里"。
- *              这是**度量冲突程度**的指标：桶越少 = 冲突越重
  * <p>
  * ⚠️ 先预测，再跑（写【输出值】，别写"应该会变好"）：
  * <pre>
  * // 预测：hashCodes = {0x0000_0000, 0x0001_0000, 0x0002_0000, 0x0003_0000}, capacity = 16
- * //       不扰动时用到了几个桶？ → ____
- * //       扰动后用到了几个桶？   → ____
+ * //       不扰动时用到了几个桶？ → 1
+ * //       扰动后用到了几个桶？   → 4
  * </pre>
  * ⚠️ countUsedBuckets 别用 Set&lt;Integer&gt; 就交差 —— 用 Set 是可以，
  * 但你要能回答：**这里用 Set 统计，和 Map 内部的"桶"是同一件事吗？**
@@ -76,7 +72,7 @@ public class HashSpread {
      * 一行。动手前先想：capacity 是 2 的幂，取低位的位运算是什么？
      */
     static int indexWithoutSpread(int hashCode, int capacity) {
-        throw new UnsupportedOperationException("TODO Q2-1");
+        return hashCode & (capacity - 1);
     }
 
     /**
@@ -89,7 +85,7 @@ public class HashSpread {
      * hashCode 完全可能是负数，这里用 {@code >>} 就错了。
      */
     static int disturb(int hashCode) {
-        throw new UnsupportedOperationException("TODO Q2-2");
+        return hashCode ^ (hashCode >>> 16);
     }
 
     /**
@@ -99,9 +95,15 @@ public class HashSpread {
      * @param capacity  桶数组容量（2 的幂）
      * @param spread    true 表示先扰动再算下标；false 表示不扰动
      * @return 用到的不同桶的数量。设 n = hashCodes.length，
-     *         返回值最小 1（全挤在一个桶），最大 min(n, capacity)（全散开）
+     * 返回值最小 1（全挤在一个桶），最大 min(n, capacity)（全散开）
      */
     static int countUsedBuckets(int[] hashCodes, int capacity, boolean spread) {
-        throw new UnsupportedOperationException("TODO Q2-3");
+        Set<Integer> buckets = new HashSet<>();
+        for (int hashCode : hashCodes) {
+            int h = spread ? disturb(hashCode) : hashCode;
+            int index = h & (capacity - 1);
+            buckets.add(index);
+        }
+        return buckets.size();
     }
 }

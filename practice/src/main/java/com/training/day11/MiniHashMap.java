@@ -1,5 +1,7 @@
 package com.training.day11;
 
+import java.util.Objects;
+
 /**
  * Day 11 - Q1: MiniHashMap —— 用你的手走一遍 HashMap 的主干
  * <p>
@@ -48,10 +50,6 @@ package com.training.day11;
  * ═══════════════════════════════════════════════════════════
  * TODO 清单
  * ═══════════════════════════════════════════════════════════
- *   TODO Q1-1: indexFor(hash, capacity)  —— 一行，算出桶下标
- *   TODO Q1-2: get(key)                  —— 算下标 → 遍历链表 → 比对 key
- *   TODO Q1-3: put(key, value)           —— 键在就覆盖并返回旧值；不在就插到链表
- *   TODO Q1-4: resize()                  —— 容量翻倍，把所有 Node 重新挂一遍
  * <p>
  * ⚠️ 三条硬要求（测试会盯死）：
  * <pre>
@@ -61,22 +59,28 @@ package com.training.day11;
  * </pre>
  * ⚠️ 先预测，再跑（写【输出值】）：
  * <pre>
- * // 预测：new MiniHashMap&lt;&gt;() 的 capacity 和 threshold     → ____
- * // 预测：连续 put 13 个不同键之后，capacity 和 size        → ____
- * // 预测：put("a",1) 之后再 put("a",2) 的返回值             → ____
+ * // 预测：new MiniHashMap&lt;&gt;() 的 capacity 和 threshold     → ____12,0.75
+ * // 预测：连续 put 13 个不同键之后，capacity 和 size        → ____16,13
+ * // 预测：put("a",1) 之后再 put("a",2) 的返回值             → ____1
  * </pre>
  * ⚠️ 别去抄 JDK 的 HashMap 源码 —— 它为了性能写得极其扭曲（懒初始化、
  * treeify、成环检测、红黑树分裂）。你要写的是**能讲清楚原理的版本**，不是它的复制品。
  */
 public class MiniHashMap<K, V> {
 
-    /** 初始容量：16，必须是 2 的幂。 */
+    /**
+     * 初始容量：16，必须是 2 的幂。
+     */
     static final int DEFAULT_CAPACITY = 16;
 
-    /** 负载因子 0.75f。 */
+    /**
+     * 负载因子 0.75f。
+     */
     static final float LOAD_FACTOR = 0.75f;
 
-    /** 链表节点。hash 存下来是为了 resize 时不用重算，也为了 get 时先比 hash。 */
+    /**
+     * 链表节点。hash 存下来是为了 resize 时不用重算，也为了 get 时先比 hash。
+     */
     static final class Node<K, V> {
         final int hash;
         final K key;
@@ -91,14 +95,20 @@ public class MiniHashMap<K, V> {
         }
     }
 
-    /** 桶数组。注意泛型擦除：这里只能是 Node[]，不能是 Node&lt;K,V&gt;[]（Day 10 复述检验 #1 刚讲过）。 */
+    /**
+     * 桶数组。注意泛型擦除：这里只能是 Node[]，不能是 Node&lt;K,V&gt;[]（Day 10 复述检验 #1 刚讲过）。
+     */
     @SuppressWarnings("unchecked")
     Node<K, V>[] table = (Node<K, V>[]) new Node[DEFAULT_CAPACITY];
 
-    /** 已存键值对个数。 */
+    /**
+     * 已存键值对个数。
+     */
     int size;
 
-    /** 扩容阈值 = capacity × LOAD_FACTOR。 */
+    /**
+     * 扩容阈值 = capacity × LOAD_FACTOR。
+     */
     int threshold = (int) (DEFAULT_CAPACITY * LOAD_FACTOR);
 
     public int size() {
@@ -109,7 +119,9 @@ public class MiniHashMap<K, V> {
         return size == 0;
     }
 
-    /** 供测试观察 —— 真实 HashMap 没有这个公开方法，这里是为了让你"看得见"。 */
+    /**
+     * 供测试观察 —— 真实 HashMap 没有这个公开方法，这里是为了让你"看得见"。
+     */
     public int capacity() {
         return table.length;
     }
@@ -131,18 +143,20 @@ public class MiniHashMap<K, V> {
     // ═══════════════════════════════════════════════════════════
     // TODO Q1-1
     // ═══════════════════════════════════════════════════════════
+
     /**
      * 由 hash 算出数组下标，返回 0..capacity-1。
      * <p>
      * 一行。想想为什么是 {@code &amp;} 而不是 {@code %}（注释里已经写了，但你要能自己讲出来）。
      */
     static int indexFor(int hash, int capacity) {
-        throw new UnsupportedOperationException("TODO Q1-1");
+        return hash & (capacity - 1);
     }
 
     // ═══════════════════════════════════════════════════════════
     // TODO Q1-2
     // ═══════════════════════════════════════════════════════════
+
     /**
      * 查值。
      * <p>
@@ -155,12 +169,22 @@ public class MiniHashMap<K, V> {
      * 找不到返回 null。
      */
     public V get(K key) {
-        throw new UnsupportedOperationException("TODO Q1-2");
+        int hash = hash(key);
+        int index = indexFor(hash, capacity());
+        Node<K, V> node = table[index];
+        while (node != null) {
+            if (node.hash == hash && Objects.equals(node.key, key)) {
+                return node.value;
+            }
+            node = node.next;
+        }
+        return null;
     }
 
     // ═══════════════════════════════════════════════════════════
     // TODO Q1-3
     // ═══════════════════════════════════════════════════════════
+
     /**
      * 存值，返回**被覆盖的旧值**（新键返回 null）。
      * <p>
@@ -172,10 +196,45 @@ public class MiniHashMap<K, V> {
      *   ④ size++；然后 **如果 size &gt; threshold 就 resize()**
      * </pre>
      * ⚠️ 顺序坑：先 put、后判阈值，还是先判阈值、后 put？两种都能过测试，
-     *    但要能说出你选的那种在"容量刚好卡在 12"时差在哪。
+     * 但要能说出你选的那种在"容量刚好卡在 12"时差在哪。
      */
+
+//    我自己对这个put插入的逻辑理解
+//
+//   1. 先计算下标，找到对应的桶、
+//    2.有几种情况   桶为空   桶不为空
+//    3.桶为空那就直接插入，更新元素总数 判断是否大于阈值
+//    4.桶不为空，遍历链表  如果有相同的key那就覆盖value
+//    5.如果都没有那就在链表最后尾插节点
+//    6.直接插入就好，要更新元素总数，判断是否大于阀值
     public V put(K key, V value) {
-        throw new UnsupportedOperationException("TODO Q1-3");
+        int hash = hash(key);
+        int index = indexFor(hash, capacity());
+        Node<K, V> node = table[index];
+
+        //桶为空，直接放
+        if (node == null) {
+            table[index] = new Node<>(hash, key, value, null);
+            size++;
+            if (size > threshold) resize();
+            return null;
+        }
+
+        Node<K, V> lastNode = node;
+        while (node != null) {
+            if (node.hash == hash && Objects.equals(node.key, key)) {
+                V oldValue = node.value;
+                node.value = value;
+                return oldValue;
+            }
+            lastNode = node;
+            node = node.next;
+        }
+        //没有相同的key就尾插节点
+        lastNode.next = new Node<>(hash, key, value, null);
+        size++;
+        if (size > threshold) resize();
+        return null;
     }
 
     public boolean containsKey(K key) {
@@ -185,6 +244,7 @@ public class MiniHashMap<K, V> {
     // ═══════════════════════════════════════════════════════════
     // TODO Q1-4
     // ═══════════════════════════════════════════════════════════
+
     /**
      * 扩容：容量翻倍，把旧数组里所有节点**重新算下标**挂到新数组上。
      * <p>
@@ -203,6 +263,22 @@ public class MiniHashMap<K, V> {
      */
     @SuppressWarnings("unchecked")
     private void resize() {
-        throw new UnsupportedOperationException("TODO Q1-4");
+        int oldCap = table.length;
+        //创建新数组
+        int newCap = oldCap * 2;
+        threshold = (int) (newCap * LOAD_FACTOR);
+        Node<K, V>[] newTable = (Node<K, V>[]) new Node[newCap];
+
+        for (int i = 0; i < oldCap; i++) {
+            Node<K, V> node = table[i];
+            while (node != null) {
+                Node<K, V> next = node.next;
+                int index = indexFor(node.hash, newCap);
+                node.next = newTable[index];
+                newTable[index] = node;
+                node = next;
+            }
+        }
+        table = newTable;
     }
 }
