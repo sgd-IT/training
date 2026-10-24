@@ -30,6 +30,11 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.2.5</version>
+        <configuration>
+          <!-- Day 11 起测试要用反射读 HashMap 的私有字段（table / threshold）。
+               JDK 17+ 的模块系统需要显式开这个口子，否则抛 InaccessibleObjectException。 -->
+          <argLine>--add-opens java.base/java.util=ALL-UNNAMED</argLine>
+        </configuration>
       </plugin>
     </plugins>
   </build>

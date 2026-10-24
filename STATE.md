@@ -5,7 +5,7 @@
 >
 > **新机器开工第一件事：读本文件。** 收工最后一件事：更新本文件并 push。
 
-**最后更新**：2026-10-24（**Day 10 收官 235/235**；Day 9 的 4 条复述欠账全部结清）
+**最后更新**：2026-10-24（**Day 11 脚手架已交付**：264 个测试，243 绿 / 21 红）
 
 ---
 
@@ -14,25 +14,25 @@
 | 项 | 值 |
 |---|---|
 | 已完成 | Day 1 – 10（Day 10 收官 **235/235 全绿**） |
-| **当前训练日** | **Day 11 · Map 专题 II（HashMap 底层原理）** —— 待开场 |
-| 下一训练日 | Day 12（Map 专题 III） |
-| 测试基线 | `Tests run: 235, Failures: 0, Errors: 0` ✅ |
-| **交付目标** | 已达成 |
+| **当前训练日** | **Day 11 · Map 专题 II（HashMap 底层原理）** —— 脚手架已发，**7 个 TODO 待实现** |
+| 下一训练日 | Day 12 · Map 专题 III（HashMap vs ConcurrentHashMap vs Hashtable） |
+| 测试基线 | `Tests run: 264, Failures: 0, Errors: 21`（243 绿 + 21 红） |
+| **交付目标** | `mvn test` → **264 全绿** |
 
 ---
 
-## 二、Day 11 开场待办
+## 二、Day 11 待办（7 个 TODO）
 
-**闭卷，答完才发题目：**
+| 题 | 文件 | TODO | 状态 |
+|---|---|---|---|
+| **Q1** ★★ | `MiniHashMap.java` | Q1-1 `indexFor` / Q1-2 `get` / Q1-3 `put` / Q1-4 `resize` | ⬜ 4 个未实现 |
+| **Q2** ★ | `HashSpread.java` | Q2-1 `indexWithoutSpread` / Q2-2 `disturb` / Q2-3 `countUsedBuckets` | ⬜ 3 个未实现 |
+| **Q3** | `HashMapFactsTest.java` | 无 TODO | ✅ **只读**，7 个天然绿 |
 
-| # | 题目 |
-|---|---|
-| 1 | `get` 返回 null 的两种可能，怎么区分 |
-| 2 | `merge` 与 `computeIfPresent` 在"键不存在"时各做什么 |
-| 3 | `computeIfAbsent` 为什么能直接 `.add()` |
-| 4 | `getOrDefault(k, new ArrayList<>()).add(w)` 错在哪 |
-| 5 | `keySet()+get()` 不如 `entrySet()` 的原因 |
-| 6 | `putIfAbsent` 的返回值是什么 |
+**Day 11 开场已答完的 6 题**（Day 10 带入，得分 4 对 / 1 半 / 1 错），明细在 `logs/2026-10-24-day11.md`。
+
+**⚠️ 唯一的结构性错误**：`computeIfAbsent` 为什么能直接 `.add()` —— 学员答"因为 add 是用在 list 上的"。
+正确是"**它把桶返回出来了**"。这条要在 Q1/Q2 做完时回收。
 
 **同时补**：`MapNulls.java` 头部 4 条预测仍是 `____`（第 5 条硬规矩欠账），
 要填的输入是：空 Map / `{a=1}` 上分别调 `increaseByMerge` 与 `increaseOnlyIfPresent`。
