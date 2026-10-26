@@ -5,7 +5,7 @@
 >
 > **新机器开工第一件事：读本文件。** 收工最后一件事：更新本文件并 push。
 
-**最后更新**：2026-10-24（**Day 11 脚手架已交付**：264 个测试，243 绿 / 21 红）
+**最后更新**：2026-10-26（**Day 12 脚手架已交付**：272 个测试，267 绿 / 5 红）
 
 ---
 
@@ -13,33 +13,45 @@
 
 | 项 | 值 |
 |---|---|
-| 已完成 | Day 1 – 10（Day 10 收官 **235/235 全绿**） |
-| **当前训练日** | **Day 11 · Map 专题 II（HashMap 底层原理）** —— 脚手架已发，**7 个 TODO 待实现** |
-| 下一训练日 | Day 12 · Map 专题 III（HashMap vs ConcurrentHashMap vs Hashtable） |
-| 测试基线 | `Tests run: 264, Failures: 0, Errors: 21`（243 绿 + 21 红） |
-| **交付目标** | `mvn test` → **264 全绿** |
+| 已完成 | Day 1 – 11（Day 11 收官 **264/264 全绿**） |
+| **当前训练日** | **Day 12 · Map 专题 III（线程安全）** —— 脚手架已发，**3 个 TODO 待实现** |
+| 下一训练日 | Day 13 · Set 家族 + ☕ JDK 21 Sequenced Collections |
+| 测试基线 | `Tests run: 272, Failures: 2, Errors: 3` |
+| **交付目标** | `mvn test` → **272 全绿** |
 
 ---
 
-## 二、Day 11 待办（7 个 TODO）
+## 二、Day 12 待办（3 个 TODO）
 
-| 题 | 文件 | TODO | 状态 |
+| 题 | 方法 | 要写什么 | 预期 |
 |---|---|---|---|
-| **Q1** ★★ | `MiniHashMap.java` | Q1-1 `indexFor` / Q1-2 `get` / Q1-3 `put` / Q1-4 `resize` | ⬜ 4 个未实现 |
-| **Q2** ★ | `HashSpread.java` | Q2-1 `indexWithoutSpread` / Q2-2 `disturb` / Q2-3 `countUsedBuckets` | ⬜ 3 个未实现 |
-| **Q3** | `HashMapFactsTest.java` | 无 TODO | ✅ **只读**，7 个天然绿 |
+| **Q1** | `RaceLab.checkThenAct` | 普通 `HashMap`：get / +1 / put 三步 | 🔴 会丢更新 |
+| **Q2** | `RaceLab.synchronizedCheckThenAct` | 三步包在 `synchronized (map)` 里 | 🟢 精确 |
+| **Q3** | `RaceLab.atomicWithMerge` | `ConcurrentHashMap` + 一行原子方法 | 🟢 精确 |
 
-**Day 11 开场已答完的 6 题**（Day 10 带入，得分 4 对 / 1 半 / 1 错），明细在 `logs/2026-10-24-day11.md`。
-
-**⚠️ 唯一的结构性错误**：`computeIfAbsent` 为什么能直接 `.add()` —— 学员答"因为 add 是用在 list 上的"。
-正确是"**它把桶返回出来了**"。这条要在 Q1/Q2 做完时回收。
-
-**同时补**：`MapNulls.java` 头部 4 条预测仍是 `____`（第 5 条硬规矩欠账），
-要填的输入是：空 Map / `{a=1}` 上分别调 `increaseByMerge` 与 `increaseOnlyIfPresent`。
+**另有 5 个天然绿**（`RaceLabTest`）：精确交错的丢失更新演示、CHM 拒绝 null 键/值、
+`Hashtable` 拒绝 null、`HashMap` 允许 null。
 
 ---
 
-## 三、✅ 复述检验欠账已结清（2026-10-24）
+## 三、🔴 Day 12 开工前必须先还原（学员实验残留）
+
+学员在 Day 11 做 `capacity = 15` 实验时，**直接改了生产代码且没还原**：
+
+| 文件 | 问题 |
+|---|---|
+| `MiniHashMap.java` | `DEFAULT_CAPACITY = 16` 被改成 **15** |
+| `MiniHashMap.java` | 多了一个实验用的 `main` 方法 |
+
+**后果**：`MiniHashMapTest` 2 个测试红（`capacity was 15`、扩容后 `30`）。
+
+> 这本身就是 `15` 是错的**活证据** —— 你改了它，测试立刻告诉你 15 撑不住。
+> 但实验完必须还原：**实验代码不进生产文件，`main` 不留。**
+> 正确做法是 IDEA 里 `git checkout -- 文件` 或 `Ctrl+Z`，或者干脆用 jshell。
+
+---
+
+## 四、✅ 复述检验欠账已结清（2026-10-24）
 
 Day 9 的 4 条已在 2026-10-24 全部答到"能进访谈"的深度：
 
