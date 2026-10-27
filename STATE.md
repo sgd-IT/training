@@ -5,7 +5,7 @@
 >
 > **新机器开工第一件事：读本文件。** 收工最后一件事：更新本文件并 push。
 
-**最后更新**：2026-10-27（**Day 13 脚手架已交付**：287 个测试，280 绿 / 7 红）
+**最后更新**：2026-10-28（**Day 14 脚手架已交付**：303 个测试，292 绿 / 11 红；**训练流程本日起变更**）
 
 ---
 
@@ -13,25 +13,39 @@
 
 | 项 | 值 |
 |---|---|
-| 已完成 | Day 1 – 12（Day 12 收官 **275/275 全绿**） |
-| **当前训练日** | **Day 13 · Set 家族 + ☕ JDK 21 Sequenced Collections** —— 脚手架已发，**5 个 TODO 待实现** |
-| 下一训练日 | Day 14 · 泛型 + ☕ JDK 21 Record |
-| 测试基线 | `Tests run: 287, Failures: 0, Errors: 7` |
-| **交付目标** | `mvn test` → **287 全绿** |
+| 已完成 | Day 1 – 13（Day 13 收官 **288/288 全绿**） |
+| **当前训练日** | **Day 14 · 泛型 + ☕ JDK 21 Record** —— 脚手架已发，**4 个 TODO 待实现** |
+| 下一训练日 | Day 15 · 异常（checked / try-with-resources / 自定义异常 / 异常链） |
+| 测试基线 | `Tests run: 303, Failures: 1, Errors: 10` |
+| **交付目标** | `mvn test` → **303 全绿** |
 
 ---
 
-## 二、Day 13 待办（5 个 TODO）
+## 二、🔧 训练流程变更（2026-10-27 学员确认，第 7 条）
 
-| 题 | 方法 | 练到什么 |
+背景：Day 10–13 连续四天"代码全绿、机制题全空"；Day 13 收尾 6 题只对 1 题，
+而答案就写在当天文件的类注释里。
+
+| 项 | 原来 | 现在 |
 |---|---|---|
-| **Q1** | `SetLab.dedupePreservingOrder` | 去重 + 保序 → 该选哪种 Set |
-| **Q2** | `SetLab.dedupeSortedByLength` | 全序比较器（长度 → 内容） |
-| **Q3-1~3** | `first` / `last` / `reversedList` | JDK 21 `SequencedCollection` |
+| 每日开工 | 直接看 TODO | **先通读当天文件的类注释**（标 `★ 必读`） |
+| 收尾机制题 | 6 题闭卷 | **3 题**，每题必须讲清机制，不许只给名词 |
 
-**另有 5 个天然绿**（`SetLabTest`），全是 Set 的脾气，**必须先读**：
-`HashSet` 无顺序 / `LinkedHashSet` 保序、★ `TreeSet` 只比长度的丢数据坑、
-`SortedSet.getFirst()`、空集合 `getFirst()` 抛 `NoSuchElementException`、`SequencedMap` 首尾。
+代价：覆盖面变窄。已记入 README §十四 修订记录。
+
+---
+
+## 三、Day 14 待办（4 个 TODO）
+
+| 题 | 位置 | 练到什么 |
+|---|---|---|
+| **Q1** | `GenericsLab.Pair` | 把普通 class 改成 **`record`** 声明（删掉构造器与访问器） |
+| **Q2** | `maxOf` | 有界类型参数 `<T extends Comparable<T>>` |
+| **Q3** | `sumOf` | PECS 的读：`List<? extends Number>` |
+| **Q4** | `fillWith` | PECS 的写：`List<? super Integer>` |
+
+**4 个天然绿**（`GenericsLabTest`）：擦除的三后果（运行时同一类 / `new T[]` 不合法 /
+raw type 绕过检查导致 `ClassCastException`）+ `instanceof` 不能带类型参数。
 
 ---
 
