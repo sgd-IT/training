@@ -49,6 +49,19 @@ class SetLabTest {
                 "真正的重复（内容也一样）必须被去掉");
     }
 
+    /**
+     * 教练补的测试（原测试设计漏了）：
+     * 上面那条用例里，同长度的元素**插入顺序恰好就是字典序**，
+     * 所以一个"只比长度"的比较器也能蒙混过关（靠 List.sort 的稳定性）。
+     * 这一条把插入顺序反过来，专门堵这个口子。
+     */
+    @Test
+    void dedupeSortedByLengthTieBreaksByContentNotInsertionOrder() {
+        assertEquals(List.of("a", "b"),
+                SetLab.dedupeSortedByLength(List.of("b", "a")),
+                "长度都是 1 时必须按字典序 a < b —— 不能因为 a 是后插进来的就排在后面");
+    }
+
     @Test
     void firstAndLastUseSequencedApi() {
         List<String> words = List.of("a", "b", "c");

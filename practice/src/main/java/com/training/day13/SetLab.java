@@ -1,6 +1,7 @@
 package com.training.day13;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Day 13 - Q1~Q3: SetLab —— Set 三家 + JDK 21 的 Sequenced Collections
@@ -56,7 +57,6 @@ import java.util.List;
  * ═══════════════════════════════════════════════════════════
  * TODO 清单
  * ═══════════════════════════════════════════════════════════
- *   TODO Q1: dedupePreservingOrder  去重 + **保持第一次出现的顺序**
  *   TODO Q2: dedupeSortedByLength   去重 + 按长度升序，同长度按字典序
  *   TODO Q3-1: first                列表第一个（用 JDK 21 的 SequencedCollection）
  *   TODO Q3-2: last                 列表最后一个
@@ -64,9 +64,9 @@ import java.util.List;
  * <p>
  * ⚠️ 先预测，再跑（写【输出值】）：
  * <pre>
- * // 预测：dedupePreservingOrder(["b","a","b","c","a"]) → ____
- * // 预测：dedupeSortedByLength(["bb","a","cc","b","aaa"]) → ____
- * // 预测：reversedList(List.of("a","b","c")).get(0) → ____
+ * // 预测：dedupePreservingOrder(["b","a","b","c","a"]) → b,a,c
+ * // 预测：dedupeSortedByLength(["bb","a","cc","b","aaa"]) → ["a","b","bb","cc","aaa"]
+ * // 预测：reversedList(List.of("a","b","c")).get(0) → "c"
  * </pre>
  */
 public class SetLab {
@@ -78,7 +78,11 @@ public class SetLab {
      * 返回 {@code List}，因为 {@code LinkedHashSet} 的遍历顺序已经是你要的。
      */
     public static List<String> dedupePreservingOrder(List<String> words) {
-        throw new UnsupportedOperationException("TODO Q1");
+        LinkedHashSet<String> set = new LinkedHashSet<>();
+        for (String word : words) {
+            set.add(word);
+        }
+        return new ArrayList<>(set);
     }
 
     /**
@@ -90,19 +94,25 @@ public class SetLab {
      * 只比长度的话，{@code "a"} 和 {@code "b"} 会被当成同一个元素 —— 见类注释里那个坑。
      */
     public static List<String> dedupeSortedByLength(List<String> words) {
-        throw new UnsupportedOperationException("TODO Q2");
+        return new ArrayList<>(new LinkedHashSet<>(words))
+                .stream()
+                .sorted(Comparator.comparingInt(String::length)
+                    .thenComparing(Comparator.naturalOrder()))
+                .collect(Collectors.toList());
     }
 
     /**
      * 返回列表的第一个元素。用 JDK 21 的 {@code SequencedCollection} 方法，一行。
      */
     public static String first(List<String> words) {
-        throw new UnsupportedOperationException("TODO Q3-1");
+        return ((SequencedCollection<String>) words).getFirst();
     }
 
-    /** 返回列表的最后一个元素。一行。 */
+    /**
+     * 返回列表的最后一个元素。一行。
+     */
     public static String last(List<String> words) {
-        throw new UnsupportedOperationException("TODO Q3-2");
+        return ((SequencedCollection<String>) words).getLast();
     }
 
     /**
@@ -111,6 +121,6 @@ public class SetLab {
      * 测试会验证它是视图：改原列表，再取一次 {@code reversedList}，结果要跟着变。
      */
     public static List<String> reversedList(List<String> words) {
-        throw new UnsupportedOperationException("TODO Q3-3");
+        return words.reversed();
     }
 }
