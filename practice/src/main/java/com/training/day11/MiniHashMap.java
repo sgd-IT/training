@@ -71,7 +71,7 @@ public class MiniHashMap<K, V> {
     /**
      * 初始容量：16，必须是 2 的幂。
      */
-    static final int DEFAULT_CAPACITY = 15;
+    static final int DEFAULT_CAPACITY = 16;
 
     /**
      * 负载因子 0.75f。
@@ -153,11 +153,6 @@ public class MiniHashMap<K, V> {
         return hash & (capacity - 1);
     }
 
-    public static void main(String[] args) {
-        for (int i = 0; i < 16; i++){
-            System.out.println(indexFor(i, 15));
-        }
-    }
 
     // ═══════════════════════════════════════════════════════════
     // TODO Q1-2

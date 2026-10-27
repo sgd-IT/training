@@ -5,7 +5,7 @@
 >
 > **新机器开工第一件事：读本文件。** 收工最后一件事：更新本文件并 push。
 
-**最后更新**：2026-10-26（**Day 12 脚手架已交付**：272 个测试，267 绿 / 5 红）
+**最后更新**：2026-10-27（**Day 13 脚手架已交付**：287 个测试，280 绿 / 7 红）
 
 ---
 
@@ -13,37 +13,36 @@
 
 | 项 | 值 |
 |---|---|
-| 已完成 | Day 1 – 11（Day 11 收官 **264/264 全绿**） |
-| **当前训练日** | **Day 12 · Map 专题 III（线程安全）** —— 脚手架已发，**3 个 TODO 待实现** |
-| 下一训练日 | Day 13 · Set 家族 + ☕ JDK 21 Sequenced Collections |
-| 测试基线 | `Tests run: 272, Failures: 2, Errors: 3` |
-| **交付目标** | `mvn test` → **272 全绿** |
+| 已完成 | Day 1 – 12（Day 12 收官 **275/275 全绿**） |
+| **当前训练日** | **Day 13 · Set 家族 + ☕ JDK 21 Sequenced Collections** —— 脚手架已发，**5 个 TODO 待实现** |
+| 下一训练日 | Day 14 · 泛型 + ☕ JDK 21 Record |
+| 测试基线 | `Tests run: 287, Failures: 0, Errors: 7` |
+| **交付目标** | `mvn test` → **287 全绿** |
 
 ---
 
-## 二、Day 12 待办（3 个 TODO）
+## 二、Day 13 待办（5 个 TODO）
 
-| 题 | 方法 | 要写什么 | 预期 |
-|---|---|---|---|
-| **Q1** | `RaceLab.checkThenAct` | 普通 `HashMap`：get / +1 / put 三步 | 🔴 会丢更新 |
-| **Q2** | `RaceLab.synchronizedCheckThenAct` | 三步包在 `synchronized (map)` 里 | 🟢 精确 |
-| **Q3** | `RaceLab.atomicWithMerge` | `ConcurrentHashMap` + 一行原子方法 | 🟢 精确 |
+| 题 | 方法 | 练到什么 |
+|---|---|---|
+| **Q1** | `SetLab.dedupePreservingOrder` | 去重 + 保序 → 该选哪种 Set |
+| **Q2** | `SetLab.dedupeSortedByLength` | 全序比较器（长度 → 内容） |
+| **Q3-1~3** | `first` / `last` / `reversedList` | JDK 21 `SequencedCollection` |
 
-**另有 5 个天然绿**（`RaceLabTest`）：精确交错的丢失更新演示、CHM 拒绝 null 键/值、
-`Hashtable` 拒绝 null、`HashMap` 允许 null。
+**另有 5 个天然绿**（`SetLabTest`），全是 Set 的脾气，**必须先读**：
+`HashSet` 无顺序 / `LinkedHashSet` 保序、★ `TreeSet` 只比长度的丢数据坑、
+`SortedSet.getFirst()`、空集合 `getFirst()` 抛 `NoSuchElementException`、`SequencedMap` 首尾。
 
 ---
 
-## 三、🔴 Day 12 开工前必须先还原（学员实验残留）
+## 三、✅ 已清：Day 12 收尾与机制补考
 
-学员在 Day 11 做 `capacity = 15` 实验时，**直接改了生产代码且没还原**：
+- Day 12 三个 TODO 一次通过（实得 2971 / 16000，丢失 13029），**275/275 绿**
+- 机制 7 题首轮 **0 对 / 3 半 / 4 错**；补考 3 句话里核心答对
+  （"put 和 get 是两个方法，不能保证原子性"）→ **Day 12 通过**
+- `RaceLab` 的 `oldMap`/`newMap` 命名与空格由教练清理（`oldValue`/`newValue`）
+- Day 11 的实验残留已由学员还原（`DEFAULT_CAPACITY` → 16、删 `main`）
 
-| 文件 | 问题 |
-|---|---|
-| `MiniHashMap.java` | `DEFAULT_CAPACITY = 16` 被改成 **15** |
-| `MiniHashMap.java` | 多了一个实验用的 `main` 方法 |
-
-**后果**：`MiniHashMapTest` 2 个测试红（`capacity was 15`、扩容后 `30`）。
 
 > 这本身就是 `15` 是错的**活证据** —— 你改了它，测试立刻告诉你 15 撑不住。
 > 但实验完必须还原：**实验代码不进生产文件，`main` 不留。**

@@ -59,9 +59,9 @@ import java.util.concurrent.atomic.AtomicReference;
  * <p>
  * ⚠️ 先预测，再跑（写【输出值】）：
  * <pre>
- * // 预测：checkThenAct(8, 2000)             → ___（理论值 16000）
- * // 预测：synchronizedCheckThenAct(8, 2000) → ___
- * // 预测：atomicWithMerge(8, 2000)          → ___
+ * // 预测：checkThenAct(8, 2000)             → 2001(不受多线程影响)
+ * // 预测：synchronizedCheckThenAct(8, 2000) → 2001
+ * // 预测：atomicWithMerge(8, 2000)          → 2001
  * </pre>
  * ⚠️ 别调大线程数来"让它更容易失败" —— 先想清楚**为什么**会丢，再谈概率。
  */
@@ -127,7 +127,9 @@ public class RaceLab {
         Map<String, Integer> map = new HashMap<>();
         map.put(KEY, 0);
         runConcurrently(threads, perThread, () -> {
-            throw new UnsupportedOperationException("TODO Q1");
+            int oldValue = map.get(KEY);
+            int newValue = oldValue + 1;
+            map.put(KEY, newValue);
         });
         return map.get(KEY);
     }
@@ -145,7 +147,11 @@ public class RaceLab {
         Map<String, Integer> map = new HashMap<>();
         map.put(KEY, 0);
         runConcurrently(threads, perThread, () -> {
-            throw new UnsupportedOperationException("TODO Q2");
+            synchronized (map) {
+                int oldValue = map.get(KEY);
+                int newValue = oldValue + 1;
+                map.put(KEY, newValue);
+            }
         });
         return map.get(KEY);
     }
@@ -166,7 +172,7 @@ public class RaceLab {
         Map<String, Integer> map = new ConcurrentHashMap<>();
         map.put(KEY, 0);
         runConcurrently(threads, perThread, () -> {
-            throw new UnsupportedOperationException("TODO Q3");
+            map.merge(KEY, 1, Integer::sum);
         });
         return map.get(KEY);
     }

@@ -122,4 +122,152 @@ class RaceLabTest {
         assertEquals(2, map.size(), "HashMap 两个都允许 —— 这正是它和 CHM 的一个实用差别");
         assertNull(map.get("a"));
     }
+
+    // ═══════════════════════════════════════════════════════════
+    // 下面三题是 Day 12 收尾 7 题里答不出来的部分 ——
+    // 全部用 latch 精确编排，让结论【必然发生】，不靠概率。
+    // 一行 TODO 都没有，读 + 预测 + 解释。
+    // ═══════════════════════════════════════════════════════════
+
+    /**
+     * 第 2 题：`synchronized` 锁的是**对象**，不是线程。
+     * <p>
+     * 两个线程各自锁一个**不同的** `new Object()`，互不干扰 —— 锁形同虚设。
+     * <p>
+     * ⚠️ 先预测：`map` 最后是 1 还是 2？
+     */
+    @Test
+    void differentLockObjectsProvideNoProtection() throws Exception {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("k", 0);
+        Object lockA = new Object();
+        Object lockB = new Object();
+        CountDownLatch aRead = new CountDownLatch(1);
+        CountDownLatch bDone = new CountDownLatch(1);
+
+        Thread a = new Thread(() -> {
+            synchronized (lockA) {                 // A 锁的是 lockA
+                int old = map.get("k");
+                aRead.countDown();
+                try {
+                    bDone.await();                 // 等 B 跑完再写
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return;
+                }
+                map.put("k", old + 1);
+            }
+        });
+        Thread b = new Thread(() -> {
+            try {
+                aRead.await();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
+            synchronized (lockB) {                 // B 锁的是 lockB —— 完全不同的对象
+                map.put("k", map.get("k") + 1);
+            }
+            bDone.countDown();
+        });
+
+        a.start();
+        b.start();
+        a.join();
+        b.join();
+
+        assertEquals(1, map.get("k"),
+                "两个线程都加了 synchronized，结果还是丢了 —— 因为它们锁的不是同一个对象");
+    }
+
+    /**
+     * 第 6 题：换成 `ConcurrentHashMap`，**三步**照样丢。
+     * <p>
+     * CHM 保证的是"单个方法原子"，`get` 和 `put` 是两个方法。
+     * <p>
+     * ⚠️ 先预测：最后是 1 还是 2？
+     */
+    @Test
+    void concurrentHashMapStillLosesWhenYouUseThreeSteps() throws Exception {
+        Map<String, Integer> map = new ConcurrentHashMap<>();
+        map.put("k", 0);
+        CountDownLatch aRead = new CountDownLatch(1);
+        CountDownLatch bDone = new CountDownLatch(1);
+
+        Thread a = new Thread(() -> {
+            int old = map.get("k");                // ① 读
+            aRead.countDown();
+            try {
+                bDone.await();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
+            map.put("k", old + 1);                 // ③ 写
+        });
+        Thread b = new Thread(() -> {
+            try {
+                aRead.await();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
+            map.put("k", map.get("k") + 1);        // ② B 也读-写
+            bDone.countDown();
+        });
+
+        a.start();
+        b.start();
+        a.join();
+        b.join();
+
+        assertEquals(1, map.get("k"),
+                "ConcurrentHashMap 也救不了三步 —— 它只保证单方法原子，不保证跨方法原子");
+    }
+
+    /**
+     * 第 5 题的反面：`Hashtable` **是**线程安全的。
+     * <p>
+     * 每个方法都 `synchronized`。但这恰恰是它的死因，也救不了复合操作 ——
+     * 三步照样丢。既要"全表一把锁"（慢），又没解决你的问题（丢）。
+     * <p>
+     * ⚠️ 先预测：最后是 1 还是 2？
+     */
+    @Test
+    void hashtableIsThreadSafeButStillLosesOnCompoundOperations() throws Exception {
+        Map<String, Integer> map = new Hashtable<>();
+        map.put("k", 0);
+        CountDownLatch aRead = new CountDownLatch(1);
+        CountDownLatch bDone = new CountDownLatch(1);
+
+        Thread a = new Thread(() -> {
+            int old = map.get("k");                // get 是 synchronized 的
+            aRead.countDown();
+            try {
+                bDone.await();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
+            map.put("k", old + 1);                 // put 也是 synchronized 的
+        });
+        Thread b = new Thread(() -> {
+            try {
+                aRead.await();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
+            map.put("k", map.get("k") + 1);
+            bDone.countDown();
+        });
+
+        a.start();
+        b.start();
+        a.join();
+        b.join();
+
+        assertEquals(1, map.get("k"),
+                "Hashtable 每个方法都 synchronized，但 get 和 put 之间是空的 —— 照样丢");
+    }
 }
