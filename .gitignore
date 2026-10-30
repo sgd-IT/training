@@ -24,3 +24,6 @@ Desktop.ini
 # 训练无关 / 临时探针目录
 .dshmarket-probe/
 _probe/
+# local-only secrets (never commit)
+qoder-assets/config/mcp.json.secret
+

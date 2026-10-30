@@ -1,0 +1,672 @@
+{
+  "kind": "better-harness.evidence-bundle",
+  "schemaVersion": 1,
+  "status": "failed",
+  "context": {
+    "workspace": "d:\\code\\remote-monitor",
+    "provider": "qoder",
+    "language": "zh",
+    "depth": "normal",
+    "window": {
+      "since": "2026-09-26T00:00:00.000Z",
+      "until": "2026-10-26T00:00:00.000Z"
+    },
+    "evidenceLimit": 5,
+    "authority": {
+      "includeUserHome": true,
+      "includeMemories": true
+    }
+  },
+  "lanes": {
+    "sessionEvidence": {
+      "status": "available",
+      "data": {
+        "schemaVersion": 3,
+        "kind": "session-core-facts",
+        "scope": {
+          "platform": "qoder",
+          "workspace": "remote-monitor",
+          "until": "2026-10-26T00:00:00.000Z",
+          "selection": "all-eligible",
+          "eligibleSessions": 0,
+          "selectedSessions": 0,
+          "sampled": false
+        },
+        "candidateSelection": {
+          "strategy": "agent-work-loop-portfolio-v1",
+          "availableClasses": {},
+          "emittedClasses": {}
+        },
+        "requestRootSelection": {
+          "strategy": "recent-context-first-prompt-v1",
+          "distinctRoots": 0,
+          "emittedRoots": 0
+        },
+        "admission": {
+          "taskEpisodes": 0,
+          "candidateEpisodes": 0,
+          "distinctRequests": 0,
+          "emittedCandidates": 0,
+          "distinctRequestRoots": 0,
+          "emittedRequestRoots": 0
+        },
+        "populationCoverage": {
+          "withChanges": 0,
+          "withChecks": 0,
+          "withReviewedRelevantCheck": 0,
+          "withResultSignal": 0,
+          "withAssistantHandoff": 0,
+          "withStructuredCompletion": 0,
+          "withUserCorrection": 0,
+          "withExecutionFriction": 0,
+          "withFrictionConsequence": 0
+        },
+        "observationCoverage": {
+          "withChanges": 0,
+          "withChecks": 0,
+          "withReviewedRelevantCheck": 0,
+          "withResultSignal": 0,
+          "withAssistantHandoff": 0,
+          "withStructuredCompletion": 0,
+          "withUserCorrection": 0,
+          "withExecutionFriction": 0,
+          "withFrictionConsequence": 0
+        },
+        "admissionSupport": {
+          "semanticGuardrails": [
+            "occurrences-not-distinct-episodes",
+            "coverage-not-suggestion",
+            "omitted-details-not-signal-evidence",
+            "project-capability-inventory-unobserved"
+          ],
+          "sharedFrictionConsequences": []
+        },
+        "candidates": [],
+        "requestRoots": [],
+        "omitted": {
+          "noRequest": 0,
+          "selfAnalysis": 0,
+          "lowSignal": 0,
+          "duplicateRequests": 0,
+          "candidateBudget": 0,
+          "requestRootBudget": 0,
+          "checkBudget": 0,
+          "activeSessions": 0,
+          "homeSessionOnly": 0,
+          "benchmarkGenerated": 0
+        },
+        "warningCodes": [
+          "missing-optional-root",
+          "disabled-source-root"
+        ],
+        "excludes": [
+          "assistantText",
+          "rawPrompts",
+          "commands",
+          "toolOutput",
+          "paths",
+          "rawIds",
+          "secrets"
+        ],
+        "diagnosticFlags": [
+          "no-change-evidence",
+          "no-reviewed-relevant-check-evidence",
+          "no-result-evidence"
+        ],
+        "cost": {
+          "serializedBytes": 1816,
+          "estimatedTokens": 454
+        }
+      }
+    },
+    "projectHarness": {
+      "status": "unavailable",
+      "error": {
+        "code": "PROJECT_HARNESS_UNAVAILABLE",
+        "message": "project-harness evidence is unavailable"
+      }
+    },
+    "agentCustomize": {
+      "status": "available",
+      "data": {
+        "kind": "agent-asset-baseline",
+        "schemaVersion": 1,
+        "status": "complete",
+        "scope": {
+          "provider": "qoder",
+          "workspace": "d:\\code\\remote-monitor",
+          "includeUserHome": true,
+          "includeMemories": true
+        },
+        "envelopes": {
+          "lint": {
+            "status": "available",
+            "data": {
+              "kind": "agent-lint",
+              "profile": "agent-assets-review",
+              "summary": {
+                "entrypoints": 0,
+                "documents": 0,
+                "links": 0,
+                "references": 0,
+                "missingReferences": 0,
+                "findings": 23,
+                "errors": 0,
+                "warnings": 1,
+                "advisories": 22
+              },
+              "assetInventory": {
+                "provider": "qoder",
+                "summary": {
+                  "skills": 34,
+                  "mcps": 4,
+                  "commands": 0,
+                  "hooks": 0,
+                  "rules": 3,
+                  "agents": 0,
+                  "customAgents": 0,
+                  "builtinAgentOverrides": 0,
+                  "plugins": 0
+                }
+              },
+              "findings": {
+                "items": [
+                  {
+                    "id": "skill-length-hard-cap",
+                    "severity": "warning",
+                    "assetKind": "skill",
+                    "assetName": "docx",
+                    "scope": "user",
+                    "file": "C:/Users/Administrator/.agents/skills/docx/SKILL.md",
+                    "line": 1,
+                    "evidence": "C:/Users/Administrator/.agents/skills/docx/SKILL.md is 590 lines; long skills should move detail into references.",
+                    "sourceLabel": "User",
+                    "rubricRef": "Progressive Disclosure"
+                  },
+                  {
+                    "id": "mcp-unpinned-package-runner",
+                    "severity": "advisory",
+                    "assetKind": "mcp",
+                    "assetName": "fetch",
+                    "scope": "user",
+                    "file": "C:/Users/Administrator/AppData/Roaming/Qoder/SharedClientCache/mcp.json",
+                    "evidence": "fetch runs uvx with unpinned package mcp-server-fetch.",
+                    "sourceLabel": "User",
+                    "rubricRef": "MCP Security Best Practices"
+                  },
+                  {
+                    "id": "mcp-unpinned-package-runner",
+                    "severity": "advisory",
+                    "assetKind": "mcp",
+                    "assetName": "Framelink MCP for Figma",
+                    "scope": "user",
+                    "file": "C:/Users/Administrator/AppData/Roaming/Qoder/SharedClientCache/mcp.json",
+                    "evidence": "Framelink MCP for Figma runs npx with unpinned package figma-developer-mcp.",
+                    "sourceLabel": "User",
+                    "rubricRef": "MCP Security Best Practices"
+                  },
+                  {
+                    "id": "mcp-unpinned-package-runner",
+                    "severity": "advisory",
+                    "assetKind": "mcp",
+                    "assetName": "mcp_server_mysql",
+                    "scope": "user",
+                    "file": "C:/Users/Administrator/AppData/Roaming/Qoder/SharedClientCache/mcp.json",
+                    "evidence": "mcp_server_mysql runs npx with unpinned package @benborla29/mcp-server-mysql.",
+                    "sourceLabel": "User",
+                    "rubricRef": "MCP Security Best Practices"
+                  },
+                  {
+                    "id": "skill-long-without-progressive-references",
+                    "severity": "advisory",
+                    "assetKind": "skill",
+                    "assetName": "algorithmic-art",
+                    "scope": "user",
+                    "file": "C:/Users/Administrator/.agents/skills/algorithmic-art/SKILL.md",
+                    "line": 1,
+                    "evidence": "C:/Users/Administrator/.agents/skills/algorithmic-art/SKILL.md is 405 lines and has no existing local Markdown references.",
+                    "sourceLabel": "User",
+                    "rubricRef": "Progressive Disclosure"
+                  },
+                  {
+                    "id": "skill-long-without-progressive-references",
+                    "severity": "advisory",
+                    "assetKind": "skill",
+                    "assetName": "canvas-design",
+                    "scope": "user",
+                    "file": "C:/Users/Administrator/.agents/skills/canvas-design/SKILL.md",
+                    "line": 1,
+                    "evidence": "C:/Users/Administrator/.agents/skills/canvas-design/SKILL.md is 130 lines and has no existing local Markdown references.",
+                    "sourceLabel": "User",
+                    "rubricRef": "Progressive Disclosure"
+                  },
+                  {
+                    "id": "skill-long-without-progressive-references",
+                    "severity": "advisory",
+                    "assetKind": "skill",
+                    "assetName": "claude-api",
+                    "scope": "user",
+                    "file": "C:/Users/Administrator/.agents/skills/claude-api/SKILL.md",
+                    "line": 1,
+                    "evidence": "C:/Users/Administrator/.agents/skills/claude-api/SKILL.md is 324 lines and has no existing local Markdown references.",
+                    "sourceLabel": "User",
+                    "rubricRef": "Progressive Disclosure"
+                  },
+                  {
+                    "id": "skill-long-without-progressive-references",
+                    "severity": "advisory",
+                    "assetKind": "skill",
+                    "assetName": "code-comment-style",
+                    "scope": "user",
+                    "file": "C:/Users/Administrator/.qoder/skills/code-comment-style/SKILL.md",
+                    "line": 1,
+                    "evidence": "C:/Users/Administrator/.qoder/skills/code-comment-style/SKILL.md is 124 lines and has no existing local Markdown references.",
+                    "sourceLabel": "User",
+                    "rubricRef": "Progressive Disclosure"
+                  },
+                  {
+                    "id": "skill-long-without-progressive-references",
+                    "severity": "advisory",
+                    "assetKind": "skill",
+                    "assetName": "database-design",
+                    "scope": "user",
+                    "file": "C:/Users/Administrator/.agents/skills/database-design/SKILL.md",
+                    "line": 1,
+                    "evidence": "C:/Users/Administrator/.agents/skills/database-design/SKILL.md is 177 lines and has no existing local Markdown references.",
+                    "sourceLabel": "User",
+                    "rubricRef": "Progressive Disclosure"
+                  },
+                  {
+                    "id": "skill-long-without-progressive-references",
+                    "severity": "advisory",
+                    "assetKind": "skill",
+                    "assetName": "decision-driven-coding",
+                    "scope": "user",
+                    "file": "C:/Users/Administrator/.qoder/skills/decision-driven-coding/SKILL.md",
+                    "line": 1,
+                    "evidence": "C:/Users/Administrator/.qoder/skills/decision-driven-coding/SKILL.md is 144 lines and has no existing local Markdown references.",
+                    "sourceLabel": "User",
+                    "rubricRef": "Progressive Disclosure"
+                  },
+                  {
+                    "id": "skill-long-without-progressive-references",
+                    "severity": "advisory",
+                    "assetKind": "skill",
+                    "assetName": "doc-coauthoring",
+                    "scope": "user",
+                    "file": "C:/Users/Administrator/.agents/skills/doc-coauthoring/SKILL.md",
+                    "line": 1,
+                    "evidence": "C:/Users/Administrator/.agents/skills/doc-coauthoring/SKILL.md is 375 lines and has no existing local Markdown references.",
+                    "sourceLabel": "User",
+                    "rubricRef": "Progressive Disclosure"
+                  },
+                  {
+                    "id": "skill-long-without-progressive-references",
+                    "severity": "advisory",
+                    "assetKind": "skill",
+                    "assetName": "docx",
+                    "scope": "user",
+                    "file": "C:/Users/Administrator/.agents/skills/docx/SKILL.md",
+                    "line": 1,
+                    "evidence": "C:/Users/Administrator/.agents/skills/docx/SKILL.md is 590 lines and has no existing local Markdown references.",
+                    "sourceLabel": "User",
+                    "rubricRef": "Progressive Disclosure"
+                  },
+                  {
+                    "id": "skill-long-without-progressive-references",
+                    "severity": "advisory",
+                    "assetKind": "skill",
+                    "assetName": "frontend-interaction-design",
+                    "scope": "user",
+                    "file": "C:/Users/Administrator/.qoder/skills/frontend-interaction-design/SKILL.md",
+                    "line": 1,
+                    "evidence": "C:/Users/Administrator/.qoder/skills/frontend-interaction-design/SKILL.md is 140 lines and has no existing local Markdown references.",
+                    "sourceLabel": "User",
+                    "rubricRef": "Progressive Disclosure"
+                  },
+                  {
+                    "id": "skill-long-without-progressive-references",
+                    "severity": "advisory",
+                    "assetKind": "skill",
+                    "assetName": "frontend-visual-craft",
+                    "scope": "user",
+                    "file": "C:/Users/Administrator/.qoder/skills/frontend-visual-craft/SKILL.md",
+                    "line": 1,
+                    "evidence": "C:/Users/Administrator/.qoder/skills/frontend-visual-craft/SKILL.md is 132 lines and has no existing local Markdown references.",
+                    "sourceLabel": "User",
+                    "rubricRef": "Progressive Disclosure"
+                  },
+                  {
+                    "id": "skill-long-without-progressive-references",
+                    "severity": "advisory",
+                    "assetKind": "skill",
+                    "assetName": "hand-typing-training",
+                    "scope": "user",
+                    "file": "C:/Users/Administrator/.qoder/skills/hand-typing-training/SKILL.md",
+                    "line": 1,
+                    "evidence": "C:/Users/Administrator/.qoder/skills/hand-typing-training/SKILL.md is 206 lines and has no existing local Markdown references.",
+                    "sourceLabel": "User",
+                    "rubricRef": "Progressive Disclosure"
+                  },
+                  {
+                    "id": "skill-long-without-progressive-references",
+                    "severity": "advisory",
+                    "assetKind": "skill",
+                    "assetName": "mcp-builder",
+                    "scope": "user",
+                    "file": "C:/Users/Administrator/.agents/skills/mcp-builder/SKILL.md",
+                    "line": 1,
+                    "evidence": "C:/Users/Administrator/.agents/skills/mcp-builder/SKILL.md is 236 lines and has no existing local Markdown references.",
+                    "sourceLabel": "User",
+                    "rubricRef": "Progressive Disclosure"
+                  }
+                ],
+                "total": 23,
+                "omitted": 7
+              }
+            }
+          },
+          "inventory": {
+            "status": "available",
+            "data": {
+              "scope": {
+                "platform": "qoder",
+                "includeUserHome": true,
+                "includeMemories": true
+              },
+              "summary": {
+                "projectAssets": 0,
+                "userAssets": 3,
+                "pluginAssets": 2,
+                "sessionSourceHints": 1,
+                "memories": 2,
+                "builtinAgentOverrides": 0
+              },
+              "coverageRows": [
+                {
+                  "surface": "Rules",
+                  "scopes": [
+                    "Global"
+                  ],
+                  "count": 3,
+                  "paths": [
+                    "~/.qoder/rules/code-reuse-check.md",
+                    "~/.qoder/rules/git-commit.md",
+                    "~/.qoder/rules/ponytail.md"
+                  ]
+                },
+                {
+                  "surface": "Skills",
+                  "scopes": [
+                    "Global",
+                    "Plugin"
+                  ],
+                  "count": 36,
+                  "paths": [
+                    "~/.agents/skills/algorithmic-art/SKILL.md",
+                    "~/.agents/skills/brand-guidelines/SKILL.md",
+                    "~/.agents/skills/canvas-design/SKILL.md",
+                    "~/.agents/skills/claude-api/SKILL.md",
+                    "~/.qoder/skills/code-comment-style/SKILL.md"
+                  ]
+                },
+                {
+                  "surface": "MCP",
+                  "scopes": [
+                    "Global"
+                  ],
+                  "count": 4,
+                  "paths": [
+                    "~/AppData/Roaming/Qoder/SharedClientCache/mcp.json"
+                  ]
+                },
+                {
+                  "surface": "Plugins",
+                  "scopes": [
+                    "Plugin"
+                  ],
+                  "count": 2,
+                  "paths": [
+                    "~/.qoder/plugins/cache/qoder-bundler/better-harness/.qoder-plugin/plugin.json",
+                    "~/.qoder/plugins/cache/qoder-bundler/qoder-create-plugin"
+                  ]
+                },
+                {
+                  "surface": "Memories",
+                  "scopes": [
+                    "Global"
+                  ],
+                  "count": 15
+                }
+              ],
+              "ownerRoutes": {
+                "items": [
+                  {
+                    "kind": "rules",
+                    "scope": "user",
+                    "name": "code-reuse-check",
+                    "owner": "User"
+                  },
+                  {
+                    "kind": "skills",
+                    "scope": "user",
+                    "name": "algorithmic-art",
+                    "owner": "User"
+                  },
+                  {
+                    "kind": "plugins",
+                    "scope": "plugin",
+                    "name": "Better Harness",
+                    "version": "0.2.9",
+                    "owner": "Better Harness"
+                  },
+                  {
+                    "kind": "mcps",
+                    "scope": "user",
+                    "name": "fetch",
+                    "owner": "User"
+                  },
+                  {
+                    "kind": "rules",
+                    "scope": "user",
+                    "name": "git-commit",
+                    "owner": "User"
+                  },
+                  {
+                    "kind": "skills",
+                    "scope": "user",
+                    "name": "brand-guidelines",
+                    "owner": "User"
+                  },
+                  {
+                    "kind": "plugins",
+                    "scope": "plugin",
+                    "name": "Qoder Create Plugin",
+                    "version": "0.1.0",
+                    "owner": "Qoder Create Plugin"
+                  },
+                  {
+                    "kind": "mcps",
+                    "scope": "user",
+                    "name": "Framelink MCP for Figma",
+                    "owner": "User"
+                  },
+                  {
+                    "kind": "rules",
+                    "scope": "user",
+                    "name": "ponytail",
+                    "owner": "User"
+                  },
+                  {
+                    "kind": "skills",
+                    "scope": "user",
+                    "name": "canvas-design",
+                    "owner": "User"
+                  },
+                  {
+                    "kind": "mcps",
+                    "scope": "user",
+                    "name": "mcp_server_mysql",
+                    "owner": "User"
+                  },
+                  {
+                    "kind": "skills",
+                    "scope": "user",
+                    "name": "claude-api",
+                    "owner": "User"
+                  },
+                  {
+                    "kind": "mcps",
+                    "scope": "user",
+                    "name": "sequential-thinking",
+                    "owner": "User"
+                  },
+                  {
+                    "kind": "skills",
+                    "scope": "user",
+                    "name": "code-comment-style",
+                    "owner": "User"
+                  },
+                  {
+                    "kind": "skills",
+                    "scope": "user",
+                    "name": "code-conciseness-check",
+                    "owner": "User"
+                  },
+                  {
+                    "kind": "skills",
+                    "scope": "user",
+                    "name": "database-design",
+                    "owner": "User"
+                  }
+                ],
+                "total": 45,
+                "omitted": 29
+              },
+              "memories": {
+                "included": true,
+                "contentPolicy": "raw-memory-content-not-read",
+                "categories": [
+                  {
+                    "category": "user_behavior",
+                    "count": 2
+                  },
+                  {
+                    "category": "user_behavior",
+                    "count": 3
+                  },
+                  {
+                    "category": "user_behavior",
+                    "count": 6
+                  },
+                  {
+                    "category": "user_communication",
+                    "count": 1
+                  },
+                  {
+                    "category": "user_hobby",
+                    "count": 1
+                  },
+                  {
+                    "category": "user_info",
+                    "count": 1
+                  },
+                  {
+                    "category": "user_info",
+                    "count": 1
+                  }
+                ],
+                "titleCount": 15,
+                "details": {
+                  "contentPolicy": "metadata-only",
+                  "scanState": "scanned-present",
+                  "scopeCounts": [
+                    {
+                      "scope": "Global",
+                      "count": 15
+                    }
+                  ],
+                  "integrity": {
+                    "status": "reviewed",
+                    "titleCount": 15,
+                    "reviewedTitleCount": 15,
+                    "truncated": false,
+                    "exactCollisionGroups": 0,
+                    "similarityCandidates": 0
+                  }
+                }
+              },
+              "warnings": []
+            }
+          },
+          "integrity": {
+            "status": "available",
+            "data": {
+              "kind": "asset-integrity-review",
+              "profile": "asset-integrity-review",
+              "status": "reviewed",
+              "contentPolicy": "memory-title-and-path-metadata-only",
+              "summary": {
+                "findingCount": 0,
+                "memories": {
+                  "titleCount": 15,
+                  "reviewedTitleCount": 15,
+                  "truncated": false,
+                  "exactCollisionGroups": 0,
+                  "similarityCandidates": 0
+                },
+                "plugins": {
+                  "enabledPluginCount": 2,
+                  "nameCollisionGroups": 0,
+                  "capabilityOverlapGroups": 0,
+                  "familyCandidates": 0
+                },
+                "hooks": {
+                  "enabledHookCount": 0,
+                  "overRecommendedLimit": false,
+                  "exactDuplicateGroups": 0,
+                  "fanoutCandidates": 0
+                }
+              },
+              "findings": {
+                "items": [],
+                "total": 0,
+                "omitted": 0
+              }
+            }
+          }
+        },
+        "diagnostics": {
+          "sharedInventorySnapshot": true,
+          "compact": true,
+          "findingLimitPerEnvelope": 16,
+          "ownerRouteLimit": 16
+        }
+      }
+    }
+  },
+  "lead": {
+    "status": "unavailable",
+    "error": {
+      "code": "CANVAS_OUTPUT_EXISTS",
+      "message": "lead-analyzer evidence is unavailable"
+    }
+  },
+  "diagnostics": {
+    "collectionMode": "frozen-context-multi-owner",
+    "requiredLanes": [
+      "sessionEvidence",
+      "projectHarness",
+      "agentCustomize"
+    ],
+    "incompleteLanes": [
+      "projectHarness"
+    ],
+    "unavailableLanes": [
+      "projectHarness"
+    ],
+    "partialLanes": [],
+    "leadRequired": true,
+    "individualCommandsRemainDiagnostic": true
+  }
+}

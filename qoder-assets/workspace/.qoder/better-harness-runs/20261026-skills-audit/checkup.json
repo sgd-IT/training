@@ -1,0 +1,2642 @@
+{
+  "kind": "harness-customization-checkup",
+  "schemaVersion": 1,
+  "phase": "scan",
+  "provider": "qoder",
+  "locale": "en",
+  "workspace": "remote-monitor",
+  "observationWindow": {
+    "since": "2026-09-26T02:16:15.463Z",
+    "until": "2026-10-26T02:16:15.463Z",
+    "sessionLimit": 40,
+    "selection": "all-eligible",
+    "includeGlobalCapabilities": false,
+    "minimumSessions": 5,
+    "newInstallGraceDays": 7
+  },
+  "coverage": {
+    "sources": [
+      {
+        "id": "source-d3147d9d2748",
+        "kind": "audit-jsonl",
+        "role": "tool-permission-audit",
+        "exists": false,
+        "enabled": true,
+        "workspaceScoped": false
+      },
+      {
+        "id": "source-00cea26c6b3f",
+        "kind": "run-manifest",
+        "role": "run-metadata",
+        "exists": true,
+        "enabled": true,
+        "workspaceScoped": false
+      },
+      {
+        "id": "source-335a814487c6",
+        "kind": "logs-session",
+        "role": "execution-events",
+        "exists": false,
+        "enabled": true,
+        "workspaceScoped": true
+      },
+      {
+        "id": "source-6fc741788519",
+        "kind": "project-jsonl",
+        "role": "project-session-store",
+        "exists": true,
+        "enabled": true,
+        "workspaceScoped": true
+      },
+      {
+        "id": "source-e563a718beef",
+        "kind": "home-session",
+        "role": "session-compat",
+        "exists": false,
+        "enabled": true,
+        "workspaceScoped": false
+      },
+      {
+        "id": "source-04b530c84dc9",
+        "kind": "cache-project-session",
+        "role": "cache-conversation",
+        "exists": true,
+        "enabled": false,
+        "workspaceScoped": false
+      },
+      {
+        "id": "source-264f631df191",
+        "kind": "global-project-jsonl",
+        "role": "user-global-project-session-store",
+        "exists": true,
+        "enabled": false,
+        "workspaceScoped": false
+      }
+    ],
+    "eligibleSessions": 0,
+    "analyzedSessions": 0,
+    "minimumSessions": 5,
+    "sufficient": false,
+    "cleanupEligible": false,
+    "cleanupReason": "insufficient-session-coverage",
+    "selectionStrategy": "all-eligible",
+    "populationComplete": true,
+    "runtimeAvailable": true,
+    "userGlobal": "not-included",
+    "userGlobalCovered": false,
+    "globalSessionCount": 0
+  },
+  "configuredInventory": {
+    "summary": {
+      "total": 50,
+      "byKind": {
+        "hook": 3,
+        "mcp": 4,
+        "plugin": 3,
+        "rule": 3,
+        "skill": 37
+      },
+      "byScope": {
+        "plugin": 6,
+        "user": 44
+      }
+    },
+    "assets": [
+      {
+        "id": "hook-59e911b956a5",
+        "kind": "hook",
+        "name": "Post Tool Use Bash",
+        "scope": "plugin",
+        "sourceLabel": "Qoder Security",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "ownerId": "plugin-355974f64651",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "event": "PostToolUse",
+        "commandIdentity": "${qoder_plugin_root}/bin/qodersec-launch.cmd",
+        "configurationDigest": "a138fe4a0b3ef9f6d460a458b97b6776cf0de53451a781b2976f7c3cbdb71487",
+        "handlerType": "command",
+        "sourceRef": null,
+        "matcher": "Bash",
+        "registrationIndex": 1,
+        "hookIndex": 0
+      },
+      {
+        "id": "hook-06224c25b5f3",
+        "kind": "hook",
+        "name": "Post Tool Use Edit|Write|MultiEdit|NotebookEdit",
+        "scope": "plugin",
+        "sourceLabel": "Qoder Security",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "ownerId": "plugin-355974f64651",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "event": "PostToolUse",
+        "commandIdentity": "${qoder_plugin_root}/bin/qodersec-launch.cmd",
+        "configurationDigest": "c2f2ada6651d84f97ebe2a54f5c29a55423be4d137eb71e38cdd0a6688e39c80",
+        "handlerType": "command",
+        "sourceRef": null,
+        "matcher": "Edit|Write|MultiEdit|NotebookEdit",
+        "registrationIndex": 0,
+        "hookIndex": 0
+      },
+      {
+        "id": "hook-8e9795a666e7",
+        "kind": "hook",
+        "name": "Session Start",
+        "scope": "plugin",
+        "sourceLabel": "Qoder Security",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "ownerId": "plugin-355974f64651",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "event": "SessionStart",
+        "commandIdentity": "${qoder_plugin_root}/bin/qodersec-launch.cmd",
+        "configurationDigest": "03d6c21033beabf44db722a31f391f1204b730e4e8a3ce15e60fab040f70f184",
+        "handlerType": "command",
+        "timeoutMs": 15,
+        "async": true,
+        "sourceRef": null,
+        "matcher": "all",
+        "registrationIndex": 0,
+        "hookIndex": 0
+      },
+      {
+        "id": "mcp-b7437747bde7",
+        "kind": "mcp",
+        "name": "fetch",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "connected",
+        "sourceKind": "source",
+        "toolCount": 1,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "toolNames": [
+          "fetch"
+        ],
+        "sourceRef": null
+      },
+      {
+        "id": "mcp-3b01794f79d3",
+        "kind": "mcp",
+        "name": "Framelink MCP for Figma",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "connected",
+        "sourceKind": "source",
+        "toolCount": 2,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "toolNames": [
+          "download_figma_images",
+          "get_figma_data"
+        ],
+        "sourceRef": null
+      },
+      {
+        "id": "mcp-677427430f8e",
+        "kind": "mcp",
+        "name": "mcp_server_mysql",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "installed",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "toolNames": [],
+        "sourceRef": null
+      },
+      {
+        "id": "mcp-6d4dc2c91b83",
+        "kind": "mcp",
+        "name": "sequential-thinking",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "connected",
+        "sourceKind": "source",
+        "toolCount": 1,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "toolNames": [
+          "sequentialthinking"
+        ],
+        "sourceRef": null
+      },
+      {
+        "id": "plugin-39f23dfabcdf",
+        "kind": "plugin",
+        "name": "Better Harness",
+        "scope": "user",
+        "sourceLabel": "Better Harness",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "pluginId": "better-harness@qoder-bundler",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 1,
+        "sourceRef": null
+      },
+      {
+        "id": "plugin-453f41189f7c",
+        "kind": "plugin",
+        "name": "Qoder Create Plugin",
+        "scope": "user",
+        "sourceLabel": "Qoder Create Plugin",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "pluginId": "qoder-create-plugin@qoder-bundler",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 1,
+        "sourceRef": null
+      },
+      {
+        "id": "plugin-355974f64651",
+        "kind": "plugin",
+        "name": "Qoder Security",
+        "scope": "user",
+        "sourceLabel": "Qoder Security",
+        "enabled": false,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "pluginId": "security-scan@qoder-bundler",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 4,
+        "sourceRef": null
+      },
+      {
+        "id": "rule-b7a9c810bf99",
+        "kind": "rule",
+        "name": "code-reuse-check",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": {
+          "base": "provider-home",
+          "relativePath": "rules/code-reuse-check.md"
+        }
+      },
+      {
+        "id": "rule-c690aac736a1",
+        "kind": "rule",
+        "name": "git-commit",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": {
+          "base": "provider-home",
+          "relativePath": "rules/git-commit.md"
+        }
+      },
+      {
+        "id": "rule-616951931f29",
+        "kind": "rule",
+        "name": "ponytail",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": {
+          "base": "provider-home",
+          "relativePath": "rules/ponytail.md"
+        }
+      },
+      {
+        "id": "skill-aaf316140caf",
+        "kind": "skill",
+        "name": "better-harness",
+        "scope": "plugin",
+        "sourceLabel": "Better Harness",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "ownerId": "plugin-39f23dfabcdf",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-7030dc2ced4f",
+        "kind": "skill",
+        "name": "create-plugin",
+        "scope": "plugin",
+        "sourceLabel": "Qoder Create Plugin",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "ownerId": "plugin-453f41189f7c",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-5af4d9ad34a7",
+        "kind": "skill",
+        "name": "security-scan",
+        "scope": "plugin",
+        "sourceLabel": "Qoder Security",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "ownerId": "plugin-355974f64651",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-9c174e97862f",
+        "kind": "skill",
+        "name": "algorithmic-art",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-8abb935550dc",
+        "kind": "skill",
+        "name": "brand-guidelines",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-ddf07594dd2f",
+        "kind": "skill",
+        "name": "canvas-design",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-33b29c5c1d18",
+        "kind": "skill",
+        "name": "claude-api",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-8653bc4361b8",
+        "kind": "skill",
+        "name": "code-comment-style",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": {
+          "base": "provider-home",
+          "relativePath": "skills/code-comment-style/SKILL.md"
+        }
+      },
+      {
+        "id": "skill-fbbccfa4547a",
+        "kind": "skill",
+        "name": "code-conciseness-check",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": {
+          "base": "provider-home",
+          "relativePath": "skills/code-conciseness-check/SKILL.md"
+        }
+      },
+      {
+        "id": "skill-38c225f54c6f",
+        "kind": "skill",
+        "name": "database-design",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-cb8be7293a4a",
+        "kind": "skill",
+        "name": "decision-driven-coding",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": {
+          "base": "provider-home",
+          "relativePath": "skills/decision-driven-coding/SKILL.md"
+        }
+      },
+      {
+        "id": "skill-4382d74cc43b",
+        "kind": "skill",
+        "name": "doc-coauthoring",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-aa61c7a60531",
+        "kind": "skill",
+        "name": "docx",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-e49b023bbb59",
+        "kind": "skill",
+        "name": "frontend-design",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-d4ec7ee99a50",
+        "kind": "skill",
+        "name": "frontend-interaction-design",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": {
+          "base": "provider-home",
+          "relativePath": "skills/frontend-interaction-design/SKILL.md"
+        }
+      },
+      {
+        "id": "skill-e71f5da5c5e3",
+        "kind": "skill",
+        "name": "frontend-visual-craft",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": {
+          "base": "provider-home",
+          "relativePath": "skills/frontend-visual-craft/SKILL.md"
+        }
+      },
+      {
+        "id": "skill-ff0105c2ca36",
+        "kind": "skill",
+        "name": "hand-typing-training",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": {
+          "base": "provider-home",
+          "relativePath": "skills/hand-typing-training/SKILL.md"
+        }
+      },
+      {
+        "id": "skill-fc89e3fe9509",
+        "kind": "skill",
+        "name": "internal-comms",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-243926b5d866",
+        "kind": "skill",
+        "name": "mcp-builder",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-4a76c53a0222",
+        "kind": "skill",
+        "name": "pdf",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-a654ee18d14c",
+        "kind": "skill",
+        "name": "ponytail",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-79a82da6efe8",
+        "kind": "skill",
+        "name": "ponytail-audit",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-51f5e36d8e8b",
+        "kind": "skill",
+        "name": "ponytail-debt",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-32a71efa7ec0",
+        "kind": "skill",
+        "name": "ponytail-gain",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-d847c22458ad",
+        "kind": "skill",
+        "name": "ponytail-help",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-108f448efdcd",
+        "kind": "skill",
+        "name": "ponytail-review",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-d88812be8637",
+        "kind": "skill",
+        "name": "pptx",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-9b364435f902",
+        "kind": "skill",
+        "name": "project-map",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": {
+          "base": "provider-home",
+          "relativePath": "skills/project-map/SKILL.md"
+        }
+      },
+      {
+        "id": "skill-bc8ca09ed1b0",
+        "kind": "skill",
+        "name": "skill-creator",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-fd3c1df109cf",
+        "kind": "skill",
+        "name": "skill-lookup",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-0dbe2e680735",
+        "kind": "skill",
+        "name": "slack-gif-creator",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-2d75bd717968",
+        "kind": "skill",
+        "name": "template",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-8d8630ff3e13",
+        "kind": "skill",
+        "name": "theme-factory",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-a8910f684049",
+        "kind": "skill",
+        "name": "web-artifacts-builder",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-b6dba15ee056",
+        "kind": "skill",
+        "name": "webapp-testing",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      },
+      {
+        "id": "skill-d27988209408",
+        "kind": "skill",
+        "name": "work-log",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": {
+          "base": "provider-home",
+          "relativePath": "skills/work-log/SKILL.md"
+        }
+      },
+      {
+        "id": "skill-8392a6d30a7b",
+        "kind": "skill",
+        "name": "xlsx",
+        "scope": "user",
+        "sourceLabel": "User",
+        "enabled": true,
+        "statusGroup": "configured",
+        "sourceKind": "source",
+        "toolCount": 0,
+        "resourceCount": 0,
+        "providedAssetCount": 0,
+        "sourceRef": null
+      }
+    ],
+    "sourceFingerprints": {
+      "provider-home:rules/code-reuse-check.md": "e6c7170bc62440da5e1ce55a8f7d268de334057efb7369b46119682cdc824525",
+      "provider-home:rules/git-commit.md": "e9e41536925e9d08a730348c7ca843fff44469dd2b74c169373ebcb177fe1f5d",
+      "provider-home:rules/ponytail.md": "6ae86de93c755fb230db7fa354b54ae31f1fa136467aaa7048dabebc378e0060",
+      "provider-home:skills/code-comment-style/SKILL.md": "a93e072dc983d78e0098b08897ed0d547e5675cae2e1c699ef648d3285f8bd09",
+      "provider-home:skills/code-conciseness-check/SKILL.md": "b7dff769d46f6e721fe3c59f73dc16e64d45f93d0a7181add9093179428db977",
+      "provider-home:skills/decision-driven-coding/SKILL.md": "d3590d709a359fb54a9d71d3cf589d953fa820cc4d60f5cd420d75c6db1adca3",
+      "provider-home:skills/frontend-interaction-design/SKILL.md": "e5527e08584ce0e408053b2a504d6f4f66dbe7926b1cbf779130a40e791548f7",
+      "provider-home:skills/frontend-visual-craft/SKILL.md": "c7218dd8f313c5632e44492e057f9e3d137e68b1a63991922c97190546501ff1",
+      "provider-home:skills/hand-typing-training/SKILL.md": "f8eae36277a205177d484b7d8a100b5b06624dda9a486bb49b3e56c0ad31d4f9",
+      "provider-home:skills/project-map/SKILL.md": "fe2d6f9343a2973be13f8f4a07b0bebe5478685000a69a08113b862ce780bc12",
+      "provider-home:skills/work-log/SKILL.md": "cc81d7063103dbef1ca34d0580047f73baaef193a4057191ac11e8c2c65a0df6"
+    }
+  },
+  "observedUse": {
+    "skills": [],
+    "hooks": [],
+    "mcpTools": [],
+    "plugins": [],
+    "hookRuntime": {
+      "finishedExecutions": 0,
+      "startedWithoutFinish": 0,
+      "ambiguousCompletions": 0,
+      "groups": [],
+      "commands": []
+    }
+  },
+  "instructionReview": {
+    "profile": "agents-md-review",
+    "provider": "qoder",
+    "sourceLedger": [
+      {
+        "id": "qoder-c6121de483",
+        "scope": "user",
+        "sourceKind": "qoder-rule",
+        "precedence": 10,
+        "label": "user:rules/code-reuse-check.md"
+      },
+      {
+        "id": "qoder-f591e34ddb",
+        "scope": "user",
+        "sourceKind": "qoder-rule",
+        "precedence": 10,
+        "label": "user:rules/git-commit.md"
+      },
+      {
+        "id": "qoder-5541da0be6",
+        "scope": "user",
+        "sourceKind": "qoder-rule",
+        "precedence": 10,
+        "label": "user:rules/ponytail.md"
+      }
+    ],
+    "summary": {
+      "findings": 2,
+      "errors": 0,
+      "warnings": 2,
+      "advisories": 0
+    },
+    "findingCodes": [
+      "no-agent-entrypoint",
+      "no-canonical-agents-md"
+    ],
+    "detectorCounts": {}
+  },
+  "assetReview": {
+    "profile": "agent-assets-review",
+    "summary": {
+      "findings": 23,
+      "errors": 0,
+      "warnings": 1,
+      "advisories": 22
+    },
+    "findingCodes": [
+      "mcp-unpinned-package-runner",
+      "skill-length-hard-cap",
+      "skill-long-without-progressive-references",
+      "skill-name-mismatch"
+    ]
+  },
+  "repeatedFrictionTriage": null,
+  "capabilityReviewLead": null,
+  "findings": [
+    {
+      "id": "finding-b853e0f72b9e",
+      "kind": "hook",
+      "status": "unobserved",
+      "scope": "plugin",
+      "title": "Post Tool Use Bash: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "plugin-owner-required",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "hook-59e911b956a5"
+    },
+    {
+      "id": "finding-fb82bffb7403",
+      "kind": "hook",
+      "status": "unobserved",
+      "scope": "plugin",
+      "title": "Post Tool Use Edit|Write|MultiEdit|NotebookEdit: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "plugin-owner-required",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "hook-06224c25b5f3"
+    },
+    {
+      "id": "finding-feea0be8bd22",
+      "kind": "hook",
+      "status": "unobserved",
+      "scope": "plugin",
+      "title": "Session Start: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "plugin-owner-required",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "hook-8e9795a666e7"
+    },
+    {
+      "id": "finding-7495ca3d8320",
+      "kind": "mcp",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "fetch: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "mcp-b7437747bde7"
+    },
+    {
+      "id": "finding-2ac8e523c9c3",
+      "kind": "mcp",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "Framelink MCP for Figma: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "mcp-3b01794f79d3"
+    },
+    {
+      "id": "finding-6b677bad6414",
+      "kind": "mcp",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "mcp_server_mysql: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "mcp-677427430f8e"
+    },
+    {
+      "id": "finding-fbfc897e9486",
+      "kind": "mcp",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "sequential-thinking: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "mcp-6d4dc2c91b83"
+    },
+    {
+      "id": "finding-3a7fc4129c58",
+      "kind": "plugin",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "Better Harness: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "outside-grace"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "plugin-39f23dfabcdf"
+    },
+    {
+      "id": "finding-0ced9e978bd3",
+      "kind": "plugin",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "Qoder Create Plugin: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "outside-grace"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "plugin-453f41189f7c"
+    },
+    {
+      "id": "finding-ace9e4696c92",
+      "kind": "plugin",
+      "status": "healthy",
+      "scope": "user",
+      "title": "Qoder Security: no cleanup action is needed",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "disabled"
+        },
+        {
+          "code": "asset-disabled",
+          "state": "healthy"
+        },
+        {
+          "code": "install-age",
+          "state": "outside-grace"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "plugin-355974f64651"
+    },
+    {
+      "id": "finding-3ef71b691286",
+      "kind": "instruction",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "code-reuse-check: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "rule-b7a9c810bf99"
+    },
+    {
+      "id": "finding-e807f11cd235",
+      "kind": "instruction",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "git-commit: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "rule-c690aac736a1"
+    },
+    {
+      "id": "finding-971732912a5b",
+      "kind": "instruction",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "ponytail: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "rule-616951931f29"
+    },
+    {
+      "id": "finding-28125d5dd174",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "plugin",
+      "title": "better-harness: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "plugin-owner-required",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-aaf316140caf"
+    },
+    {
+      "id": "finding-3fb6b05d57ce",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "plugin",
+      "title": "create-plugin: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "plugin-owner-required",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-7030dc2ced4f"
+    },
+    {
+      "id": "finding-a416d3c45d93",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "plugin",
+      "title": "security-scan: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "plugin-owner-required",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-5af4d9ad34a7"
+    },
+    {
+      "id": "finding-2a4cd856e15e",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "algorithmic-art: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-9c174e97862f"
+    },
+    {
+      "id": "finding-e8899cbb3f5e",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "brand-guidelines: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-8abb935550dc"
+    },
+    {
+      "id": "finding-2594ba8a5cf9",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "canvas-design: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-ddf07594dd2f"
+    },
+    {
+      "id": "finding-a0d2c92511d3",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "claude-api: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-33b29c5c1d18"
+    },
+    {
+      "id": "finding-2368be289e79",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "code-comment-style: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-8653bc4361b8"
+    },
+    {
+      "id": "finding-b3bf3bfd4397",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "code-conciseness-check: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-fbbccfa4547a"
+    },
+    {
+      "id": "finding-3ce0dccad473",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "database-design: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-38c225f54c6f"
+    },
+    {
+      "id": "finding-b9fe7e61710f",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "decision-driven-coding: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-cb8be7293a4a"
+    },
+    {
+      "id": "finding-2d8d1245d895",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "doc-coauthoring: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-4382d74cc43b"
+    },
+    {
+      "id": "finding-0bec93117e48",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "docx: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-aa61c7a60531"
+    },
+    {
+      "id": "finding-45698ffb33bc",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "frontend-design: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-e49b023bbb59"
+    },
+    {
+      "id": "finding-ce34885602b1",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "frontend-interaction-design: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-d4ec7ee99a50"
+    },
+    {
+      "id": "finding-105cef8e65d2",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "frontend-visual-craft: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-e71f5da5c5e3"
+    },
+    {
+      "id": "finding-17498c8c3fe5",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "hand-typing-training: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-ff0105c2ca36"
+    },
+    {
+      "id": "finding-76609f0548f7",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "internal-comms: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-fc89e3fe9509"
+    },
+    {
+      "id": "finding-fc892289ff34",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "mcp-builder: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-243926b5d866"
+    },
+    {
+      "id": "finding-1db9a0f5a051",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "pdf: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-4a76c53a0222"
+    },
+    {
+      "id": "finding-08e796999429",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "ponytail: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-a654ee18d14c"
+    },
+    {
+      "id": "finding-33cff7ca1800",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "ponytail-audit: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-79a82da6efe8"
+    },
+    {
+      "id": "finding-bbdb66afe144",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "ponytail-debt: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-51f5e36d8e8b"
+    },
+    {
+      "id": "finding-5013ebf2313e",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "ponytail-gain: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-32a71efa7ec0"
+    },
+    {
+      "id": "finding-bdba55f879fd",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "ponytail-help: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-d847c22458ad"
+    },
+    {
+      "id": "finding-b5321db86372",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "ponytail-review: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-108f448efdcd"
+    },
+    {
+      "id": "finding-abc6e53d8ac5",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "pptx: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-d88812be8637"
+    },
+    {
+      "id": "finding-d8b9db59902c",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "project-map: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-9b364435f902"
+    },
+    {
+      "id": "finding-9b09cc13bf69",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "skill-creator: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-bc8ca09ed1b0"
+    },
+    {
+      "id": "finding-ad7f9483c271",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "skill-lookup: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-fd3c1df109cf"
+    },
+    {
+      "id": "finding-d44ad857f5fb",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "slack-gif-creator: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-0dbe2e680735"
+    },
+    {
+      "id": "finding-a55cac913cec",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "template: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-2d75bd717968"
+    },
+    {
+      "id": "finding-ca8c60440aa0",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "theme-factory: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-8d8630ff3e13"
+    },
+    {
+      "id": "finding-b20cf352a3ec",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "web-artifacts-builder: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-a8910f684049"
+    },
+    {
+      "id": "finding-859d09644112",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "webapp-testing: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-b6dba15ee056"
+    },
+    {
+      "id": "finding-7f98d1cc3638",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "work-log: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-d27988209408"
+    },
+    {
+      "id": "finding-a673596b40b0",
+      "kind": "skill",
+      "status": "unobserved",
+      "scope": "user",
+      "title": "xlsx: no use was observed, so cleanup is not justified yet",
+      "evidence": [
+        {
+          "code": "configured-asset",
+          "state": "enabled"
+        },
+        {
+          "code": "insufficient-session-coverage",
+          "state": "unobserved"
+        },
+        {
+          "code": "install-age",
+          "state": "unknown"
+        }
+      ],
+      "coverage": {
+        "analyzedSessions": 0,
+        "minimumSessions": 5,
+        "sufficient": false,
+        "cleanupEligible": false,
+        "globalPass": false
+      },
+      "whyThisMatters": "Configured presence and observed use are separate claims; this status explains why cleanup is not yet justified.",
+      "candidateActions": [],
+      "targetAssetId": "skill-8392a6d30a7b"
+    }
+  ],
+  "summary": {
+    "statusCounts": {
+      "healthy": 1,
+      "unobserved": 49
+    },
+    "cleanup": {
+      "eligible": false,
+      "reason": "insufficient-session-coverage"
+    },
+    "capabilityUse": [
+      {
+        "kind": "skill",
+        "configured": 37,
+        "observed": 0,
+        "unobserved": 37,
+        "configuredOnly": 0,
+        "unavailable": 0,
+        "candidate": 0,
+        "blockers": {
+          "insufficient-session-coverage": 34,
+          "plugin-owner-required": 3
+        }
+      },
+      {
+        "kind": "mcp",
+        "configured": 4,
+        "observed": 0,
+        "unobserved": 4,
+        "configuredOnly": 0,
+        "unavailable": 0,
+        "candidate": 0,
+        "blockers": {
+          "insufficient-session-coverage": 4
+        }
+      },
+      {
+        "kind": "plugin",
+        "configured": 2,
+        "observed": 0,
+        "unobserved": 2,
+        "configuredOnly": 0,
+        "unavailable": 0,
+        "candidate": 0,
+        "blockers": {
+          "insufficient-session-coverage": 2
+        }
+      }
+    ],
+    "attention": []
+  },
+  "diagnostics": {
+    "inventoryAvailable": true,
+    "configuredSourceState": "available",
+    "runtimeSourceState": "available",
+    "qoderSourceResolution": {
+      "provider": "qoder",
+      "state": "selected",
+      "activeHomeEvidence": "inventory-resolver",
+      "activeHomeExists": true,
+      "sources": [
+        {
+          "id": "qoder-user-authored",
+          "role": "user-authored",
+          "exists": true,
+          "selected": true,
+          "editable": true,
+          "generated": false,
+          "precedence": 10
+        },
+        {
+          "id": "qoder-user-merged-runtime",
+          "role": "user-merged-runtime",
+          "exists": false,
+          "selected": false,
+          "editable": false,
+          "generated": true,
+          "precedence": 20
+        },
+        {
+          "id": "qoder-project-authored",
+          "role": "project-authored",
+          "exists": false,
+          "selected": false,
+          "editable": true,
+          "generated": false,
+          "precedence": 30
+        },
+        {
+          "id": "qoder-project-fallback",
+          "role": "project-compatibility-fallback",
+          "exists": false,
+          "selected": false,
+          "editable": true,
+          "generated": false,
+          "precedence": 25
+        },
+        {
+          "id": "qoder-legacy-shared-client",
+          "role": "legacy-or-client-authored",
+          "exists": true,
+          "selected": false,
+          "editable": false,
+          "generated": false,
+          "precedence": 5
+        },
+        {
+          "id": "qoder-shared-cache-merged-runtime",
+          "role": "alternate-merged-runtime",
+          "exists": true,
+          "selected": false,
+          "editable": false,
+          "generated": true,
+          "precedence": null
+        }
+      ],
+      "selectedProjectSource": null,
+      "alternateHomesMerged": false,
+      "generatedRuntimeSourcesEditable": false
+    },
+    "warningCodes": [
+      "disabled-source-root",
+      "missing-optional-root"
+    ],
+    "privacy": "paths-prompts-session-ids-and-command-arguments-omitted",
+    "scanDigest": "a7e48e9241343cca15565806981eaf5b083069d1117cf9267eaa2aa2917b9f75"
+  }
+}

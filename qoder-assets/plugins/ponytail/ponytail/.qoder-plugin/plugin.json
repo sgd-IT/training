@@ -1,0 +1,14 @@
+{
+  "name": "ponytail",
+  "displayName": "Ponytail",
+  "version": "1.0.0",
+  "description": "Forces the laziest solution that actually works — simplest, shortest, most minimal.",
+  "descriptionZh": "强制采用最懒但可行的方案——最简单、最短、最精简。",
+  "author": { "name": "Dietrich Gebert" },
+  "homepage": "https://github.com/DietrichGebert/ponytail",
+  "repository": "https://github.com/DietrichGebert/ponytail",
+  "keywords": ["qoder-plugin", "skill", "minimalism", "yagni", "code-quality"],
+  "category": "developer-tools",
+  "tags": ["skill"],
+  "skills": "./skills/"
+}
