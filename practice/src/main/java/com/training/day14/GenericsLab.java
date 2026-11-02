@@ -91,26 +91,14 @@ import java.util.List;
  * 注意 Day 7 讲过 equals/hashCode 契约，record **一次性帮你写对** ——
  * 这正是它最值的地方（手写这两个方法出错率极高）。
  * <p>
- * ═══════════════════════════════════════════════════════════
- * TODO 清单
- * ═══════════════════════════════════════════════════════════
- *   TODO Q1: Pair         用 record 声明，泛型两个参数 K / V，字段 key / value
- *   TODO Q2: maxOf        有界类型参数 &lt;T extends Comparable&lt;T&gt;&gt;，返回最大元素
- *   TODO Q3: sumOf        List&lt;? extends Number&gt; 求和（PECS 的读）
- *   TODO Q4: fillWith     List&lt;? super Integer&gt; 填数（PECS 的写）
- * <p>
  * ⚠️ 先预测，再跑（写【输出值】）：
  * <pre>
- * // 预测：new ArrayList&lt;String&gt;().getClass() == new ArrayList&lt;Integer&gt;().getClass() → ____
- * // 预测：new Pair&lt;&gt;("a", 1).toString() → ____
- * // 预测：new Pair&lt;&gt;("a", 1).equals(new Pair&lt;&gt;("a", 1)) → ____
+ * // 预测：new ArrayList&lt;String&gt;().getClass() == new ArrayList&lt;Integer&gt;().getClass() → 最后是同一个class对象
+ * // 预测：new Pair&lt;&gt;("a", 1).toString() → Pair[key=a, value=1]
+ * // 预测：new Pair&lt;&gt;("a", 1).equals(new Pair&lt;&gt;("a", 1)) → true
  * </pre>
  */
 public class GenericsLab {
-
-    // ═══════════════════════════════════════════════════════════
-    // TODO Q1
-    // ═══════════════════════════════════════════════════════════
     /**
      * 一个只装两个值的不可变容器。
      * <p>
@@ -119,26 +107,10 @@ public class GenericsLab {
      * <p>
      * ⚠️ 注意访问器名字：{@code pair.key()}，不是 {@code pair.getKey()}。
      */
-    public static class Pair<K, V> {
-        // TODO Q1: 把上面这行 class 声明改成 record 声明，然后把下面这三个成员全删掉。
-        //          （它们只是为了让测试能编译，不代表实现要这么写。）
+    public static record Pair<K, V>(K key, V value) {
+   }
 
-        public Pair(K key, V value) {
-            throw new UnsupportedOperationException("TODO Q1: 这个类是 record 才对");
-        }
 
-        public K key() {
-            throw new UnsupportedOperationException("TODO Q1: 这个类是 record 才对");
-        }
-
-        public V value() {
-            throw new UnsupportedOperationException("TODO Q1: 这个类是 record 才对");
-        }
-    }
-
-    // ═══════════════════════════════════════════════════════════
-    // TODO Q2
-    // ═══════════════════════════════════════════════════════════
     /**
      * 返回列表中最大的元素，空列表返回 {@code null}。
      * <p>
@@ -150,12 +122,15 @@ public class GenericsLab {
      * ⚠️ 泛型方法的 {@code <T>} 写在**返回值之前**、修饰符之后，这个位置别记错。
      */
     public static <T extends Comparable<T>> T maxOf(List<T> items) {
-        throw new UnsupportedOperationException("TODO Q2");
+        T max = null;
+        for (T item : items) {
+            if (max == null || item.compareTo(max) > 0) {
+                max = item;
+            }
+        }
+        return max;
     }
 
-    // ═══════════════════════════════════════════════════════════
-    // TODO Q3
-    // ═══════════════════════════════════════════════════════════
     /**
      * 把列表里所有数字加起来。
      * <p>
@@ -165,12 +140,13 @@ public class GenericsLab {
      * ⚠️ 这个方法**只读不写**。正因为只读，{@code ? extends} 才成立。
      */
     public static double sumOf(List<? extends Number> numbers) {
-        throw new UnsupportedOperationException("TODO Q3");
+        double sum = 0;
+        for (Number number : numbers) {
+            sum += number.doubleValue();
+        }
+        return sum;
     }
 
-    // ═══════════════════════════════════════════════════════════
-    // TODO Q4
-    // ═══════════════════════════════════════════════════════════
     /**
      * 往列表里填入 {@code 0, 1, ..., count-1}。
      * <p>
@@ -182,6 +158,8 @@ public class GenericsLab {
      * 想清楚：为什么 {@code List<? extends Integer>} 在这里会编译失败？
      */
     public static void fillWith(List<? super Integer> target, int count) {
-        throw new UnsupportedOperationException("TODO Q4");
+        for (int i = 0; i < count; i++) {
+            target.add(i);
+        }
     }
 }
