@@ -5,7 +5,7 @@
 >
 > **新机器开工第一件事：读本文件。** 收工最后一件事：更新本文件并 push。
 
-**最后更新**：2026-11-02（**Day 14 代码关已过 → 303 全绿**；机制关 3 题挂到 Day 15 开场复核，见第三节）
+**最后更新**：2026-11-02（**Day 14 全面通过**（代码关 + 机制复核 3 题均过）；**Day 15「异常机制」脚手架已发**，基线 `320 个测试 / 12 红`）
 
 ---
 
@@ -24,19 +24,19 @@
 | 步 | 做什么 |
 |---|---|
 | 1 | `git pull --rebase`（本机可能仍有未推送提交，见文末） |
-| 2 | 读本文件「计划执行修订」+ 第三节「**Day 15 开场：Day 14 机制题复核**」 |
-| 3 | 读 `logs/2026-10-28-day14.md` 的「复盘问答 / 结论」两节 |
-| 4 | `cd practice && mvn test`，确认基线 **303 全绿**（`Failures: 0, Errors: 0`） |
-| 5 | **先闭卷答第三节那 3 道机制题**（Day 14 的账），不过不进 Day 15 新内容 |
-| 6 | 过了就开 **Day 15 · 异常**；SQL 暂停，不阻塞 |
+| 2 | 读本文件「计划执行修订」+ 第三节「**Day 15 待办**」 |
+| 3 | 读 `logs/2026-11-02-day15.md`（主题 + 4 道题的契约） |
+| 4 | `cd practice && mvn test`，确认基线 **`320 / 12 红`**（12 红全是 Day 15 的 TODO） |
+| 5 | **开工第一件事：通读 `ExceptionLab` 的类注释**（标 `★ 必读`）—— 今天四段机制全在里面 |
+| 6 | 实现 4 个 TODO，目标 **320 全绿**；SQL 暂停，不阻塞 |
 
 **暂停时的准确状态**
 
 | 项 | 值 |
 |---|---|
-| 已完成 | Day 1 – **14**（Day 14 **代码关**过，收官 **303/303 全绿**） |
-| 停在 | Day 14 **机制关未过** —— 3 题挂到 Day 15 开场复核 |
-| 测试基线 | **2026-11-02 实测**：`Tests run: 303, Failures: 0, Errors: 0` |
+| 已完成 | Day 1 – **14**（代码关 + 机制关全过，收官 **303/303 全绿**） |
+| 停在 | **Day 15「异常机制」脚手架已发、未开工**（4 个 TODO 未实现） |
+| 测试基线 | **2026-11-02 实测**：`Tests run: 320, Failures: 0, Errors: 12`（12 红全是 Day 15 的 TODO） |
 | 训练流程 | 「开工先读类注释 + 收尾 3 题机制题」+ 2026-10-30 的节奏修订 |
 | 🟡 SQL 状态 | **计划暂停（学员 2026-10-30 要求）**：`s1.sql` 保留未跑，**不算欠账、不阻塞进度**；恢复时间另定 |
 
@@ -60,10 +60,10 @@
 
 | 项 | 值 |
 |---|---|
-| 已完成 | Day 1 – **14**（Day 14 **代码关**过，收官 **303/303 全绿**） |
-| **当前训练日** | **Day 15 · 异常**（checked / try-with-resources / 自定义异常 / 异常链）—— **但开场先补 Day 14 的 3 题机制复核**，见第三节 |
-| 测试基线 | **2026-11-02 实测**：`Tests run: 303, Failures: 0, Errors: 0` |
-| 下一步 | ① 闭卷答 3 题机制 → ② `Day15` 脚手架（异常）→ ③ SQL 暂停，不阻塞 |
+| 已完成 | Day 1 – **14**（代码关 + 机制关全过，收官 **303/303 全绿**） |
+| **当前训练日** | **Day 15 · 异常机制**（`try-with-resources` / suppressed / 关闭顺序 / 异常链）—— 脚手架已发，**4 个 TODO 待实现** |
+| 测试基线 | **2026-11-02 实测**：`Tests run: 320, Failures: 0, Errors: 12`（12 红全是 Day 15 的 TODO） |
+| **交付目标** | `mvn test` → **320 全绿**；SQL 暂停，不阻塞 |
 
 ---
 
@@ -97,27 +97,37 @@
 
 ---
 
-## 三、🔴 Day 15 开场：Day 14 机制题复核（不过不进新内容）
+## 三、✅ 已过：Day 14 机制复核（2026-11-02）+ Day 15 待办
 
-**背景**：Day 14 **代码关已过**（303 全绿、清场完成），但**机制关未过**。
-3 题里只有 `? extends` 一侧是学员自己讲的；擦除与 record 两题靠教练讲清；`? super` 首答错误。
-详见 `logs/2026-10-28-day14.md` 的「复盘问答 / 结论」。
+**结果：3 题全过，Day 14 正式收官。** 详见 `logs/2026-10-28-day14.md` 的「复盘问答 / 结论」。
 
-**Day 15 开场闭卷答这 3 题（不许翻文件、不许问 AI、不许跑）**
+| # | 考题 | 首轮（11-02 早上） | **复核（11-02 下午）** |
+|---|---|---|---|
+| 1 | **擦除**：descriptor 为什么是 `(Ljava/util/List;)Ljava/lang/Comparable;`？那 4 个 `checkcast` 干什么？ | ❌ 交的是 AI 的讲解 | ✅ 全对（含「4 处」这个数字） |
+| 2 | **PECS**：`? extends` 为什么不能 `add`？`capture#1` 是什么？`? super` 为什么能 `add(1)`？`Integer i = l.get(0)` 能编译吗？ | 🟡 extends 侧过；super 侧答错（说读出来是 capture） | ✅ 机制对；两处要修：① 没说出 `capture#1` 这个词 ② super 读的理由绕（正解：**上界是 `Object`**） |
+| 3 | **record**：换成手写普通 class，15 个测试**哪 4 个红**？各自为什么？ | ❌ 答「全绿，类型擦除不依赖名字」 | ✅ 4 个全对；一处要修：**没有**违反 equals/hashCode 契约（equals 已 false，hashCode 不同合规） |
 
-| # | 题目 | 上次的结果 |
-|---|---|---|
-| 1 | **擦除**：`maxOf` 的 descriptor 为什么是 `(Ljava/util/List;)Ljava/lang/Comparable;`？调用方那 4 个 `checkcast` 是干什么的？ | ❌ 交的是 AI 的讲解 |
-| 2 | **PECS**：`List<? extends Number>` 为什么不能 `add`？`capture#1` 是什么？<br>**追问**：`List<? super Integer>` 为什么能 `add(1)`？`Integer i = l.get(0)` 能编译吗，为什么？ | 🟡 extends 侧过；super 侧答错 |
-| 3 | **record**：把 `Pair` 换成手写普通 class（只写字段 + 构造器 + `key()`/`value()`），15 个测试里**哪 4 个会红**？各自为什么？ | ❌ 答「全绿」 |
-
-**参考答案的落点**（教练核对用，不直接给学员）：
+**教练核对用的落点**（不给学员）：
 
 1. `T` 的上界是 `Comparable` → 擦除后返回 `Comparable`；调用方每个赋值点一个 `checkcast`（共 4 个：3 个 Integer + 1 个 String）
-2. `capture#1 extends Number`，写要「恰好是那个类型」→ 证明不了 → 拒绝；`? super` 的上界是 `Object`，读只能是 `Object`，写 `Integer` 一定安全
+2. `capture#1 extends Number`，写要「恰好是那个类型」→ 证明不了 → 拒绝；`? super` 的**上界是 `Object`**，读只能是 `Object`，写 `Integer` 一定安全
 3. 4 红：`equals`（比地址）/ `hashCode`（身份哈希）/ `toString`（`类名@哈希`）/ `isRecord()`
 
-> 复核不过 → 当天只补这 3 题，**不开 Day 15 新内容**（按 2026-10-30 口径：核心机制最多 1 题允许用确定性实验补证）。
+### 🔴 Day 15 待办（4 个 TODO，脚手架已发）
+
+文件：`practice/src/main/java/com/training/day15/ExceptionLab.java`（类注释标 `★ 必读`）
+
+| 题 | 方法 | 练到什么 |
+|---|---|---|
+| **Q1** | `bodyFailsAndCloseFails` | try-with-resources → 主异常 + suppressed |
+| **Q2** | `closeOrder` | 关闭顺序（**逆序**） |
+| **Q3** | `wrap` / `rootCause` | 异常链：包装保留 cause、递归找根因 |
+| **Q4** ★ | `bodyFailsAndCloseFailsWithoutTwr` | **手写** `try/catch/finally` + `addSuppressed`，达成与 Q1 相同效果 |
+
+> **Q4 是今天唯一的硬题**：只写 `finally { r.close(); }` → close 的异常**覆盖**主异常 →
+> `getMessage()` 变成 `"body-close close failed"` → 测试红。这一步就是这一题存在的意义。
+>
+> **5 个天然绿**：`throws` 只是元数据 / checked 由编译器强制 / unchecked 不需声明 / `Error` 不是 `Exception` / 不传 cause 就断链。
 
 ---
 
