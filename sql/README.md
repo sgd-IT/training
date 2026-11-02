@@ -1,4 +1,8 @@
-# SQL 训练台（Phase 2 起，每训练日 30 min）
+# SQL 训练台（已暂停）
+
+> **2026-10-30 学员要求暂停 SQL 训练计划。**
+> 当前不排周练、不作为阶段闸门、`s1.sql` 未完成也不计欠账。
+> 本目录和训练设计全部保留，恢复时从 **S1** 继续。
 
 跑在**你本机已有的 MySQL 8.0.46**上（服务 `mysql`，`127.0.0.1:3306`），
 库名 `training`。不碰 `gd_picture` / `xxl_job`。
@@ -65,7 +69,7 @@ FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'training';
 SHOW INDEX FROM orders;
 ```
 
-## 大纲（S1 → S7）
+## 大纲（S1 → S8，暂停期间只保留内容）
 
 | 编号 | 专题 |
 |---|---|
