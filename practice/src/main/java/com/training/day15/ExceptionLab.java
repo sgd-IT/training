@@ -93,22 +93,12 @@ import java.util.List;
  * {@code rootCause} 就是顺着 {@code getCause()} 一路往下走到 null 前一个。
  * 实际排查线上问题时，你要看的就是它。
  * <p>
- * ═══════════════════════════════════════════════════════════
- * TODO 清单
- * ═══════════════════════════════════════════════════════════
- *   TODO Q1: bodyFailsAndCloseFails   用 try-with-resources 完成（主异常 + suppressed）
- *   TODO Q2: closeOrder               两个资源，观察关闭顺序
- *   TODO Q3: wrap / rootCause         异常链：包装时保留 cause、递归找根因
- *   TODO Q4: bodyFailsAndCloseFailsWithoutTwr
- *            **不用** try-with-resources，手写 try/catch/finally + addSuppressed，
- *            达成和 Q1 完全一样的效果 —— 这一题才是今天真正的考题
- * <p>
  * ⚠️ 先预测，再跑（写【输出值】）：
  * <pre>
- * // 预测：Q1 返回的异常的 getMessage() →
- * // 预测：Q1 返回的异常 getSuppressed().length →
- * // 预测：Q2 返回的列表内容 →
- * // 预测：new ServiceException("x").getCause() →
+ * // 预测：Q1 返回的异常的 getMessage() →body-close close failed
+ * // 预测：Q1 返回的异常 getSuppressed().length →1
+ * // 预测：Q2 返回的列表内容 →先返回 "second.close"，再返回 "first.close"
+ * // 预测：new ServiceException("x").getCause() →null
  * </pre>
  */
 public class ExceptionLab {
@@ -171,6 +161,7 @@ public class ExceptionLab {
     // ═══════════════════════════════════════════════════════════
     // TODO Q1
     // ═══════════════════════════════════════════════════════════
+
     /**
      * 用 <b>try-with-resources</b> 打开一个「body 会炸、close 也会炸」的资源，
      * 然后把**主异常**返回出来（不要让它从方法里逃出去，测试要检查它）。
@@ -185,15 +176,29 @@ public class ExceptionLab {
      * <p>
      * ⚠️ 想一想：close 的异常为什么**没有覆盖** body 的异常？谁把它们分开的？
      */
+    // ─────────── 步骤（照着填，别跳步）────────────────────────────
+    // 1. `try` 后面加一对【圆括号】，把资源声明放进【括号里】
+    //      资源 = new FlakyResource("body-close", true, closeLog)
+    //      —— 圆括号就是 try-with-resources 的标志（Q2 你已经写对过）
+    // 2. 花括号里只留一句：throw new IllegalStateException("body failed")
+    // 3. catch (IllegalStateException e) 里只留一句：return e;
+    //      —— 关键：e 就是刚被抛出去那个对象，直接交出去，不要 new 新的
+    // 4. 【删掉】所有 return new IllegalStateException("body failed")
+    // ────────────────────────────────────────────────────────────
     public static Throwable bodyFailsAndCloseFails() {
         List<String> closeLog = new ArrayList<>();
         // TODO Q1: 用 try-with-resources；catch 到之后把主异常 return 出去
-        throw new UnsupportedOperationException("TODO Q1");
+        try ( FlakyResource flakyResource = new FlakyResource("body-close", true, closeLog)){
+            throw new IllegalStateException("body failed");
+        } catch (IllegalStateException e) {
+           return e;
+        }
     }
 
     // ═══════════════════════════════════════════════════════════
     // TODO Q2
     // ═══════════════════════════════════════════════════════════
+
     /**
      * 打开两个都不炸的资源，然后让它们被关闭，返回 {@code closeLog}。
      * <p>
@@ -208,12 +213,12 @@ public class ExceptionLab {
     public static List<String> closeOrder() {
         List<String> closeLog = new ArrayList<>();
         // TODO Q2
-        throw new UnsupportedOperationException("TODO Q2");
+        FlakyResource first = new FlakyResource("first", false, closeLog);
+        FlakyResource second = new FlakyResource("second", false, closeLog);
+        try (first; second) {
+        }
+        return closeLog;
     }
-
-    // ═══════════════════════════════════════════════════════════
-    // TODO Q3
-    // ═══════════════════════════════════════════════════════════
     /**
      * 把任意异常包装成 {@link ServiceException}，**必须保留原因链**。
      * <p>
@@ -227,7 +232,7 @@ public class ExceptionLab {
      */
     public static ServiceException wrap(Throwable cause) {
         // TODO Q3-a
-        throw new UnsupportedOperationException("TODO Q3-a");
+        return new ServiceException("service failed: " + cause.getMessage(), cause);
     }
 
     /**
@@ -243,12 +248,16 @@ public class ExceptionLab {
      */
     public static Throwable rootCause(Throwable t) {
         // TODO Q3-b
-        throw new UnsupportedOperationException("TODO Q3-b");
+        while (t.getCause() != null) {
+            t = t.getCause();
+        }
+        return t;
     }
 
     // ═══════════════════════════════════════════════════════════
     // TODO Q4 ★ 今天真正的考题
     // ═══════════════════════════════════════════════════════════
+
     /**
      * 和 {@link #bodyFailsAndCloseFails()} **完全一样的行为**，
      * 但**不许用 try-with-resources** —— 你要手写编译器展开出来的那段。
@@ -266,9 +275,39 @@ public class ExceptionLab {
      * <b>覆盖</b> body 的异常，{@code getMessage()} 会变成 {@code "body-close close failed"}，
      * 测试会红。这一步就是这一题存在的全部意义。
      */
+    // ─────────── 步骤（照着填）────────────────────────────────────
+    // 1. 保留第一行：FlakyResource flakyResource = new FlakyResource(...)
+    // 2. 在 try 之前，再声明一个变量存「主异常」，类型 Throwable，初值 null
+    // 3. try 花括号里：throw new IllegalStateException("body failed")
+    // 4. catch 里：只做一件事 —— 把 e 存进第 2 步那个变量
+    //      ⚠️ 这里【不要】return，因为 finally 还没跑
+    //      ⚠️ 这里【不要】调 close()，那会让 close 的异常顶掉主异常
+    // 5. 新增 finally：里面的 close() 必须【再被一层 try/catch 包住】
+    //      · close 成功  → 什么也不做
+    //      · close 失败  → 主异常 != null：把 close 的异常 addSuppressed 到它身上
+    //                     主异常 == null（body 没炸）：让 close 的异常正常抛出去
+    // 6. 方法最后：return 主异常变量
+    // 为什么必须这么写：Java 一个方法只能抛一个异常，所以必须有一个"主角"，
+    // 另一个挂上去 —— try-with-resources 替你做的就是这个（见类注释第 60–85 行）
+    // ────────────────────────────────────────────────────────────
     public static Throwable bodyFailsAndCloseFailsWithoutTwr() {
         List<String> closeLog = new ArrayList<>();
-        // TODO Q4: 手写 try / catch / finally + addSuppressed
-        throw new UnsupportedOperationException("TODO Q4");
+        FlakyResource flakyResource = new FlakyResource("body-close", true, closeLog);
+        Throwable mainException = null;
+        try{
+            throw new IllegalStateException("body failed");
+        }catch (IllegalStateException e){
+            mainException = e;
+        }finally {
+            try {
+                flakyResource.close();
+            } catch (Throwable closeException) {
+                if (mainException != null) {
+                    mainException.addSuppressed(closeException);
+                }else
+                    throw closeException;
+            }
+        }
+        return mainException;
     }
 }

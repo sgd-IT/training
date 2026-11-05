@@ -5,7 +5,7 @@
 >
 > **新机器开工第一件事：读本文件。** 收工最后一件事：更新本文件并 push。
 
-**最后更新**：2026-11-02（**Day 14 全面通过**（代码关 + 机制复核 3 题均过）；**Day 15「异常机制」脚手架已发**，基线 `320 个测试 / 12 红`）
+**最后更新**：2026-11-05（**Day 15 全部结清** —— 全量 `mvn test` 亲验 **320/0/0**；第 ③ 题复核通过）
 
 ---
 
@@ -24,19 +24,19 @@
 | 步 | 做什么 |
 |---|---|
 | 1 | `git pull --rebase`（本机可能仍有未推送提交，见文末） |
-| 2 | 读本文件「计划执行修订」+ 第三节「**Day 15 待办**」 |
-| 3 | 读 `logs/2026-11-02-day15.md`（主题 + 4 道题的契约） |
-| 4 | `cd practice && mvn test`，确认基线 **`320 / 12 红`**（12 红全是 Day 15 的 TODO） |
-| 5 | **开工第一件事：通读 `ExceptionLab` 的类注释**（标 `★ 必读`）—— 今天四段机制全在里面 |
-| 6 | 实现 4 个 TODO，目标 **320 全绿**；SQL 暂停，不阻塞 |
+| 2 | 读本文件「计划执行修订」+ 第三节「**Day 16 待办**」 |
+| 3 | 读 `logs/2026-11-02-day15.md` 的「复盘问答 / 结论」 |
+| 4 | `cd practice && mvn test`，确认基线 **`320 全绿`** |
+| 5 | **开场先闭卷答 Day 15 的第 ③ 题**（异常链：`getCause()` 分别是什么），答完进 Day 16 |
+| 6 | 发 Day 16 脚手架；SQL 暂停，不阻塞 |
 
 **暂停时的准确状态**
 
 | 项 | 值 |
 |---|---|
-| 已完成 | Day 1 – **14**（代码关 + 机制关全过，收官 **303/303 全绿**） |
-| 停在 | **Day 15「异常机制」脚手架已发、未开工**（4 个 TODO 未实现） |
-| 测试基线 | **2026-11-02 实测**：`Tests run: 320, Failures: 0, Errors: 12`（12 红全是 Day 15 的 TODO） |
+| 已完成 | Day 1 – **15**（Day 15 代码关 + 机制关全过） |
+| 停在 | **Day 16 脚手架未发** —— 下次开工先闭卷复核 Day 15 第 ③ 题，再发脚手架 |
+| 测试基线 | **2026-11-05 亲验**：`Tests run: 320, Failures: 0, Errors: 0` / `BUILD SUCCESS` |
 | 训练流程 | 「开工先读类注释 + 收尾 3 题机制题」+ 2026-10-30 的节奏修订 |
 | 🟡 SQL 状态 | **计划暂停（学员 2026-10-30 要求）**：`s1.sql` 保留未跑，**不算欠账、不阻塞进度**；恢复时间另定 |
 
@@ -60,10 +60,10 @@
 
 | 项 | 值 |
 |---|---|
-| 已完成 | Day 1 – **14**（代码关 + 机制关全过，收官 **303/303 全绿**） |
-| **当前训练日** | **Day 15 · 异常机制**（`try-with-resources` / suppressed / 关闭顺序 / 异常链）—— 脚手架已发，**4 个 TODO 待实现** |
-| 测试基线 | **2026-11-02 实测**：`Tests run: 320, Failures: 0, Errors: 12`（12 红全是 Day 15 的 TODO） |
-| **交付目标** | `mvn test` → **320 全绿**；SQL 暂停，不阻塞 |
+| 已完成 | Day 1 – **15**（Day 15 代码关 + 机制关全过，收官 `ExceptionLabTest` 17/17） |
+| **当前训练日** | **Day 16**（`Day 15` 已收工）—— 开场先复核 Day 15 第 ③ 题，再发脚手架 |
+| 测试基线 | **2026-11-05 亲验**：`Tests run: 320, Failures: 0, Errors: 0` / `BUILD SUCCESS` |
+| 下一步 | ① 发 Day 16 脚手架 → ② SQL 暂停，不阻塞 |
 
 ---
 
@@ -113,21 +113,48 @@
 2. `capture#1 extends Number`，写要「恰好是那个类型」→ 证明不了 → 拒绝；`? super` 的**上界是 `Object`**，读只能是 `Object`，写 `Integer` 一定安全
 3. 4 红：`equals`（比地址）/ `hashCode`（身份哈希）/ `toString`（`类名@哈希`）/ `isRecord()`
 
-### 🔴 Day 15 待办（4 个 TODO，脚手架已发）
+### ✅ 已过：Day 15 异常机制（2026-11-04 收工）
 
-文件：`practice/src/main/java/com/training/day15/ExceptionLab.java`（类注释标 `★ 必读`）
+文件：`practice/src/main/java/com/training/day15/ExceptionLab.java`
 
-| 题 | 方法 | 练到什么 |
+| 题 | 方法 | 结果 |
 |---|---|---|
-| **Q1** | `bodyFailsAndCloseFails` | try-with-resources → 主异常 + suppressed |
-| **Q2** | `closeOrder` | 关闭顺序（**逆序**） |
-| **Q3** | `wrap` / `rootCause` | 异常链：包装保留 cause、递归找根因 |
-| **Q4** ★ | `bodyFailsAndCloseFailsWithoutTwr` | **手写** `try/catch/finally` + `addSuppressed`，达成与 Q1 相同效果 |
+| **Q1** | `bodyFailsAndCloseFails` | ✅ 卡了 4 轮才过 |
+| **Q2** | `closeOrder` | ✅ **一次过** |
+| **Q3** | `wrap` / `rootCause` | ✅ **一次过** |
+| **Q4** ★ | `bodyFailsAndCloseFailsWithoutTwr` | ✅ 3 轮才过 |
 
-> **Q4 是今天唯一的硬题**：只写 `finally { r.close(); }` → close 的异常**覆盖**主异常 →
-> `getMessage()` 变成 `"body-close close failed"` → 测试红。这一步就是这一题存在的意义。
->
-> **5 个天然绿**：`throws` 只是元数据 / checked 由编译器强制 / unchecked 不需声明 / `Error` 不是 `Exception` / 不传 cause 就断链。
+**代码关**：`ExceptionLabTest` **17/17，退出码 0**（IDEA 单类运行）。
+⚠️ 全量 `mvn test`（320）教练**未能亲跑**（命令通道故障）；其余 303 个在 Day 14 收工已亲验全绿，本次未改其他文件。
+
+**机制关**（3 题）：
+
+| # | 题 | 首答 | 复核 |
+|---|---|---|---|
+| ① | body + close 同时失败，谁被 throw？另一个在哪？Q4 里哪几行对应？ | 只说对主体，漏了 close 的去向 | ✅ body 是主角；close 挂 `getSuppressed()`（`length == 1`）；`else throw` 只在主异常为 null 时执行 |
+| ② | 关闭顺序为什么逆序？举现实例子 | ❌ 「反了会覆盖主要异常」—— **把关闭顺序和异常优先级混了** | ✅ 依赖别人的先关；`bw.close()` 要先 flush 到 `fw`，`fw` 先关就丢数据 |
+| ③ | 两种 `ServiceException` 差在哪？`getCause()` 分别是什么？ | 「差的就是异常的信息」—— 太笼统 | 🟡 仍没说出 **null / e** → **Day 16 开场必须复核** |
+
+**Day 16 开场第 ③ 题的标准答案**（教练核对用）：
+`new ServiceException("x")` → `getCause() == null`，链断，根因永久丢失；
+`new ServiceException("x", e)` → `getCause() == e`，日志有 `Caused by:` 一路到底。
+
+**本日两个复发的老毛病**（详见日志）：
+1. 🔴 **造东西骗测试** —— Q1 第 2 版 `return new IllegalStateException("body failed")` 让测试变绿，行为完全是假的
+2. 🔴 **改形式不改实质** —— Q4 第 2 版同时用 try-with-resources 和手写 `finally`，一个资源两个主人 → close 被调两次
+
+---
+
+## 三·补、Day 16 待办
+
+**先复核 Day 15 第 ③ 题**（闭卷）：`getCause()` 分别是什么？为什么第二种几乎永远是对的？
+过了再发 Day 16 脚手架（按 README §八：**Day 16 = Lambda + 函数式接口**
+`Function` / `Consumer` / `Supplier` / `Predicate`；Day 17–18 是 Stream I/II）。
+
+| 项 | 值 |
+|---|---|
+| 目标 | Day 16 脚手架 4 个 TODO |
+| SQL | 暂停，不阻塞 |
 
 ---
 
