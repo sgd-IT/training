@@ -5,7 +5,7 @@
 >
 > **新机器开工第一件事：读本文件。** 收工最后一件事：更新本文件并 push。
 
-**最后更新**：2026-11-05（**Day 15 全部结清**（全量 320 亲验）；**Day 16「Lambda + 函数式接口」脚手架已发**，基线 `332 / 7 红`）
+**最后更新**：2026-11-10（**Day 16 结清**：代码关 332/0/0 亲验 + 机制关 ①②③ 过、④ 带入 Day 17；**下一步发 Day 17「Stream I」脚手架**）
 
 ---
 
@@ -24,19 +24,19 @@
 | 步 | 做什么 |
 |---|---|
 | 1 | `git pull --rebase`（本机可能仍有未推送提交，见文末） |
-| 2 | 读本文件「计划执行修订」+ 第三节「**Day 16 待办**」 |
-| 3 | 读 `logs/2026-11-02-day15.md` 的「复盘问答 / 结论」 |
-| 4 | `cd practice && mvn test`，确认基线 **`320 全绿`** |
-| 5 | **开场先闭卷答 Day 15 的第 ③ 题**（异常链：`getCause()` 分别是什么），答完进 Day 16 |
-| 6 | 发 Day 16 脚手架；SQL 暂停，不阻塞 |
+| 2 | 读本文件「计划执行修订」+ 第三节「**Day 17 待办**」 |
+| 3 | 读 `logs/2026-11-05-day16.md` 的「复盘问答 / 结论」 |
+| 4 | `cd practice && mvn test`，确认基线 **`332 全绿`** |
+| 5 | **开场先闭卷答 Day 16 带入的第 1 题**（lambda 为什么没有自己的 `this`），答完发 Day 17 脚手架 |
+| 6 | 发 Day 17「Stream I」脚手架；SQL 暂停，不阻塞 |
 
 **暂停时的准确状态**
 
 | 项 | 值 |
 |---|---|
-| 已完成 | Day 1 – **15**（Day 15 代码关 + 机制关全过） |
-| 停在 | **Day 16 脚手架未发** —— 下次开工先闭卷复核 Day 15 第 ③ 题，再发脚手架 |
-| 测试基线 | **2026-11-05 亲验**：`Tests run: 320, Failures: 0, Errors: 0` / `BUILD SUCCESS` |
+| 已完成 | Day 1 – **16**（Day 16 代码关 + 机制关 ①②③ 过） |
+| 停在 | **Day 17 脚手架未发** —— 下次开工先闭卷复核 Day 16 第 ④ 题，再发脚手架 |
+| 测试基线 | **2026-11-10 亲验**：`Tests run: 332, Failures: 0, Errors: 0` / `BUILD SUCCESS` |
 | 训练流程 | 「开工先读类注释 + 收尾 3 题机制题」+ 2026-10-30 的节奏修订 |
 | 🟡 SQL 状态 | **计划暂停（学员 2026-10-30 要求）**：`s1.sql` 保留未跑，**不算欠账、不阻塞进度**；恢复时间另定 |
 
@@ -60,10 +60,10 @@
 
 | 项 | 值 |
 |---|---|
-| 已完成 | Day 1 – **15**（Day 15 代码关 + 机制关全过，收官 **320/320 全绿**） |
-| **当前训练日** | **Day 16 · Lambda + 函数式接口** —— 脚手架已发，**4 个 TODO 待实现** |
-| 测试基线 | **2026-11-05 亲验**：`Tests run: 332, Failures: 0, Errors: 7`（7 红全是 Day 16 的 TODO） |
-| **交付目标** | `mvn test` → **332 全绿**；SQL 暂停，不阻塞 |
+| 已完成 | Day 1 – **16**（Day 16 收官 **332/332 全绿**，机制关 ①②③ 过） |
+| **当前训练日** | **Day 17 · Stream I** —— 脚手架待发；下次开工先答 Day 16 带入的第 1 题 |
+| 测试基线 | **2026-11-10 亲验**：`Tests run: 332, Failures: 0, Errors: 0` / `BUILD SUCCESS` |
+| **交付目标** | Day 17 脚手架交付后 `mvn test` 全绿；SQL 暂停，不阻塞 |
 
 ---
 
@@ -97,7 +97,7 @@
 
 ---
 
-## 三、✅ 已过：Day 14 机制复核（2026-11-02）+ Day 15 待办
+## 三、✅ 已过：Day 14 / 15 / 16 机制关（截至 2026-11-10）
 
 **结果：3 题全过，Day 14 正式收官。** 详见 `logs/2026-10-28-day14.md` 的「复盘问答 / 结论」。
 
@@ -143,18 +143,55 @@
 1. 🔴 **造东西骗测试** —— Q1 第 2 版 `return new IllegalStateException("body failed")` 让测试变绿，行为完全是假的
 2. 🔴 **改形式不改实质** —— Q4 第 2 版同时用 try-with-resources 和手写 `finally`，一个资源两个主人 → close 被调两次
 
+### ✅ 已过：Day 16 Lambda 与函数式接口（2026-11-10 收盘）
+
+文件：`practice/src/main/java/com/training/day16/LambdaLab.java`
+
+| 题 | 方法 | 结果 |
+|---|---|---|
+| **Q1** | `doubler` | ✅ 一次过（`x -> x * 2`） |
+| **Q2** ★ | `counter` | ✅ 一次过，**自己想出 `int[] p = {0}` 绕开 effectively final** |
+| **Q3** | `chain` | ✅ 一次过（`x -> second.apply(first.apply(x))`） |
+| **Q4** | `lambdaThis` | ✅ 一次过（`() -> this.getClass().getName()`） |
+
+**代码关**：`mvn test` → **332 / 0 / 0 / 0，BUILD SUCCESS**（教练亲跑）。**4 个 TODO 零返工**，Day 14 之后第一次。
+
+**机制关**（4 题，走了 4 轮）：
+
+| # | 题 | 首答 | 终答 |
+|---|---|---|---|
+| ① | lambda 编译成什么指令？谁生成类？ | ❌「没有自己的类文件」→ 二轮 ❌「Function/Consumer/Supplier」（答成第一节） | ✅ `invokedynamic` + `LambdaMetafactory` |
+| ② | javac 报错**原文** | ❌「报错了」 | ✅「lambda 表达式中使用的变量应为 final 或有效 final」 |
+| ③ | 捕获的是值还是变量？ | ⬜「不清楚」→ 二轮 **「B，0」自相矛盾** | ✅ **A**（改字段，外面还是 0） |
+| ④ | lambda 的 `this` 是谁？ | 🟡 结论对、理由错 | 🟡 未完整复述「没有类 → 没有自己的 this」→ **Day 17 第 1 题** |
+
+**本题决定性证据**（教练亲跑，可复现）：
+
+1. `dir practice\target\classes\com\training\day16` → 有 `LambdaLab$1.class`（匿名内部类），**没有** lambda 的 class 文件
+2. `javac` 探针 `Capture.java`（`int count` 版）→ 退出码 1，报「必须是最终变量或实际上的最终变量」
+3. `Boxed.java`（`int[] p` 版）→ `0` / `2` / `Boxed$$Lambda/0x...`
+4. `-Djdk.internal.lambda.dumpProxyClasses` 在 **JDK 21 上未落盘**，别再用它取证
+
+**本日两个亮点**（难得的，记下来）：
+
+1. **第一次真取证** —— ② 题把 javac 原话一字不差抄回来，还主动还原确认全绿
+2. **「不清楚」直接空着** —— 比 Day 15 编一个假异常去骗测试，进步一大截
+
+**复发的老毛病（未除根）**：**用名词顶替机制**。问「编译成什么指令」答「`Function`/`Consumer`/`Supplier`」，与 Day 14 的「`checkcast` 就是插进去」同源。
+
 ---
 
-## 三·补、Day 16 待办
+## 三·补、Day 17 待办
 
-**先复核 Day 15 第 ③ 题**（闭卷）：`getCause()` 分别是什么？为什么第二种几乎永远是对的？
-过了再发 Day 16 脚手架（按 README §八：**Day 16 = Lambda + 函数式接口**
-`Function` / `Consumer` / `Supplier` / `Predicate`；Day 17–18 是 Stream I/II）。
+**先复核 Day 16 第 ④ 题**（闭卷）：lambda 为什么**没有自己的 `this`**？把这件事和「匿名内部类有 `LambdaLab$1.class` 这个文件」连起来说。
+过了再发 Day 17 脚手架（按 README §八：**Day 17 = Stream I**，Day 18 = Stream II）。
 
 | 项 | 值 |
 |---|---|
-| 目标 | Day 16 脚手架 4 个 TODO |
+| 目标 | 发 Day 17「Stream I」脚手架；上一日 332 基线先确认 |
 | SQL | 暂停，不阻塞 |
+
+> ⚠️ 2026-11-10 收盘时学员**仍未 commit**（`LambdaLab.java` 挂 `M`），日志/STATE 由教练写入。
 
 ---
 
@@ -283,7 +320,7 @@ origin  https://github.com/sgd-IT/training.git
 ## 八、常用命令
 
 ```cmd
-跑测试:  cd practice && mvn test        :: 当前 303 个 / 11 红（Day 14 TODO）；交付目标 303 全绿
+跑测试:  cd practice && mvn test        :: 当前 332 个全绿（Day 16 收官）；新脚手架交付后看基线里的红数
 SQL:     cd sql && run.cmd -env / -Setup / s1.sql / -i   :: 计划暂停，仅保留环境
 清场:    Ctrl+Alt+L（格式化） Ctrl+Alt+Z（回滚）
 ```

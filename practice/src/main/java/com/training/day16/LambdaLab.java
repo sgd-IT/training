@@ -85,10 +85,10 @@ import java.util.function.Supplier;
  * <p>
  * ⚠️ 先预测，再跑（写【输出值】）：
  * <pre>
- * // 预测：doubler().getClass().getName() 大概长什么样 →
- * // 预测：lambdaThis().get() 返回什么 →
- * // 预测：anonymousThis().get() 返回什么 →
- * // 预测：counter() 连续调三次 getAsInt() 得到 →
+ * // 预测：doubler().getClass().getName() 大概长什么样 → lambda不会生成。class文件，里面会包含$$Lambda
+ * // 预测：lambdaThis().get() 返回什么 →LambdaLab
+ * // 预测：anonymousThis().get() 返回什么 →LambdaLab$1
+ * // 预测：counter() 连续调三次 getAsInt() 得到 →0, 1, 2
  * </pre>
  */
 public class LambdaLab {
@@ -116,8 +116,7 @@ public class LambdaLab {
      * 类名是 {@code LambdaLab$1}，测试会红。
      */
     public static Transformer doubler() {
-        // TODO Q1
-        throw new UnsupportedOperationException("TODO Q1");
+        return  x -> x * 2 ;
     }
 
     // ═══════════════════════════════════════════════════════════
@@ -143,8 +142,8 @@ public class LambdaLab {
      * 而必须借助数组？（答不上来就看类注释第三节）
      */
     public static IntSupplier counter() {
-        // TODO Q2
-        throw new UnsupportedOperationException("TODO Q2");
+        int[] p = {0};
+        return () -> p[0]++;
     }
 
     // ═══════════════════════════════════════════════════════════
@@ -162,8 +161,7 @@ public class LambdaLab {
      * ⚠️ 两条都在，就说明「顺序」不是靠猜的 —— 顺序反了第二条会红。
      */
     public static Transformer chain(Transformer first, Transformer second) {
-        // TODO Q3
-        throw new UnsupportedOperationException("TODO Q3");
+        return x -> second.apply(first.apply(x));
     }
 
     // ═══════════════════════════════════════════════════════════
@@ -179,8 +177,7 @@ public class LambdaLab {
      * 跑完测试再回来看类注释第四节。
      */
     public Supplier<String> lambdaThis() {
-        // TODO Q4
-        throw new UnsupportedOperationException("TODO Q4");
+        return () -> this.getClass().getName();
     }
 
     /**
