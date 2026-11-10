@@ -1,6 +1,8 @@
 package com.training.day17;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -75,10 +77,10 @@ import java.util.stream.Stream;
  * <p>
  * ⚠️ 先预测，再跑（写【输出值】，不是写「大概是」）：
  * <pre>
- * // 预测：watched(...) 刚构造完、还没终止时，log.size() = ?
- * // 预测：firstAbove(5, seen) 返回 ?；seen = ?
- * // 预测：immutableCopy(...) 之后对结果 add("c") 会 → ?
- * // 预测：List.of("a","b","c").stream().peek(log::add).count() 之后 log.size() = ?（这题反直觉）
+ * // 预测：watched(...) 刚构造完、还没终止时，log.size() = 0
+ * // 预测：firstAbove(5, seen) 返回 6；seen = 1,2,3,4,5,6
+ * // 预测：immutableCopy(...) 之后对结果 add("c") 会 → 抛UnsupportedOperationException
+ * // 预测：List.of("a","b","c").stream().peek(log::add).count() 之后 log.size() = ?（这题反直觉）3
  * </pre>
  */
 public class StreamLab {
@@ -86,6 +88,7 @@ public class StreamLab {
     // ═══════════════════════════════════════════════════════════
     // TODO Q1
     // ═══════════════════════════════════════════════════════════
+
     /**
      * 返回一个流：元素和 {@code source} 一样，但**每处理一个元素**就往 {@code log} 里记一笔。
      * <p>
@@ -101,12 +104,14 @@ public class StreamLab {
      * 提示：{@code peek} 是专门用来「顺手记一笔」的中间操作，它返回流，不改元素。
      */
     public static Stream<String> watched(List<String> source, List<String> log) {
-        throw new UnsupportedOperationException("TODO Q1");
+        return source.stream()
+                .peek(log::add);
     }
 
     // ═══════════════════════════════════════════════════════════
     // TODO Q2
     // ═══════════════════════════════════════════════════════════
+
     /**
      * 从 **1, 2, 3, ... 无限自然数流** 里，找第一个「严格大于 {@code limit}」的数；
      * 每**检查**过一个数就把它记进 {@code seen}。
@@ -124,12 +129,20 @@ public class StreamLab {
      * 收尾用 {@code findFirst()}。
      */
     public static int firstAbove(int limit, List<Integer> seen) {
-        throw new UnsupportedOperationException("TODO Q2");
+        Optional<Integer> first = Stream.iterate(1, n -> n + 1)
+                .filter(n -> {
+                    seen.add(n);
+                    return n > limit;
+                })
+                .findFirst();
+        int value = first.get();
+        return value;
     }
 
     // ═══════════════════════════════════════════════════════════
     // TODO Q3
     // ═══════════════════════════════════════════════════════════
+
     /**
      * 把 {@code List<List<Integer>>} **摊平**成一维 {@code List<Integer>}，保持原顺序。
      * <p>
@@ -142,12 +155,15 @@ public class StreamLab {
      * ⚠️ 用 {@code map} 做不出来 —— 先想清楚 {@code map} 会给你什么类型。
      */
     public static List<Integer> flatten(List<List<Integer>> nested) {
-        throw new UnsupportedOperationException("TODO Q3");
+       return nested.stream()
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
     }
 
     // ═══════════════════════════════════════════════════════════
     // TODO Q4
     // ═══════════════════════════════════════════════════════════
+
     /**
      * 把 {@code source} 变成一条流再收回来，返回的 List 内容相同，但**不可修改**。
      * <p>
@@ -161,6 +177,7 @@ public class StreamLab {
      * {@code collect(Collectors.toList())} 给可变的。别拿后者糊过来，第二条会红。
      */
     public static List<String> immutableCopy(List<String> source) {
-        throw new UnsupportedOperationException("TODO Q4");
+        return source.stream()
+                .toList();
     }
 }
