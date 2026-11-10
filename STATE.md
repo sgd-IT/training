@@ -5,7 +5,7 @@
 >
 > **新机器开工第一件事：读本文件。** 收工最后一件事：更新本文件并 push。
 
-**最后更新**：2026-11-10（**Day 17 收盘**：代码关 `345/0/0` 亲验、4 TODO 零返工；机制关 ①🟡 ②❌ ③✅ ④✅；**② 带 Day 18 开场**；下一步发 **Day 18「Stream II」**脚手架）
+**最后更新**：2026-11-10（**Day 17 全部结清**：②用 `Hang.java` 实验补证通过，全量 345/0/0 亲验；**Day 18「Stream II」脚手架已发**，基线 `358 / 8 红`）
 
 ---
 
@@ -25,18 +25,18 @@
 |---|---|
 | 1 | `git pull --rebase`（本机可能仍有未推送提交，见文末） |
 | 2 | 读本文件「计划执行修订」+ 第三节「**Day 18 待办**」 |
-| 3 | 读 `logs/2026-11-10-day17.md` 的「复盘问答 / 结论」；Day 16 那份也别丢 |
-| 4 | `cd practice && mvn test`，确认基线 **`345 全绿`**（Day 18 脚手架发出后变成 `N / 红`） |
-| 5 | **开场先让学员跑 `Hang.java` 实验并贴输出**（Day 17 第 ② 题未结清），再答 Day 17 带入的第 1 题 |
-| 6 | 发 Day 18「Stream II」脚手架；SQL 暂停，不阻塞 |
+| 3 | 读 `logs/2026-11-10-day18.md` 的「复盘问答 / 结论」；Day 17 / 16 那两份也别丢 |
+| 4 | `cd practice && mvn test`，确认基线 **`358 / 8 红`**（8 红全是 Day 18 的 TODO） |
+| 5 | 学员做 Day 18 的 4 个 TODO（Q2 是主陷阱：`partitioningBy` 不是 `groupingBy`） |
+| 6 | SQL 暂停，不阻塞 |
 
 **暂停时的准确状态**
 
 | 项 | 值 |
 |---|---|
-| 已完成 | Day 1 – **17**（Day 17 代码关 345/0/0；机制关 ①③④ 过、② 未过） |
-| 停在 | **Day 18 脚手架未发** —— 先补 Day 17 第 ② 题（实验 + 讲解），再发 |
-| 测试基线 | **2026-11-10 亲验**：`Tests run: 345, Failures: 0, Errors: 0` / `BUILD SUCCESS` |
+| 已完成 | Day 1 – **17**（Day 17 代码关 345/0/0 + 机制关 **4 题全过**，② 靠实验补证） |
+| 停在 | **Day 18 脚手架已发，4 个 TODO 待实现** |
+| 测试基线 | **2026-11-10 亲验**：`Tests run: 358, Failures: 1, Errors: 7`（8 红全是 Day 18 TODO） |
 | 训练流程 | 「开工先读类注释 + 收尾 3 题机制题」+ 2026-10-30 的节奏修订 |
 | 🟡 SQL 状态 | **计划暂停（学员 2026-10-30 要求）**：`s1.sql` 保留未跑，**不算欠账、不阻塞进度**；恢复时间另定 |
 
@@ -60,10 +60,10 @@
 
 | 项 | 值 |
 |---|---|
-| 已完成 | Day 1 – **17**（Day 17 收官 **345/345 全绿**；机制关 ①③④ 过、② 未过） |
-| **当前训练日** | **Day 18 · Stream II** —— 脚手架待发；**开场先补 Day 17 第 ② 题** |
-| 测试基线 | **2026-11-10 亲验**：`Tests run: 345, Failures: 0, Errors: 0` / `BUILD SUCCESS` |
-| **交付目标** | 先结清 ②，再发 Day 18 脚手架；SQL 暂停，不阻塞 |
+| 已完成 | Day 1 – **17**（Day 17 收官 **345/345 全绿**，机制关 4 题全过） |
+| **当前训练日** | **Day 18 · Stream II** —— 脚手架已发，**4 个 TODO 待实现** |
+| 测试基线 | **2026-11-10 亲验**：`Tests run: 358, Failures: 1, Errors: 7`（8 红全是 Day 18 TODO） |
+| **交付目标** | `mvn test` → **358 全绿**；SQL 暂停，不阻塞 |
 
 ---
 
@@ -220,22 +220,24 @@
 
 ---
 
-## 三·补、Day 18 待办
+## 三·补、Day 18 待办（脚手架已发，2026-11-10 傍晚）
 
-**开场两件事，按顺序**：
+文件：`practice/src/main/java/com/training/day18/CollectorsLab.java`
 
-1. **跑 `Hang.java` 实验，贴输出**（Day 17 第 ② 题）
-2. 闭卷答：为什么 `findFirst()` 能返回而 `toList()` 不能？「无限列表」到底存不存在？
-
-**答完才发 Day 18 脚手架**（按 README §八：**Day 18 = Stream II**；Day 19 = 协议手写日）。
+| 题 | 方法 | 考什么 | 陷阱 |
+|---|---|---|---|
+| **Q1** | `countByLength` | `groupingBy` + `counting()` | 返回 `Long`，不是 `Integer` |
+| **Q2** ★ | `splitEvenOdd` | `partitioningBy` | 空输入也要两个 key；用 `groupingBy` 会红 |
+| **Q3** | `nameToLength` | `toMap` | 重复 key 让 `toMap` 自己抛 `IllegalStateException`，不许自己 `if` 凑 |
+| **Q4** | `groupByLengthSorted` | Map 顺序 | 默认 `HashMap` 无序，必须 `TreeMap::new` |
 
 | 项 | 值 |
 |---|---|
-| 当前基线 | **2026-11-10 亲跑**：`Tests run: 345, Failures: 0, Errors: 0` |
-| 闸门 | Day 17 第 ② 题结清（实验 + 一句解释） |
+| 测试基线 | **2026-11-10 亲跑**：`Tests run: 358, Failures: 1, Errors: 7` |
+| 目标 | 8 红转绿 → **358 全绿** |
 | SQL | 暂停，不阻塞 |
 
-> 备注：Day 16 / Day 17 收盘时学员都未 commit，均由教练代为提交（`28477d0` / 见 git log）。
+> 备注：Day 16 / 17 / 18 交付与收盘时学员都未 commit，均由教练代为提交（见 `git log`）。
 
 ---
 
@@ -364,7 +366,7 @@ origin  https://github.com/sgd-IT/training.git
 ## 八、常用命令
 
 ```cmd
-跑测试:  cd practice && mvn test        :: 当前 345 个全绿（Day 17 收官）
+跑测试:  cd practice && mvn test        :: 当前 358 个 / 8 红（Day 18 TODO）；交付目标 358 全绿
 SQL:     cd sql && run.cmd -env / -Setup / s1.sql / -i   :: 计划暂停，仅保留环境
 清场:    Ctrl+Alt+L（格式化） Ctrl+Alt+Z（回滚）
 ```
