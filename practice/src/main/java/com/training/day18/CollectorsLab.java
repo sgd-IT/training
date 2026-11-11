@@ -88,6 +88,7 @@ public class CollectorsLab {
     // ═══════════════════════════════════════════════════════════
     // TODO Q1
     // ═══════════════════════════════════════════════════════════
+
     /**
      * 按字符串**长度**分组，返回「长度 → 这种长度有几个」。
      * <p>
@@ -108,6 +109,7 @@ public class CollectorsLab {
     // ═══════════════════════════════════════════════════════════
     // TODO Q2
     // ═══════════════════════════════════════════════════════════
+
     /**
      * 把整数分成两堆：偶数放 {@code true}，奇数放 {@code false}。
      * <p>
@@ -121,13 +123,14 @@ public class CollectorsLab {
      * 空输入时它只返回一个空 Map，一个 key 都没有。
      */
     public static Map<Boolean, List<Integer>> splitEvenOdd(List<Integer> numbers) {
-        return  numbers.stream()
-                .collect(Collectors.partitioningBy( n -> n%2==0));
+        return numbers.stream()
+                .collect(Collectors.partitioningBy(n -> n % 2 == 0));
     }
 
     // ═══════════════════════════════════════════════════════════
     // TODO Q3
     // ═══════════════════════════════════════════════════════════
+
     /**
      * 名字 → 名字长度。**名字不能重复**。
      * <p>
@@ -141,13 +144,14 @@ public class CollectorsLab {
      * 这个异常是 {@code Collectors.toMap} **自己**抛的，你要做的是**别拦它**。
      */
     public static Map<String, Integer> nameToLength(List<String> names) {
-       return names.stream()
-                .collect(Collectors.toMap( a -> a, String::length));
+        return names.stream()
+                .collect(Collectors.toMap(a -> a, String::length));
     }
 
     // ═══════════════════════════════════════════════════════════
     // TODO Q4
     // ═══════════════════════════════════════════════════════════
+
     /**
      * 按长度分组，但 {@code keySet()} 必须**按 key 升序**。
      * <p>
@@ -160,7 +164,7 @@ public class CollectorsLab {
      * ⚠️ 默认的 `groupingBy` 给 HashMap，顺序不保证 —— 你信它就红。
      */
     public static Map<Integer, List<String>> groupByLengthSorted(List<String> words) {
-        return  words.stream()
+        return words.stream()
                 .collect(Collectors.groupingBy(String::length, java.util.TreeMap::new, Collectors.toList()));
     }
 }

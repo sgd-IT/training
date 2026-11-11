@@ -5,7 +5,7 @@
 >
 > **新机器开工第一件事：读本文件。** 收工最后一件事：更新本文件并 push。
 
-**最后更新**：2026-11-10（**Day 17 全部结清**：②用 `Hang.java` 实验补证通过，全量 345/0/0 亲验；**Day 18「Stream II」脚手架已发**，基线 `358 / 8 红`）
+**最后更新**：2026-11-11（**Day 18 结清**：358/0/0 亲验、4 TODO 零返工、机制关 4 题全过；**Day 19「协议手写日」脚手架已发**，基线 `373 / 10 红`）
 
 ---
 
@@ -24,19 +24,19 @@
 | 步 | 做什么 |
 |---|---|
 | 1 | `git pull --rebase`（本机可能仍有未推送提交，见文末） |
-| 2 | 读本文件「计划执行修订」+ 第三节「**Day 18 待办**」 |
-| 3 | 读 `logs/2026-11-10-day18.md` 的「复盘问答 / 结论」；Day 17 / 16 那两份也别丢 |
-| 4 | `cd practice && mvn test`，确认基线 **`358 / 8 红`**（8 红全是 Day 18 的 TODO） |
-| 5 | 学员做 Day 18 的 4 个 TODO（Q2 是主陷阱：`partitioningBy` 不是 `groupingBy`） |
+| 2 | 读本文件「计划执行修订」+ 第三节「**Day 19 待办**」 |
+| 3 | 读 `logs/2026-11-11-day19.md`（新，待填）与 `logs/2026-11-10-day18.md` 的「复盘问答 / 结论」 |
+| 4 | `cd practice && mvn test`，确认基线 **`373 / 10 红`**（10 红全是 Day 19 的 TODO） |
+| 5 | 学员做 Day 19 的 4 个 TODO（Q3 变长整数最难：7 位分组 + 续位） |
 | 6 | SQL 暂停，不阻塞 |
 
 **暂停时的准确状态**
 
 | 项 | 值 |
 |---|---|
-| 已完成 | Day 1 – **17**（Day 17 代码关 345/0/0 + 机制关 **4 题全过**，② 靠实验补证） |
-| 停在 | **Day 18 脚手架已发，4 个 TODO 待实现** |
-| 测试基线 | **2026-11-10 亲验**：`Tests run: 358, Failures: 1, Errors: 7`（8 红全是 Day 18 TODO） |
+| 已完成 | Day 1 – **18**（Day 18 代码关 358/0/0；机制关 4 题全过） |
+| 停在 | **Day 19 脚手架已发，4 个 TODO 待实现** |
+| 测试基线 | **2026-11-11 亲验**：`Tests run: 373, Failures: 0, Errors: 10`（10 红全是 Day 19 TODO） |
 | 训练流程 | 「开工先读类注释 + 收尾 3 题机制题」+ 2026-10-30 的节奏修订 |
 | 🟡 SQL 状态 | **计划暂停（学员 2026-10-30 要求）**：`s1.sql` 保留未跑，**不算欠账、不阻塞进度**；恢复时间另定 |
 
@@ -60,10 +60,10 @@
 
 | 项 | 值 |
 |---|---|
-| 已完成 | Day 1 – **17**（Day 17 收官 **345/345 全绿**，机制关 4 题全过） |
-| **当前训练日** | **Day 18 · Stream II** —— 脚手架已发，**4 个 TODO 待实现** |
-| 测试基线 | **2026-11-10 亲验**：`Tests run: 358, Failures: 1, Errors: 7`（8 红全是 Day 18 TODO） |
-| **交付目标** | `mvn test` → **358 全绿**；SQL 暂停，不阻塞 |
+| 已完成 | Day 1 – **18**（Day 18 收官 **358/358 全绿**，机制关 4 题全过） |
+| **当前训练日** | **Day 19 · 协议手写日** —— 脚手架已发，**4 个 TODO 待实现** |
+| 测试基线 | **2026-11-11 亲验**：`Tests run: 373, Failures: 0, Errors: 10`（10 红全是 Day 19 TODO） |
+| **交付目标** | `mvn test` → **373 全绿**；SQL 暂停，不阻塞 |
 
 ---
 
@@ -220,24 +220,62 @@
 
 ---
 
-## 三·补、Day 18 待办（脚手架已发，2026-11-10 傍晚）
+### ✅ 已过：Day 18 Stream II（2026-11-11 收盘）
 
 文件：`practice/src/main/java/com/training/day18/CollectorsLab.java`
 
-| 题 | 方法 | 考什么 | 陷阱 |
+| 题 | 方法 | 结果 | 学员实现 |
 |---|---|---|---|
-| **Q1** | `countByLength` | `groupingBy` + `counting()` | 返回 `Long`，不是 `Integer` |
-| **Q2** ★ | `splitEvenOdd` | `partitioningBy` | 空输入也要两个 key；用 `groupingBy` 会红 |
-| **Q3** | `nameToLength` | `toMap` | 重复 key 让 `toMap` 自己抛 `IllegalStateException`，不许自己 `if` 凑 |
-| **Q4** | `groupByLengthSorted` | Map 顺序 | 默认 `HashMap` 无序，必须 `TreeMap::new` |
+| **Q1** | `countByLength` | ✅ 一次过 | `groupingBy(String::length, counting())` |
+| **Q2** ★ | `splitEvenOdd` | ✅ 一次过 | `partitioningBy(n -> n%2==0)` |
+| **Q3** | `nameToLength` | ✅ 一次过 | `toMap(a -> a, String::length)` |
+| **Q4** | `groupByLengthSorted` | ✅ 一次过 | `groupingBy(String::length, TreeMap::new, toList())` |
+
+**代码关**：`mvn test` → **358 / 0 / 0 / 0，BUILD SUCCESS**（教练亲跑）。**连续第三天 4 TODO 零返工。**
+
+**机制关**（4 题）：
+
+| # | 题 | 结果 |
+|---|---|---|
+| ① | `partitioningBy` 为什么保证两个 key 都在？ | ✅ **一次过**，自己组织的语言（桶数量固定 vs 按 key 建桶） |
+| ② | `toMap` 靠什么发现重复 key？ | 🟡 报私有方法名（名词顶替机制）→ **但自称「自己去翻了 JDK 源码」**（首次主动取证，记名）→ 补正 `putIfAbsent` 返回旧值 |
+| ③ | 三参数 `groupingBy` 第二个参数是什么？ | 🟡 说成「value 位置」→ 纠正为 `mapFactory` / `Supplier<M>`；默认 `HashMap` 答对 |
+| ④ | `count()` 跳过 `peek` 的两个条件 | ✅ 先「不记得了」→ 讲 `SIZED` → 追问 `peek+map+count` 答「3 个，算不丢」**自相矛盾** → 三组实测纠正 |
+
+**④ 的实测证据**：`peek+map+count → log=0` / `peek+sorted+count → log=0` / `peek+distinct+count → log=3`
+
+**🔴 头号问题：自相矛盾（第 5 次）**
+
+| # | 结论 | 理由 | 场合 |
+|---|---|---|---|
+| 1 | `add` 了 7 次 | 停在第六个 | Day 17 |
+| 2 | 正常返回 | 无限列表 | Day 17 |
+| 3 | B（改外面的 count） | 打印 0 | Day 16 |
+| 4 | `aa=2, bb=2` | 自己写的代码会抛 | Day 18 预测 |
+| 5 | `log.size()=3` | 「算不丢」 | Day 18 ④ |
+
+→ **本日新增硬性自查**：交答案前把「结论」和「理由」并排放一遍，互斥就不许交。
+
+---
+
+## 三·补、Day 19 待办（脚手架已发，2026-11-11）
+
+文件：`practice/src/main/java/com/training/day19/ProtocolLab.java`
+
+| 题 | 方法 | 练什么 | 坑 |
+|---|---|---|---|
+| **Q1** | `intToBytes` | 大端序写 | 每字节 `& 0xFF` |
+| **Q2** | `bytesToInt` | 大端序读 | 符号扩展：不 mask 就是**静悄悄地错** |
+| **Q3** ★ | `mqttRemainingLength` | 变长整数 | 先取低 7 位再右移；续位只有"还有后续"才置 |
+| **Q4** | `respBulkArray` | RESP 数组 | 长度按 UTF-8 字节数，`"中"` 是 3 不是 1 |
 
 | 项 | 值 |
 |---|---|
-| 测试基线 | **2026-11-10 亲跑**：`Tests run: 358, Failures: 1, Errors: 7` |
-| 目标 | 8 红转绿 → **358 全绿** |
+| 测试基线 | **2026-11-11 亲跑**：`Tests run: 373, Failures: 0, Errors: 10` |
+| 目标 | 10 红转绿 → **373 全绿** |
 | SQL | 暂停，不阻塞 |
 
-> 备注：Day 16 / 17 / 18 交付与收盘时学员都未 commit，均由教练代为提交（见 `git log`）。
+> 备注：Day 16–19 的提交均由教练代为完成（学员连续 4 次未 commit）。
 
 ---
 
@@ -366,7 +404,7 @@ origin  https://github.com/sgd-IT/training.git
 ## 八、常用命令
 
 ```cmd
-跑测试:  cd practice && mvn test        :: 当前 358 个 / 8 红（Day 18 TODO）；交付目标 358 全绿
+跑测试:  cd practice && mvn test        :: 当前 373 个 / 10 红（Day 19 TODO）；交付目标 373 全绿
 SQL:     cd sql && run.cmd -env / -Setup / s1.sql / -i   :: 计划暂停，仅保留环境
 清场:    Ctrl+Alt+L（格式化） Ctrl+Alt+Z（回滚）
 ```
