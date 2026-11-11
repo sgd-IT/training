@@ -2,6 +2,7 @@ package com.training.day18;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Day 18 - Q1~Q4: CollectorsLab —— Stream II：**归集、分类、分区、以及什么时候别用流**
@@ -76,10 +77,10 @@ import java.util.Map;
  * <p>
  * ⚠️ 先预测，再跑（写【输出值】）：
  * <pre>
- * // 预测：splitEvenOdd(List.of()) 返回的 Map.size() = ?
- * // 预测：nameToLength(["aa","bb","aa"]) 会 → ?
- * // 预测：countByLength(["a","bb","cc"]).get(1) 的【值和类型】= ?
- * // 预测：groupByLengthSorted(["ddd","a","cc"]) 的 keySet 顺序 = ?
+ * // 预测：splitEvenOdd(List.of()) 返回的 Map.size() = 2
+ * // 预测：nameToLength(["aa","bb","aa"]) 会 → aa=2, bb=2
+ * // 预测：countByLength(["a","bb","cc"]).get(1) 的【值和类型】= 2, Integer
+ * // 预测：groupByLengthSorted(["ddd","a","cc"]) 的 keySet 顺序 = [1, 2, 3]
  * </pre>
  */
 public class CollectorsLab {
@@ -100,7 +101,8 @@ public class CollectorsLab {
      * 下游收集器用错了（比如又收成 List 再去 size），类型就对不上。
      */
     public static Map<Integer, Long> countByLength(List<String> words) {
-        throw new UnsupportedOperationException("TODO Q1");
+        return words.stream()
+                .collect(Collectors.groupingBy(String::length, Collectors.counting()));
     }
 
     // ═══════════════════════════════════════════════════════════
@@ -119,7 +121,8 @@ public class CollectorsLab {
      * 空输入时它只返回一个空 Map，一个 key 都没有。
      */
     public static Map<Boolean, List<Integer>> splitEvenOdd(List<Integer> numbers) {
-        throw new UnsupportedOperationException("TODO Q2");
+        return  numbers.stream()
+                .collect(Collectors.partitioningBy( n -> n%2==0));
     }
 
     // ═══════════════════════════════════════════════════════════
@@ -138,7 +141,8 @@ public class CollectorsLab {
      * 这个异常是 {@code Collectors.toMap} **自己**抛的，你要做的是**别拦它**。
      */
     public static Map<String, Integer> nameToLength(List<String> names) {
-        throw new UnsupportedOperationException("TODO Q3");
+       return names.stream()
+                .collect(Collectors.toMap( a -> a, String::length));
     }
 
     // ═══════════════════════════════════════════════════════════
@@ -156,6 +160,7 @@ public class CollectorsLab {
      * ⚠️ 默认的 `groupingBy` 给 HashMap，顺序不保证 —— 你信它就红。
      */
     public static Map<Integer, List<String>> groupByLengthSorted(List<String> words) {
-        throw new UnsupportedOperationException("TODO Q4");
+        return  words.stream()
+                .collect(Collectors.groupingBy(String::length, java.util.TreeMap::new, Collectors.toList()));
     }
 }
