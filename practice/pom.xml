@@ -13,6 +13,7 @@
     <maven.compiler.release>21</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <junit.version>5.10.2</junit.version>
+    <jackson.version>2.18.2</jackson.version>
   </properties>
 
   <dependencies>
@@ -21,6 +22,12 @@
       <artifactId>junit-jupiter</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
+    </dependency>
+    <!-- Day 20 起要用 JSON。Agent 调模型（OpenAI / 通义等）收发全是 JSON，这是真前置。 -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
     </dependency>
   </dependencies>
 
