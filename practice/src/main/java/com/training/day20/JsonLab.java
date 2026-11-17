@@ -1,8 +1,14 @@
 package com.training.day20;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -79,10 +85,10 @@ import java.util.List;
  * <p>
  * ⚠️ 先预测，再跑（写【输出值】）：
  * <pre>
- * // 预测：toJson(new Point(1, 2)) 的输出 = ?
- * // 预测：parsePoint("{\"x\":1,\"y\":2,\"z\":3}") 会 → ?
- * // 预测：用 List.class 读数组后，第 0 个元素的 getClass().getName() = ?
- * // 预测：fetchBody 拿到 {"msg":"你好"} 之后，String 里是"你好"还是乱码 → ?
+ * // 预测：toJson(new Point(1, 2)) 的输出 = ?{"x":1,"y":2}
+ * // 预测：parsePoint("{\"x\":1,\"y\":2,\"z\":3}") 会 →{\"x\":1,\"y\":2,\"z\":3}
+ * // 预测：用 List.class 读数组后，第 0 个元素的 getClass().getName() = null
+ * // 预测：fetchBody 拿到 {"msg":"你好"} 之后，String 里是"你好"还是乱码 → "你好"
  * </pre>
  */
 public class JsonLab {
@@ -109,7 +115,9 @@ public class JsonLab {
      * 调用方必须处理。别用 `catch (Exception e) {}` 把它吞掉。
      */
     public static String toJson(Object value) throws JsonProcessingException {
-        throw new UnsupportedOperationException("TODO Q1");
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(value);
+        return json;
     }
 
     // ═══════════════════════════════════════════════════════════
@@ -127,7 +135,9 @@ public class JsonLab {
      * ⚠️ 第二条是今天的坑：默认配置下未知字段就是异常。你要做的是**别拦它**。
      */
     public static Point parsePoint(String json) throws JsonProcessingException {
-        throw new UnsupportedOperationException("TODO Q2");
+        ObjectMapper mapper = new ObjectMapper();
+        Point point = mapper.readValue(json, Point.class);
+        return point;
     }
 
     // ═══════════════════════════════════════════════════════════
@@ -148,7 +158,9 @@ public class JsonLab {
      * 提示：`new TypeReference<List<Point>>() {}` —— 注意那对**空的**大括号不是装饰。
      */
     public static List<Point> parsePoints(String json) throws JsonProcessingException {
-        throw new UnsupportedOperationException("TODO Q3");
+        ObjectMapper mapper = new ObjectMapper();
+        return  mapper.readValue(json, new TypeReference<List<Point>>() {
+        });
     }
 
     // ═══════════════════════════════════════════════════════════
@@ -167,6 +179,9 @@ public class JsonLab {
      * 直接往外抛；`InterruptedException` 的规矩是**别吞**。
      */
     public static String fetchBody(String url) throws java.io.IOException, InterruptedException {
-        throw new UnsupportedOperationException("TODO Q4");
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).GET().build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+        return response.body();
     }
 }
