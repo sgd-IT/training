@@ -338,6 +338,36 @@ Integer.toHexString(b & 0xFF) → f3       ← mask 后
 
 **第 3 轮 = 开卷 + 必须贴证据行**（① 场景 / ② `Signature:` 行 / ③ `javap` 证明 / ④ `filter` 返回类型 / A·B 异常全名 + 修法）。详见 `logs/2026-11-17-day21.md`「结论」。
 
+### ⛔ 第 3 轮（2026-11-18 开卷）：**未交齐，闸门按未过结**
+
+| 项 | 结果 |
+|---|---|
+| ① | ❌ 没交输出。学员答「探针里没有 `& 0xFF`」—— **探针本来就是故意不掩码的**，目的就是看不掩码的输出（教练指令没写清） |
+| ② | ❌ 「没找到」。`javap -v` 的 `Signature:` **确实存在**（教练亲验），但 `javap -v` 里另有一个 `Slot Name Signature` 表头，容易混 —— 指令缺过滤（教练指令没写清） |
+| ③ | 🟡 「3 个带 static」✅，但没答「为什么不带」（`lambda$lambdaThis$3` 用了 `this`，故为实例方法） |
+| ④ | ✅ 返回类型 `java.util.stream.Stream` / `long`，结论「返回 Stream 的是中间操作」正确；「恒真 filter 为何破」未答 |
+| A / B | ❌ 未交 |
+
+> **三日下来 5 题线一次没到，且失败点集中在「不跑命令」。** 处理见下「Day 21 结案」。
+
+### 📕 Day 21 结案（2026-11-18）：闸门**未过**，按既定规则 `不过则 Day 22 先补、闸门不得跨阶段`
+
+**Day 22 = 补课日**（不并发），内容缩到 **4 条硬结论**：
+
+| # | 硬结论 |
+|---|---|
+| 1 | `(byte)0xF3`=`-13`；`(int)` **符号扩展**高 24 位补 1 → `-13`；`& 0xFF` 清零 → `243`。不掩码时 `Integer.toHexString` 出 **8 位**（`fffffff3`），按「2 字符=1 字节」解析全错位 |
+| 2 | `Signature: #15 // Lcom/fasterxml/jackson/core/type/TypeReference<Ljava/util/List<Lcom/training/day20/JsonLab$Point;>;>;` —— 编译器在**编译期**写进匿名子类 `JsonLab$1.class`；运行时 `getGenericSuperclass()` 读回。`{}` 是**绕过**擦除，不是「进行了擦除」 |
+| 3 | lambda 方法体 = `LambdaLab` 的 `lambda$doubler$0` / `lambda$counter$1` / `lambda$chain$2` / **`lambda$lambdaThis$3`**；前三个 `static`，最后一个不带 —— 因为它用了 `this` |
+| 4 | `filter` 返回 `Stream` = **中间**；`count` 返回 `long` = 终止。`count()` 不遍历的两个条件：① 源头 `SIZED` ② 链路**不改元素个数**（`map`/`sorted` 保；`filter`/`distinct` 破）。流框架看不到谓词内容，看见 `filter` 就保守清 `SIZED` |
+
+**待学员确认（改判定标准，暂不动 README）**：
+
+- **A** 闸门标准从「闭卷口答」改成「**开卷 + 必须贴证据行**」，通过后 Day 21 记「补考通过」，进 Phase 3
+- **B** 维持闭卷标准，Day 21 一直不通过，Day 22 起每开工前 10 分钟背这 4 条，背完再进并发
+
+> 待确认前**不改** README、不改本节判定标准。
+
 > 备注：Day 16–20 的提交均由教练代为完成（学员连续 5 次未 commit）。
 
 ---

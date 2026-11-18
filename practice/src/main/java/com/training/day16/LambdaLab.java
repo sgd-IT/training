@@ -193,4 +193,10 @@ public class LambdaLab {
             }
         };
     }
+
+    public static void main(String[] args) throws NoSuchMethodException {
+        System.out.println(java.util.stream.Stream.class.getMethod("filter", java.util.function.Predicate.class).getReturnType().getName());
+        System.out.println(java.util.stream.Stream.class.getMethod("count").getReturnType().getName());
+        System.out.println(java.util.stream.Stream.class.getMethod("anyMatch", java.util.function.Predicate.class).getReturnType().getName());
+    }
 }
