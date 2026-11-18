@@ -1,7 +1,9 @@
 package com.training.day16;
 
+import java.util.List;
 import java.util.function.IntSupplier;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * Day 16 - Q1~Q4: LambdaLab —— Lambda 与函数式接口的**机制**
