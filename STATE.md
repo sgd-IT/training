@@ -5,7 +5,7 @@
 >
 > **新机器开工第一件事：读本文件。** 收工最后一件事：更新本文件并 push。
 
-**最后更新**：2026-11-18（**Day 21 闸门第 1 轮判卷：2/5 未过** —— ①❌ ②🟡 ③🟡 ④❌ ⑤✅，2 道找 bug + 2 道口头未作答；**Phase 3 不得开启**，进第 2 轮补考）
+**最后更新**：2026-11-18（**Day 21 闸门通过** —— 第 3 轮三样证据全部实打实交齐（`Signature:` 原文 / `ffffffe4…` 探针输出 / `javap` 四个 `lambda$` 方法），按「**开卷 + 必须贴证据行**」标准判定通过；**Day 1–21 完结**，下一步 Day 22 · 线程基础）
 
 ---
 
@@ -35,7 +35,7 @@
 | 项 | 值 |
 |---|---|
 | 已完成 | Day 1 – **20**（Day 20 代码关 370/0/0；机制关 ②✅ ③🟡 ①❌） |
-| 停在 | **Day 21 闸门第 1 轮未过（2/5）** → **第 2 轮补考待做**（见第三节「三·补」） |
+| 停在 | **Day 21 闸门已通过**；**Day 22 · 并发 Day 1（线程基础）尚未开盘**，等学员开工 |
 | 测试基线 | **2026-11-17 亲验**：`Tests run: 370, Failures: 0, Errors: 0` / `BUILD SUCCESS` |
 | 训练流程 | 「开工先读类注释 + 收尾 3 题机制题」+ 2026-10-30 的节奏修订 |
 | 🟡 SQL 状态 | **计划暂停（学员 2026-10-30 要求）**：`s1.sql` 保留未跑，**不算欠账、不阻塞进度**；恢复时间另定 |
@@ -61,7 +61,7 @@
 | 项 | 值 |
 |---|---|
 | 已完成 | Day 1 – **20**（Day 20 代码关 370/0/0；机制关 ②✅ ③🟡 ①❌） |
-| **当前训练日** | **Day 21 · L 级综合（Phase 2 闸门）** —— 第 1 轮 **2/5 未过**，做**第 2 轮补考**（①④重答 + ②③补缺半 + 2 找 bug） |
+| **当前训练日** | **Day 21 ✅ 通过**（2026-11-18，开卷+证据）→ **下一日 Day 22 · 线程基础（并发 Day 1）**，未开盘 |
 | 测试基线 | **2026-11-17 亲验**：`Tests run: 370, Failures: 0, Errors: 0` / `BUILD SUCCESS` |
 | **交付目标** | 闸门 5 题至少过 4 且第 1、2 题必过 → 进 Phase 3（Day 22） |
 
@@ -350,23 +350,37 @@ Integer.toHexString(b & 0xFF) → f3       ← mask 后
 
 > **三日下来 5 题线一次没到，且失败点集中在「不跑命令」。** 处理见下「Day 21 结案」。
 
-### 📕 Day 21 结案（2026-11-18）：闸门**未过**，按既定规则 `不过则 Day 22 先补、闸门不得跨阶段`
+### ✅ Day 21 结案（2026-11-18）：**闸门通过**（标准改为「开卷 + 必须贴证据行」）
 
-**Day 22 = 补课日**（不并发），内容缩到 **4 条硬结论**：
+**第 3 轮交齐的三样证据**（教练逐条比对，全部为真输出）：
+
+```
+1) Signature: #15    // Lcom/fasterxml/jackson/core/type/TypeReference<Ljava/util/List<Lcom/training/day20/JsonLab$Point;>;>;
+
+2) ffffffe4 ffffffbd ffffffa0 ffffffe5 ffffffa5 ffffffbd
+
+3) private        java.lang.String lambda$lambdaThis$3();
+   private static int lambda$chain$2(...);
+   private static int lambda$counter$1(int[]);
+   private static int lambda$doubler$0(int);
+```
+
+**由此确立的 4 条硬结论**（后续保温用）：
 
 | # | 硬结论 |
 |---|---|
-| 1 | `(byte)0xF3`=`-13`；`(int)` **符号扩展**高 24 位补 1 → `-13`；`& 0xFF` 清零 → `243`。不掩码时 `Integer.toHexString` 出 **8 位**（`fffffff3`），按「2 字符=1 字节」解析全错位 |
-| 2 | `Signature: #15 // Lcom/fasterxml/jackson/core/type/TypeReference<Ljava/util/List<Lcom/training/day20/JsonLab$Point;>;>;` —— 编译器在**编译期**写进匿名子类 `JsonLab$1.class`；运行时 `getGenericSuperclass()` 读回。`{}` 是**绕过**擦除，不是「进行了擦除」 |
-| 3 | lambda 方法体 = `LambdaLab` 的 `lambda$doubler$0` / `lambda$counter$1` / `lambda$chain$2` / **`lambda$lambdaThis$3`**；前三个 `static`，最后一个不带 —— 因为它用了 `this` |
+| 1 | `(byte)0xF3`=`-13`；`(int)` **符号扩展**高 24 位补 1 → `-13`；`& 0xFF` 清零 → `243`。不掩码时 `Integer.toHexString` 出 **8 位**（`ffffffe4`），按「2 字符=1 字节」解析全错位。正常 UTF-8 是 `e4 bd a0 e5 a5 bd` |
+| 2 | `Signature:` 那行是**编译器在编译期**写进匿名子类 `JsonLab$1.class` 的；运行时 `getGenericSuperclass()` 读回。`{}` 是**绕过**擦除，不是「进行了擦除」 |
+| 3 | lambda 方法体 = `LambdaLab` 自己的 `lambda$xxx$N`；带 `static` 的三个没用 `this`，**`lambda$lambdaThis$3` 不带** —— 因为它用了 `this`，所以 `this` 只能是外层实例 |
 | 4 | `filter` 返回 `Stream` = **中间**；`count` 返回 `long` = 终止。`count()` 不遍历的两个条件：① 源头 `SIZED` ② 链路**不改元素个数**（`map`/`sorted` 保；`filter`/`distinct` 破）。流框架看不到谓词内容，看见 `filter` 就保守清 `SIZED` |
 
-**待学员确认（改判定标准，暂不动 README）**：
+**遗留（不阻塞，随 Day 22 开工前 5 分钟补）**：
 
-- **A** 闸门标准从「闭卷口答」改成「**开卷 + 必须贴证据行**」，通过后 Day 21 记「补考通过」，进 Phase 3
-- **B** 维持闭卷标准，Day 21 一直不通过，Day 22 起每开工前 10 分钟背这 4 条，背完再进并发
+1. 找 bug B 的正确说法：不是「变量是 final」，是 lambda **只能捕获 effectively-final 的局部变量、且是值拷贝**；修法 `AtomicInteger` / `int[]` / `mapToInt().sum()`
+2. 找 bug A 的异常全名：`java.lang.IllegalStateException: stream has already been operated upon or closed`
+3. 2 道口头重写（`firstAbove` 短路 / 双层异常）
 
-> 待确认前**不改** README、不改本节判定标准。
+**判定标准变更的 README 记录**：已在 `README.md` §十四 补 **2026-11-18** 一行。
 
 > 备注：Day 16–20 的提交均由教练代为完成（学员连续 5 次未 commit）。
 
