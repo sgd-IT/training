@@ -133,7 +133,16 @@ public class ConcurrencyLab {
      * 想跨线程把值带出来，用一个只改内容、不改引用的容器 —— 你选一个。
      */
     public String nameInNewThread() throws InterruptedException {
-        throw new UnsupportedOperationException("TODO Q1");
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(Thread.currentThread().getName());
+            }
+        };
+        Thread thread = new Thread(runnable, "day22-worker");
+        thread.start();
+        thread.join();
+        return thread.getName();
     }
 
     // ═══════════════════════════════════════════════════════════
